@@ -51,7 +51,6 @@ window.PLAN = {
         moment: "Match 4 mot 4",
         text: "2 min vattenpaus. Tredje gruppen kör teknik på sidan.",
         tid: "3×6 min",
-        cat: "Småövning",
       },
       { moment: "Stafett/Avslutning", cat: "Lekar/slutövning" },
     ],
