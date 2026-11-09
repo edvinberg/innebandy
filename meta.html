@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Sirius – vårt spel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+    />
+    <style>
+      /* Vårt spel: punktlista överst, modellerna i ett rutnät under. */
+      :root {
+        --blue: #0a3a6e;
+        --navy: #0d4c8f;
+        --black: #0b0e12;
+        --white: #ffffff;
+        --paper: #ffffff;
+        --ink: #0b0e12;
+        --ink-soft: #5b6470;
+        --rule: #dde2e8;
+        --font: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font);
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      .page {
+        min-height: calc(100vh - var(--nav-h));
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+      .intro {
+        background: linear-gradient(90deg, var(--blue) 50%, var(--black) 50%);
+        color: var(--white);
+        padding-block: 32px 36px;
+        padding-left: max(48px, env(safe-area-inset-left, 0px));
+        padding-right: 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      h1 {
+        margin: 0;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
+        line-height: 1.1;
+        font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      h1::before {
+        content: "";
+        display: block;
+        width: 232px;
+        max-width: 100%;
+        height: 4px;
+        background: radial-gradient(circle, var(--white) 1.6px, transparent 2px)
+          0 0 / 10px 4px repeat-x;
+      }
+      .points {
+        margin: 0;
+        padding-left: 1.2em;
+        max-width: 70ch;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-weight: 500;
+      }
+      .sub-h {
+        margin: 10px 0 0;
+        font-size: 1.125rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .points b {
+        font-weight: 700;
+      }
+
+      .models {
+        padding-block: 32px 40px;
+        padding-left: 32px;
+        padding-right: max(32px, env(safe-area-inset-right, 0px));
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        align-content: start;
+        gap: 24px;
+      }
+      .model {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+      }
+      .model h2 {
+        margin: 0;
+        align-self: stretch;
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .canvas-wrap {
+        width: 100%;
+        max-width: 300px;
+      }
+      canvas {
+        display: block;
+        width: 100%;
+      }
+      .controls {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+      }
+      .ctl {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(11, 14, 18, 0.2);
+        background: transparent;
+        color: var(--ink);
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .ctl:hover {
+        border-color: var(--ink);
+      }
+      .ctl.primary {
+        background: var(--navy);
+        border-color: var(--navy);
+        color: var(--white);
+        padding: 0 18px;
+      }
+      .ctl.primary:hover {
+        background: var(--black);
+        border-color: var(--black);
+      }
+      .ctl svg {
+        width: 16px;
+        height: 16px;
+      }
+      :focus-visible {
+        outline: 2px solid var(--navy);
+        outline-offset: 2px;
+      }
+      .step-now {
+        margin: 0;
+        max-width: 300px;
+        min-height: 2.9em;
+        text-align: center;
+        font-size: 0.8125rem;
+        color: var(--ink-soft);
+      }
+
+      @media (max-width: 820px) {
+        .page {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .intro,
+        .models {
+          padding-left: max(20px, env(safe-area-inset-left, 0px));
+          padding-right: max(20px, env(safe-area-inset-right, 0px));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script src="nav.js"></script>
+    <div class="page">
+    <section class="intro">
+      <h1>Vårt spel</h1>
+      <ul class="points" id="points"></ul>
+      <h2 class="sub-h">Principer</h2>
+      <ol class="points" id="principles"></ol>
+    </section>
+    <main class="models" id="models"></main>
+    </div>
+
+    <template id="modelTpl">
+      <section class="model">
+        <h2></h2>
+        <div class="canvas-wrap"><canvas role="img"></canvas></div>
+        <div class="controls">
+          <button
+            class="ctl prev"
+            aria-label="Föregående steg"
+            title="Föregående steg"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button class="ctl primary play">Spela</button>
+          <button class="ctl next" aria-label="Nästa steg" title="Nästa steg">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+        <p class="step-now"></p>
+      </section>
+    </template>
+
+    <script src="game.js"></script>
+    <script src="board.js"></script>
+    <script>
+      const points = document.getElementById("points");
+      const models = document.getElementById("models");
+      const tpl = document.getElementById("modelTpl");
+
+      const PARTS = window.GAME[window.NIVA];
+      if (!PARTS.length) {
+        const li = document.createElement("li");
+        li.textContent = `Inget innehåll för ${window.LEVELS[window.NIVA].toLowerCase()} än.`;
+        points.appendChild(li);
+      }
+
+      const principles = document.getElementById("principles");
+      for (const t of window.PRINCIPLES[window.NIVA]) {
+        const li = document.createElement("li");
+        li.textContent = t;
+        principles.appendChild(li);
+      }
+
+      PARTS.forEach((part) => {
+        const li = document.createElement("li");
+        const b = document.createElement("b");
+        b.textContent = part.title;
+        li.append(b, " – " + part.text.replace(/\n/g, " "));
+        points.appendChild(li);
+
+        const el = tpl.content.firstElementChild.cloneNode(true);
+        el.querySelector("h2").textContent = part.title;
+        const canvas = el.querySelector("canvas");
+        canvas.setAttribute("aria-label", `Skiss: ${part.title}`);
+        const playBtn = el.querySelector(".play");
+        const stepNow = el.querySelector(".step-now");
+        const steps = part.diagram.steps;
+        const multi = steps.some((s) => s.actions.length);
+        el.querySelector(".controls").hidden = !multi;
+        stepNow.hidden = !multi;
+        models.appendChild(el);
+
+        const board = DrillBoard.create(
+          canvas,
+          el.querySelector(".canvas-wrap"),
+          ({ k, N, diagram, playing, ended }) => {
+            playBtn.textContent = playing
+              ? "Paus"
+              : ended
+                ? "Spela igen"
+                : "Spela";
+            stepNow.textContent = diagram
+              ? `Översikt · ${N} steg`
+              : `${k + 1}. ${steps[k].text}`;
+          },
+        );
+        board.setDrill(part.diagram);
+        playBtn.addEventListener("click", () => board.play());
+        el.querySelector(".next").addEventListener("click", () => board.next());
+        el.querySelector(".prev").addEventListener("click", () => board.prev());
+      });
+    </script>
+  </body>
+</html>

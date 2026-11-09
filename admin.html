@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sirius övningsbank – admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+    />
+    <style>
+      /* Admin: lista | övningens JSON | förhandsvisning och förklaring. Endast visning. */
+      :root {
+        --blue: #0a3a6e;
+        --navy: #0d4c8f;
+        --black: #0b0e12;
+        --paper: #ffffff;
+        --panel: #f3f5f8;
+        --rule: #dde2e8;
+        --ink: #0b0e12;
+        --ink-soft: #5b6470;
+        --key: #0d4c8f;
+        --str: #1d7a46;
+        --num: #a3541b;
+        --font: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+        --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font);
+        font-size: 14px;
+        line-height: 1.45;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 14px 20px;
+        background: linear-gradient(90deg, var(--blue) 50%, var(--black) 50%);
+        color: #fff;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      header .spacer {
+        flex: 1;
+      }
+      header a {
+        color: #fff;
+        font-size: 0.8125rem;
+      }
+      :focus-visible {
+        outline: 2px solid var(--navy);
+        outline-offset: 2px;
+      }
+
+      .layout {
+        flex: 1;
+        min-height: 0;
+        display: grid;
+        grid-template-columns: 220px minmax(0, 1fr) 400px;
+      }
+      .col {
+        min-height: 0;
+        overflow: auto;
+        padding: 16px 20px;
+      }
+
+      .list {
+        background: var(--panel);
+        border-right: 1px solid var(--rule);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .list h2 {
+        margin: 0 0 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--ink-soft);
+      }
+      .list ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .list li button {
+        width: 100%;
+        text-align: left;
+        font: inherit;
+        font-weight: 500;
+        background: transparent;
+        border: 0;
+        padding: 6px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        color: var(--ink);
+      }
+      .list li button:hover {
+        background: #e7ebf0;
+      }
+      .list li button[aria-current="true"] {
+        background: var(--navy);
+        color: #fff;
+      }
+      .list .none {
+        color: var(--ink-soft);
+        font-size: 0.8125rem;
+        padding: 0 10px;
+        margin: 0;
+      }
+
+      .json h2,
+      .side h2 {
+        margin: 0 0 10px;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+      pre {
+        margin: 0;
+        font-family: var(--mono);
+        font-size: 12.5px;
+        line-height: 1.55;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        background: var(--panel);
+        border-radius: 8px;
+        padding: 14px 16px;
+      }
+      .k {
+        color: var(--key);
+        font-weight: 600;
+      }
+      .s {
+        color: var(--str);
+      }
+      .n {
+        color: var(--num);
+      }
+
+      .side {
+        border-left: 1px solid var(--rule);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .canvas-wrap {
+        width: 100%;
+        max-width: 320px;
+        align-self: center;
+      }
+      canvas {
+        display: block;
+        width: 100%;
+        cursor: crosshair;
+      }
+      .controls {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+      }
+      .btn {
+        font: inherit;
+        font-weight: 600;
+        font-size: 0.8125rem;
+        cursor: pointer;
+        height: 34px;
+        min-width: 34px;
+        padding: 0 14px;
+        border-radius: 999px;
+        border: 1px solid var(--rule);
+        background: var(--paper);
+        color: var(--ink);
+      }
+      .btn:hover {
+        border-color: var(--ink);
+      }
+      .btn.primary {
+        background: var(--navy);
+        border-color: var(--navy);
+        color: #fff;
+      }
+      .step-now {
+        font-size: 0.8125rem;
+        color: var(--ink-soft);
+        text-align: center;
+        min-height: 2.9em;
+        margin: 0;
+      }
+      .coords {
+        font-size: 0.8125rem;
+        background: var(--panel);
+        border-radius: 8px;
+        padding: 10px 12px;
+        margin: 0;
+      }
+      .coords code {
+        font-family: var(--mono);
+        font-weight: 600;
+      }
+
+      .guide {
+        border-top: 1px solid var(--rule);
+        padding-top: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .guide h3 {
+        margin: 0 0 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--ink-soft);
+      }
+      .guide p {
+        margin: 0;
+      }
+      .guide dl {
+        margin: 0;
+        display: grid;
+        grid-template-columns: max-content minmax(0, 1fr);
+        gap: 6px 12px;
+        font-size: 0.8125rem;
+      }
+      .guide dt {
+        font-family: var(--mono);
+        font-weight: 600;
+        color: var(--key);
+      }
+      .guide dd {
+        margin: 0;
+      }
+
+      @media (max-width: 1100px) {
+        .layout {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .list,
+        .side {
+          border: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script src="nav.js"></script>
+
+    <div class="layout">
+      <nav class="col list" id="list" aria-label="Övningar"></nav>
+
+      <main class="col json">
+        <h2 id="jsonTitle"></h2>
+        <pre id="json"></pre>
+        <p class="none" id="noDrill" hidden>Inga övningar i drills.js.</p>
+      </main>
+
+      <aside class="col side" aria-label="Förhandsvisning och förklaring">
+        <div class="canvas-wrap" id="canvasWrap">
+          <canvas
+            id="rink"
+            role="img"
+            aria-label="Förhandsvisning av övningen"
+          ></canvas>
+        </div>
+        <div class="controls">
+          <button class="btn" id="btnPrev" aria-label="Föregående steg">
+            ‹
+          </button>
+          <button class="btn primary" id="btnPlay">Spela</button>
+          <button class="btn" id="btnNext" aria-label="Nästa steg">›</button>
+        </div>
+        <p class="step-now" id="stepNow"></p>
+        <p class="coords" id="coords">
+          Klicka på planen för att se koordinaterna för en punkt.
+        </p>
+
+        <section class="guide" aria-label="Så funkar JSON:en">
+          <div>
+            <h3>Så funkar det</h3>
+            <p>
+              Varje övning är en JSON-beskrivning: vilka som står på planen, vad
+              som händer steg för steg och texten på bladet. Sidan ritar planen,
+              pilarna och animationen utifrån den.
+            </p>
+          </div>
+          <div>
+            <h3>Planen</h3>
+            <p>
+              40 × 20 m, upprätt. <code>x</code> är meter nedåt från övre
+              kortsidan (mittlinjen på 20). <code>y</code> är meter från vänster
+              långsida (mitten på 10). En punkt skrivs <code>[x, y]</code>.
+            </p>
+          </div>
+          <div>
+            <h3>Fält</h3>
+            <dl>
+              <dt>name</dt>
+              <dd>Övningens namn.</dd>
+              <dt>category</dt>
+              <dd>Uppvärmning, Fys, Station, Lekar/slutövning eller Småövning.</dd>
+              <dt>levels</dt>
+              <dd>Vilka nivåer övningen hör till: "gron", "bla" eller båda.</dd>
+              <dt>view</dt>
+              <dd>
+                Vilken del av planen som visas, <code>[från x, till x]</code>.
+              </dd>
+              <dt>info</dt>
+              <dd>
+                Rubrik och text på bladet: Vad?, Varför?, Hur?, Organisation,
+                Anvisningar.
+              </dd>
+              <dt>entities</dt>
+              <dd>
+                Alla på planen med position. Namnet (A, C, X1) används i stegen.
+              </dd>
+              <dt>ball</dt>
+              <dd>
+                Var bollen börjar: hos en spelare (<code>holder</code>) eller
+                lös (<code>at</code>).
+              </dd>
+              <dt>labels</dt>
+              <dd>Text på planen, till exempel ledens bokstav.</dd>
+              <dt>balls</dt>
+              <dd>Bollar som ligger still, till exempel en hög vid ett led.</dd>
+              <dt>lines</dt>
+              <dd>Streckade linjer, till exempel zongränser.</dd>
+              <dt>steps</dt>
+              <dd>Stegen i ordning. Allt i samma steg sker samtidigt.</dd>
+            </dl>
+          </div>
+          <div>
+            <h3>Markörer (type / team)</h3>
+            <dl>
+              <dt>player home</dt>
+              <dd>X, anfall</dd>
+              <dt>player away</dt>
+              <dd>Ring, försvar</dd>
+              <dt>player third</dt>
+              <dd>✱, tredje lag</dd>
+              <dt>player queue</dt>
+              <dd>X, väntar i led</dd>
+              <dt>goalie</dt>
+              <dd>MV</dd>
+              <dt>cone</dt>
+              <dd>Vit triangel</dd>
+            </dl>
+          </div>
+          <div>
+            <h3>Händelser i ett steg</h3>
+            <dl>
+              <dt>run</dt>
+              <dd>
+                Löpning utan boll, streckad pil. Med <code>via</code> blir det
+                en båge, till exempel runt en kon.
+              </dd>
+              <dt>dribble</dt>
+              <dd>Bolldriv, vågig pil.</dd>
+              <dt>pass</dt>
+              <dd>
+                Passning, heldragen pil. Utan <code>from</code> rullas en lös
+                boll in.
+              </dd>
+              <dt>shot</dt>
+              <dd>Skott, tjock pil mot närmaste mål.</dd>
+            </dl>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <script src="drills.js"></script>
+    <script src="board.js"></script>
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const drills = window.DRILLS;
+      let sel = drills.length ? 0 : -1;
+
+      const board = DrillBoard.create(
+        $("rink"),
+        $("canvasWrap"),
+        ({ k, N, diagram, playing, ended }) => {
+          $("btnPlay").textContent = playing
+            ? "Paus"
+            : ended
+              ? "Spela igen"
+              : "Spela";
+          $("stepNow").textContent = diagram
+            ? `Översikt · ${N} steg`
+            : `${k + 1}. ${drills[sel].steps[k].text || ""}`;
+        },
+      );
+
+      const esc = (t) =>
+        t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      // Färgar nycklar, texter och siffror i JSON:en.
+      function highlight(json) {
+        return esc(json).replace(
+          /("(?:\\.|[^"\\])*")(\s*:)?|(-?\d+(?:\.\d+)?)/g,
+          (m, str, colon, num) => {
+            if (num) return `<span class="n">${num}</span>`;
+            return colon
+              ? `<span class="k">${str}</span>${colon}`
+              : `<span class="s">${str}</span>`;
+          },
+        );
+      }
+
+      function renderList() {
+        const nav = $("list");
+        nav.innerHTML = "";
+        for (const c of DrillBoard.CATEGORIES) {
+          const sec = document.createElement("section");
+          const h = document.createElement("h2");
+          h.textContent = c;
+          sec.appendChild(h);
+          const items = drills
+            .map((d, i) => [d, i])
+            .filter(([d]) => d.category === c);
+          if (!items.length) {
+            const p = document.createElement("p");
+            p.className = "none";
+            p.textContent = "Inga övningar";
+            sec.appendChild(p);
+          } else {
+            const ul = document.createElement("ul");
+            for (const [d, i] of items) {
+              const li = document.createElement("li");
+              const b = document.createElement("button");
+              b.type = "button";
+              b.textContent = d.name;
+              b.setAttribute("aria-current", i === sel ? "true" : "false");
+              b.addEventListener("click", () => select(i));
+              li.appendChild(b);
+              ul.appendChild(li);
+            }
+            sec.appendChild(ul);
+          }
+          nav.appendChild(sec);
+        }
+      }
+
+      function select(i) {
+        sel = i;
+        renderList();
+        const has = sel >= 0;
+        $("noDrill").hidden = has;
+        $("json").hidden = !has;
+        $("canvasWrap").hidden = !has;
+        if (!has) return;
+        $("jsonTitle").textContent = drills[sel].name;
+        $("json").innerHTML = highlight(JSON.stringify(drills[sel], null, 2));
+        board.setDrill(drills[sel]);
+      }
+
+      $("rink").addEventListener("click", (e) => {
+        const [x, y] = board.toMeters(e.clientX, e.clientY);
+        $("coords").innerHTML = "Punkt: <code></code>";
+        $("coords").querySelector("code").textContent = `[${x}, ${y}]`;
+      });
+      $("btnPlay").addEventListener("click", () => board.play());
+      $("btnNext").addEventListener("click", () => board.next());
+      $("btnPrev").addEventListener("click", () => board.prev());
+
+      select(sel);
+    </script>
+  </body>
+</html>

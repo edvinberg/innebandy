@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Sirius innebandy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+    />
+    <style>
+      /* Startsida: blå/svart introduktion till vänster, vägar in till höger. */
+      :root {
+        --blue: #0a3a6e;
+        --navy: #0d4c8f;
+        --black: #0b0e12;
+        --white: #ffffff;
+        --soft: rgba(255, 255, 255, 0.8);
+        --paper: #ffffff;
+        --panel: #f3f5f8;
+        --rule: #dde2e8;
+        --ink: #0b0e12;
+        --ink-soft: #5b6470;
+        --font: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font);
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      .home {
+        min-height: calc(100vh - var(--nav-h));
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+      .levels {
+        padding-block: 48px;
+        padding-left: 48px;
+        padding-right: max(48px, env(safe-area-inset-right, 0px));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12px;
+      }
+      .pick {
+        margin: 0 0 4px;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+      }
+      .level {
+        max-width: 420px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 22px 24px;
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 1.375rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .level::before {
+        content: "";
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--lvl);
+        flex: none;
+      }
+      .level:hover {
+        border-color: var(--ink);
+      }
+      .level.disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .level.disabled:hover {
+        border-color: var(--rule);
+      }
+      .level small {
+        margin-left: auto;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: var(--ink-soft);
+      }
+      .intro {
+        background: linear-gradient(90deg, var(--blue) 50%, var(--black) 50%);
+        color: var(--white);
+        padding-block: 64px;
+        padding-left: max(48px, env(safe-area-inset-left, 0px));
+        padding-right: 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+      }
+      .eyebrow {
+        margin: 0;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--soft);
+      }
+      h1 {
+        margin: 0;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
+        line-height: 1.05;
+        font-size: clamp(2.4rem, 5vw, 3.8rem);
+        text-wrap: balance;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      h1::before {
+        content: "";
+        display: block;
+        width: 232px;
+        max-width: 100%;
+        height: 4px;
+        background: radial-gradient(circle, var(--white) 1.6px, transparent 2px)
+          0 0 / 10px 4px repeat-x;
+      }
+      .lead {
+        margin: 0;
+        max-width: 46ch;
+        font-size: 1.0625rem;
+        font-weight: 500;
+      }
+
+      .ways {
+        padding-block: 48px;
+        padding-left: 48px;
+        padding-right: max(48px, env(safe-area-inset-right, 0px));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 28px;
+      }
+      .way {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 460px;
+      }
+      .way h2 {
+        margin: 0;
+        font-size: 1.375rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .way h2 a {
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .way h2 a:hover {
+        color: var(--navy);
+      }
+      .way p {
+        margin: 0;
+        color: var(--ink-soft);
+      }
+      .rows {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid var(--rule);
+      }
+      .rows li {
+        border-bottom: 1px solid var(--rule);
+      }
+      .rows a {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 4px;
+        color: var(--ink);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .rows a:hover {
+        color: var(--navy);
+        background: var(--panel);
+      }
+      .rows .meta {
+        font-weight: 500;
+        font-size: 0.8125rem;
+        color: var(--ink-soft);
+        font-variant-numeric: tabular-nums;
+      }
+      :focus-visible {
+        outline: 2px solid var(--navy);
+        outline-offset: 2px;
+      }
+
+      @media (max-width: 820px) {
+        .home {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .intro {
+          padding-block: 40px;
+          padding-left: max(20px, env(safe-area-inset-left, 0px));
+          padding-right: max(20px, env(safe-area-inset-right, 0px));
+        }
+        .levels {
+          padding-block: 32px;
+          padding-left: max(20px, env(safe-area-inset-left, 0px));
+          padding-right: max(20px, env(safe-area-inset-right, 0px));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script src="nav.js"></script>
+    <div class="home">
+      <section class="intro">
+        <h1>Övningsbank</h1>
+      </section>
+      <section class="levels" aria-label="Välj nivå">
+        <p class="pick">Välj nivå</p>
+        <a class="level" href="ovningar.html?niva=gron" style="--lvl: #3fb15e"
+          >Grön nivå</a
+        >
+        <a class="level" href="ovningar.html?niva=bla" style="--lvl: #2f8fe0"
+          >Blå nivå</a
+        >
+        <span class="level disabled" aria-disabled="true" style="--lvl: #d8343a"
+          >Röd nivå <small>Kommer senare</small></span
+        >
+      </section>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Sirius övningsbank</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+    />
+    <style>
+      /* Övningsblad: blå/svart textpanel till vänster, vit planpanel till höger. */
+      :root {
+        --blue: #0a3a6e;
+        --navy: #0d4c8f;
+        --black: #0b0e12;
+        --white: #ffffff;
+        --soft: rgba(255, 255, 255, 0.8);
+        --paper: #ffffff;
+        --ink: #0b0e12;
+        --ink-soft: #5b6470;
+        --font: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font);
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      .slide {
+        min-height: calc(100vh - var(--nav-h));
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+
+      .text {
+        background: linear-gradient(90deg, var(--blue) 50%, var(--black) 50%);
+        color: var(--white);
+        padding-block: 40px 48px;
+        padding-left: max(48px, env(safe-area-inset-left, 0px));
+        padding-right: 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      nav#catNav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+      }
+      .cat-btn {
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--soft);
+        background: transparent;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        padding: 0 0 8px;
+        margin-bottom: -1px;
+        cursor: pointer;
+      }
+      .cat-btn:hover {
+        color: var(--white);
+      }
+      .cat-btn[aria-current="true"] {
+        color: var(--white);
+        border-bottom-color: var(--white);
+      }
+      nav#drillNav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .drill-btn {
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--white);
+        cursor: pointer;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 999px;
+        padding: 4px 12px;
+      }
+      .drill-btn[aria-current="true"] {
+        background: var(--white);
+        color: var(--navy);
+        border-color: var(--white);
+      }
+      .more-btn {
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--soft);
+        cursor: pointer;
+        background: transparent;
+        border: 1px dashed rgba(255, 255, 255, 0.45);
+        border-radius: 999px;
+        padding: 4px 12px;
+      }
+      .more-btn:hover {
+        color: var(--white);
+        border-color: var(--white);
+      }
+      .empty {
+        margin: 0;
+        color: var(--soft);
+      }
+
+      h2#drillName {
+        margin: 8px 0 0;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
+        font-size: clamp(1.75rem, 3.2vw, 2.4rem);
+        line-height: 1.1;
+        text-wrap: balance;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      h2#drillName::before {
+        content: "";
+        display: block;
+        width: 232px;
+        max-width: 100%;
+        height: 4px;
+        background: radial-gradient(circle, var(--white) 1.6px, transparent 2px)
+          0 0 / 10px 4px repeat-x;
+      }
+      dl#drillInfo {
+        margin: 0;
+        max-width: 62ch;
+        display: flex;
+        flex-direction: column;
+      }
+      #drillInfo dt {
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 1.0625rem;
+        margin-top: 16px;
+      }
+      #drillInfo dt:first-child {
+        margin-top: 0;
+      }
+      #drillInfo dd {
+        margin: 0;
+        white-space: pre-line;
+        font-weight: 500;
+      }
+
+      .board {
+        background: var(--paper);
+        padding-block: 40px;
+        padding-left: 24px;
+        padding-right: max(24px, env(safe-area-inset-right, 0px));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+      }
+      .canvas-wrap {
+        width: 100%;
+        max-width: 420px;
+      }
+      canvas {
+        display: block;
+        width: 100%;
+      }
+
+      .controls {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+      }
+      .ctl {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 40px;
+        height: 40px;
+        padding: 0 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(11, 14, 18, 0.2);
+        background: transparent;
+        color: var(--ink);
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .ctl:hover {
+        border-color: var(--ink);
+      }
+      .ctl.primary {
+        background: var(--navy);
+        border-color: var(--navy);
+        color: var(--white);
+        padding: 0 22px;
+      }
+      .ctl.primary:hover {
+        background: var(--black);
+        border-color: var(--black);
+      }
+      .ctl svg {
+        width: 18px;
+        height: 18px;
+      }
+      :focus-visible {
+        outline: 2px solid var(--navy);
+        outline-offset: 2px;
+      }
+      .text :focus-visible {
+        outline-color: var(--white);
+      }
+
+      section.steps-wrap {
+        width: 100%;
+        max-width: 420px;
+      }
+      ol.steps {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .step-btn {
+        width: 100%;
+        text-align: left;
+        display: grid;
+        grid-template-columns: 22px minmax(0, 1fr);
+        gap: 8px;
+        padding: 6px 8px;
+        border: 0;
+        border-radius: 4px;
+        background: transparent;
+        color: var(--ink-soft);
+        font: inherit;
+        font-size: 0.8125rem;
+        cursor: pointer;
+      }
+      .step-btn:hover {
+        color: var(--ink);
+      }
+      .step-btn[aria-current="step"] {
+        color: var(--ink);
+        background: rgba(13, 76, 143, 0.08);
+      }
+      .step-btn .n {
+        font-weight: 700;
+        color: var(--navy);
+      }
+
+      @media (max-width: 820px) {
+        .slide {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .text {
+          padding-block: 28px 32px;
+          padding-left: max(20px, env(safe-area-inset-left, 0px));
+          padding-right: max(20px, env(safe-area-inset-right, 0px));
+        }
+        .board {
+          padding-block: 28px;
+          padding-left: max(16px, env(safe-area-inset-left, 0px));
+          padding-right: max(16px, env(safe-area-inset-right, 0px));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script src="nav.js"></script>
+    <div class="slide">
+      <section class="text">
+        <nav id="catNav" aria-label="Kategorier"></nav>
+        <nav id="drillNav" aria-label="Övningar"></nav>
+        <h2 id="drillName"></h2>
+        <dl id="drillInfo"></dl>
+        <p class="empty" id="emptyMsg" hidden>Inga övningar här än.</p>
+      </section>
+
+      <section class="board" id="board" aria-label="Plan">
+        <div class="canvas-wrap" id="canvasWrap">
+          <canvas id="rink" role="img" aria-label="Övningsskiss"></canvas>
+        </div>
+        <div class="controls">
+          <button
+            class="ctl"
+            id="btnPrev"
+            aria-label="Föregående steg"
+            title="Föregående steg"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button class="ctl primary" id="btnPlay">
+            <span id="playLabel">Spela</span>
+          </button>
+          <button
+            class="ctl"
+            id="btnNext"
+            aria-label="Nästa steg"
+            title="Nästa steg"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+        <section class="steps-wrap" aria-label="Steg">
+          <ol class="steps" id="steps"></ol>
+        </section>
+      </section>
+    </div>
+
+    <script src="drills.js"></script>
+    <script src="board.js"></script>
+    <script>
+      const $ = (id) => document.getElementById(id);
+      // Bara övningar för vald nivå (window.NIVA sätts av nav.js).
+      const DRILLS = window.DRILLS.filter((d) =>
+        d.levels.includes(window.NIVA),
+      );
+      const CATS = DrillBoard.CATEGORIES;
+      const board = DrillBoard.create($("rink"), $("canvasWrap"), updateUI);
+      let idx = -1;
+      let showRest = false;
+      // Fliken skrivs i adressen (#station osv.), men sidan öppnas alltid på Uppvärmning.
+      const slug = (c) =>
+        c
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+      let cat = "Uppvärmning";
+
+      function updateUI({ k, diagram, playing, ended }) {
+        document.querySelectorAll(".step-btn").forEach((b, i) => {
+          if (!diagram && i === k) b.setAttribute("aria-current", "step");
+          else b.removeAttribute("aria-current");
+        });
+        $("playLabel").textContent = playing
+          ? "Paus"
+          : ended
+            ? "Spela igen"
+            : "Spela";
+      }
+
+      function renderNav() {
+        $("catNav").innerHTML = "";
+        for (const c of CATS) {
+          const b = document.createElement("button");
+          b.className = "cat-btn";
+          b.type = "button";
+          b.textContent = c;
+          b.setAttribute("aria-current", c === cat ? "true" : "false");
+          b.addEventListener("click", () => showCategory(c));
+          $("catNav").appendChild(b);
+        }
+        $("drillNav").innerHTML = "";
+        // Övningar med "ovrigt": true ligger bakom knappen Visa resten.
+        const inCat = DRILLS.map((d, i) => i).filter((i) => DRILLS[i].category === cat);
+        const main = inCat.filter((i) => !DRILLS[i].ovrigt);
+        const rest = inCat.filter((i) => DRILLS[i].ovrigt);
+        const open = showRest || rest.includes(idx);
+        const pill = (i) => {
+          const b = document.createElement("button");
+          b.className = "drill-btn";
+          b.type = "button";
+          b.textContent = DRILLS[i].name;
+          b.setAttribute("aria-current", i === idx ? "true" : "false");
+          b.addEventListener("click", () => select(i));
+          $("drillNav").appendChild(b);
+        };
+        main.forEach(pill);
+        if (rest.length) {
+          const m = document.createElement("button");
+          m.className = "more-btn";
+          m.type = "button";
+          m.setAttribute("aria-expanded", String(open));
+          m.textContent = open ? "Dölj resten" : `Visa resten (${rest.length})`;
+          m.addEventListener("click", () => {
+            showRest = !open;
+            if (!showRest && rest.includes(idx)) select(main.length ? main[0] : rest[0]);
+            else renderNav();
+          });
+          $("drillNav").appendChild(m);
+          if (open) rest.forEach(pill);
+        }
+      }
+
+      function showCategory(c) {
+        history.replaceState(null, "", "#" + slug(c));
+        showRest = false;
+        const first = [
+          DRILLS.findIndex((d) => d.category === c && !d.ovrigt),
+          DRILLS.findIndex((d) => d.category === c),
+        ].find((i) => i >= 0) ?? -1;
+        if (first >= 0) {
+          select(first);
+          return;
+        }
+        cat = c;
+        idx = -1;
+        renderNav();
+        $("drillName").textContent = c;
+        $("drillInfo").innerHTML = "";
+        $("emptyMsg").hidden = false;
+        $("board").hidden = true;
+      }
+
+      function select(i) {
+        idx = i;
+        const drill = DRILLS[i];
+        cat = drill.category;
+        history.replaceState(null, "", "#" + slug(cat));
+        renderNav();
+        $("emptyMsg").hidden = true;
+        $("board").hidden = false;
+        $("drillName").textContent = drill.name;
+        const info = $("drillInfo");
+        info.innerHTML = "";
+        for (const [h, t] of drill.info || []) {
+          if (!t) continue;
+          const dt = document.createElement("dt");
+          dt.textContent = h;
+          const dd = document.createElement("dd");
+          dd.textContent = t;
+          info.append(dt, dd);
+        }
+        const ol = $("steps");
+        ol.innerHTML = "";
+        drill.steps.forEach((s, j) => {
+          const li = document.createElement("li");
+          const b = document.createElement("button");
+          b.className = "step-btn";
+          b.type = "button";
+          b.innerHTML = `<span class="n">${j + 1}</span><span></span>`;
+          b.lastChild.textContent = s.text || "";
+          b.addEventListener("click", () => board.jump(j));
+          li.appendChild(b);
+          ol.appendChild(li);
+        });
+        // Övningar utan rörelser (t.ex. matcher) visar bara uppställningen.
+        const still = !drill.steps.some((s) => s.actions.length);
+        document.querySelector(".controls").hidden = still;
+        document.querySelector(".steps-wrap").hidden = still;
+        $("rink").setAttribute("aria-label", `Övningsskiss: ${drill.name}`);
+        board.setDrill(drill);
+      }
+
+      $("btnPlay").addEventListener("click", () => board.play());
+      $("btnNext").addEventListener("click", () => board.next());
+      $("btnPrev").addEventListener("click", () => board.prev());
+      document.addEventListener("keydown", (e) => {
+        if (idx < 0) return;
+        if (e.key === " ") {
+          e.preventDefault();
+          board.play();
+        }
+        if (e.key === "ArrowRight") board.next();
+        if (e.key === "ArrowLeft") board.prev();
+      });
+
+      showCategory(cat);
+    </script>
+  </body>
+</html>

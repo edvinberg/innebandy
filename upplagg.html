@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Sirius – upplägg</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+    />
+    <style>
+      /* Upplägg: titel till vänster, momenten i tidsordning till höger. */
+      :root {
+        --blue: #0a3a6e;
+        --navy: #0d4c8f;
+        --black: #0b0e12;
+        --white: #ffffff;
+        --soft: rgba(255, 255, 255, 0.8);
+        --paper: #ffffff;
+        --ink: #0b0e12;
+        --ink-soft: #5b6470;
+        --rule: #dde2e8;
+        --font: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font);
+        font-size: 15px;
+        line-height: 1.45;
+      }
+      .page {
+        min-height: calc(100vh - var(--nav-h));
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+      .intro {
+        background: linear-gradient(90deg, var(--blue) 50%, var(--black) 50%);
+        color: var(--white);
+        padding-block: 32px 36px;
+        padding-left: max(48px, env(safe-area-inset-left, 0px));
+        padding-right: 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      h1 {
+        margin: 0;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
+        line-height: 1.1;
+        font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      h1::before {
+        content: "";
+        display: block;
+        width: 232px;
+        max-width: 100%;
+        height: 4px;
+        background: radial-gradient(circle, var(--white) 1.6px, transparent 2px)
+          0 0 / 10px 4px repeat-x;
+      }
+      .meta {
+        margin: 0;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--soft);
+      }
+      .rows {
+        list-style: none;
+        margin: 8px 0 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .build {
+        padding-block: 32px 40px;
+        padding-left: 32px;
+        padding-right: max(32px, env(safe-area-inset-right, 0px));
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      h2 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+      .picks {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .picks li {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 4px 16px;
+        padding-block: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .row:first-child {
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .moment {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-size: 0.875rem;
+      }
+      .tid {
+        font-weight: 600;
+        font-size: 0.875rem;
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      .text {
+        grid-column: 1 / -1;
+        margin: 0;
+        color: var(--soft);
+      }
+      .sub {
+        grid-column: 1 / -1;
+        list-style: none;
+        margin: 6px 0 0;
+        padding: 0 0 0 16px;
+        border-left: 3px solid rgba(255, 255, 255, 0.5);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .sub .row {
+        padding-block: 2px;
+        border: 0;
+      }
+      .sub .moment {
+        font-size: 0.8125rem;
+      }
+      .pick {
+        width: 100%;
+        max-width: 420px;
+        font: inherit;
+        font-size: 0.875rem;
+        padding: 8px 10px;
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        background: var(--paper);
+        color: var(--ink);
+      }
+      .desc {
+        margin: 2px 0 0;
+        max-width: 420px;
+        font-size: 0.875rem;
+        color: var(--ink-soft);
+      }
+      .pick:not([data-empty]) {
+        border-color: var(--navy);
+        font-weight: 600;
+      }
+      .clear {
+        align-self: flex-start;
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ink);
+        background: transparent;
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        padding: 6px 14px;
+        cursor: pointer;
+      }
+      .clear:hover {
+        border-color: var(--ink);
+      }
+      @media (max-width: 820px) {
+        .page {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .intro,
+        .build {
+          padding-left: max(20px, env(safe-area-inset-left, 0px));
+          padding-right: max(20px, env(safe-area-inset-right, 0px));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script src="nav.js"></script>
+    <div class="page">
+      <section class="intro">
+        <h1>Upplägg</h1>
+        <p class="meta" id="meta"></p>
+        <ol class="rows" id="rows"></ol>
+      </section>
+      <section class="build">
+        <h2>Skapa träningspass</h2>
+        <ol class="picks" id="picks"></ol>
+        <button class="clear" id="clear" type="button">Rensa valda övningar</button>
+      </section>
+    </div>
+    <script src="drills.js"></script>
+    <script src="board.js"></script>
+    <script src="plan.js"></script>
+    <script>
+      const plan = window.PLAN[window.NIVA];
+      const meta = document.getElementById("meta");
+      meta.textContent = plan.meta;
+      meta.hidden = !plan.meta;
+
+      // Valda övningar sparas i webbläsaren, en uppsättning per nivå.
+      const KEY = `pass-${window.NIVA}`;
+      let picks = {};
+      try {
+        picks = JSON.parse(localStorage.getItem(KEY)) || {};
+      } catch {}
+      const save = () => {
+        try {
+          localStorage.setItem(KEY, JSON.stringify(picks));
+        } catch {}
+      };
+      const DRILLS = window.DRILLS.filter((d) => d.levels.includes(window.NIVA));
+
+      function picker(r, id) {
+        const sel = document.createElement("select");
+        sel.className = "pick";
+        sel.setAttribute("aria-label", `Övning för ${r.moment}`);
+        sel.add(new Option(`Välj övning (${r.cat})`, ""));
+        // Momentets kategori först, sedan alla andra kategorier.
+        const inCat = DRILLS.filter((d) => d.category === r.cat);
+        const groups = [
+          ["Topp", inCat.filter((d) => !d.ovrigt)],
+          ["Resten", inCat.filter((d) => d.ovrigt)],
+        ];
+        for (const c of DrillBoard.CATEGORIES) {
+          if (c === r.cat) continue;
+          const list = DRILLS.filter((d) => d.category === c);
+          groups.push([c, [...list.filter((d) => !d.ovrigt), ...list.filter((d) => d.ovrigt)]]);
+        }
+        for (const [label, list] of groups) {
+          if (!list.length) continue;
+          const g = document.createElement("optgroup");
+          g.label = label;
+          list.forEach((d) => g.appendChild(new Option(d.name, d.name)));
+          sel.appendChild(g);
+        }
+        sel.value = DRILLS.some((d) => d.name === picks[id]) ? picks[id] : "";
+        // Förklaringen till vald övning visas under listan.
+        const desc = document.createElement("p");
+        desc.className = "desc";
+        const mark = () => {
+          sel.toggleAttribute("data-empty", !sel.value);
+          const d = DRILLS.find((x) => x.name === sel.value);
+          desc.textContent = d ? d.info.map(([, t]) => t).filter(Boolean).join(" ") : "";
+          desc.hidden = !desc.textContent;
+        };
+        mark();
+        sel.addEventListener("change", () => {
+          if (sel.value) picks[id] = sel.value;
+          else delete picks[id];
+          save();
+          mark();
+        });
+        return [sel, desc];
+      }
+
+      function row(r) {
+        const li = document.createElement("li");
+        li.className = "row";
+        const m = document.createElement("span");
+        m.className = "moment";
+        m.textContent = r.moment;
+        const t = document.createElement("span");
+        t.className = "tid";
+        t.textContent = r.tid || "";
+        li.append(m, t);
+        if (r.text) {
+          const p = document.createElement("p");
+          p.className = "text";
+          p.textContent = r.text;
+          li.appendChild(p);
+        }
+        if (r.sub) {
+          const ul = document.createElement("ul");
+          ul.className = "sub";
+          r.sub.forEach((s) => ul.appendChild(row(s)));
+          li.appendChild(ul);
+        }
+        return li;
+      }
+      const rows = document.getElementById("rows");
+      plan.rows.forEach((r) => rows.appendChild(row(r)));
+
+      // Skapa träningspass: en lista per moment som har en kategori.
+      const list = document.getElementById("picks");
+      const render = () => {
+        list.innerHTML = "";
+        plan.rows.forEach((r, i) => {
+          const items = [[r, String(i), r.moment]];
+          (r.sub || []).forEach((s, j) => items.push([s, `${i}.${j}`, `${r.moment} · ${s.moment}`]));
+          for (const [it, id, label] of items) {
+            if (!it.cat) continue;
+            const li = document.createElement("li");
+            const m = document.createElement("span");
+            m.className = "moment";
+            m.textContent = label;
+            li.append(m, ...picker(it, id));
+            list.appendChild(li);
+          }
+        });
+      };
+      render();
+      document.getElementById("clear").addEventListener("click", () => {
+        picks = {};
+        save();
+        render();
+      });
+    </script>
+  </body>
+</html>
