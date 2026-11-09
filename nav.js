@@ -59,7 +59,32 @@
     .sn-links a:hover { color: #fff; }
     .sn-links a[aria-current="page"] { color: #fff; border-bottom-color: #2f8fe0; }
     .sn-links a:last-child { margin-left: auto; }
-    .sn a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .sn a:focus-visible, .sn-burger:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .sn-burger {
+      display: none; align-self: center; flex: none; margin-left: auto;
+      width: 40px; height: 40px; align-items: center; justify-content: center;
+      background: transparent; color: #fff; cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 8px;
+    }
+    .sn-burger svg { width: 20px; height: 20px; }
+    /* Mobil: länkarna fälls ihop bakom en hamburgerknapp. */
+    @media (max-width: 720px) {
+      .sn { gap: 12px; overflow: visible; }
+      .sn-brand { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; align-self: center; }
+      .sn-burger { display: inline-flex; }
+      .sn-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; gap: 0; background: #0b0e12;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        padding-block: 4px 12px;
+        padding-left: max(24px, env(safe-area-inset-left, 0px));
+        padding-right: max(24px, env(safe-area-inset-right, 0px));
+      }
+      .sn.open .sn-links { display: flex; }
+      .sn-links a { padding: 14px 0; border: 0; }
+      .sn-links a[aria-current="page"] { border: 0; box-shadow: inset 3px 0 #2f8fe0; padding-left: 12px; }
+      .sn-links a:last-child { margin-left: 0; }
+    }
   `;
   document.head.appendChild(style);
 
@@ -99,6 +124,21 @@
     if ((page || href) === here) a.setAttribute("aria-current", "page");
     links.appendChild(a);
   }
+  links.id = "sn-links";
   nav.appendChild(links);
+
+  const burger = document.createElement("button");
+  burger.className = "sn-burger";
+  burger.type = "button";
+  burger.setAttribute("aria-label", "Meny");
+  burger.setAttribute("aria-controls", "sn-links");
+  burger.setAttribute("aria-expanded", "false");
+  burger.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  burger.addEventListener("click", () => {
+    const open = nav.classList.toggle("open");
+    burger.setAttribute("aria-expanded", String(open));
+  });
+  nav.appendChild(burger);
   document.body.prepend(nav);
 })();
