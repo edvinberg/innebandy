@@ -1,4 +1,4 @@
-// Vårt spel per nivå ("gron", "bla"). Varje del har text och en skiss i samma format som övningarna.
+// Vårt spel per nivå ("gron", "bla", "rod"). Varje del har text och en skiss i samma format som övningarna.
 // Vi anfaller uppåt. Eget mål är nere. Motståndarna står 2 bak och 2 fram.
 window.GAME = {
   "gron": [
@@ -399,7 +399,8 @@ window.GAME = {
         ]
       }
     }
-  ]
+  ],
+  "rod": []
 };
 
 // Principer per nivå, visas som numrerad lista på Vårt spel.
@@ -408,6 +409,7 @@ window.PRINCIPLES = {
     "Lek, passa, dribbla och ha kul.",
     "Var en bra kompis mot medspelare och motspelare.",
   ],
+  rod: [],
   bla: [
     "Spelglädje och mod. Vi spelar med risk och vårdar bollen – vi rensar inte och jagar inte kortsiktiga resultat. Vi tittar upp och väljer att passa, dribbla eller skjuta. När vi tappar bollen jobbar vi direkt för att vinna tillbaka den.",
     "Vi spelar för varandra. Alla gör sig spelbara och laget rör sig tillsammans, både i anfall och försvar. Vi hjälper alltid en lagkamrat.",

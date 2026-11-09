@@ -48,10 +48,10 @@
     if (
       !Array.isArray(d.levels) ||
       !d.levels.length ||
-      !d.levels.every((l) => l === "gron" || l === "bla")
+      !d.levels.every((l) => ["gron", "bla", "rod"].includes(l))
     )
       throw new Error(
-        '"levels" måste vara en lista med "gron" och/eller "bla".',
+        '"levels" måste vara en lista med "gron", "bla" och/eller "rod".',
       );
     if (!d.entities || typeof d.entities !== "object")
       throw new Error('Övningen saknar "entities".');

@@ -1,4 +1,4 @@
-// Upplägg per nivå ("gron", "bla"): formatet för ett träningstillfälle.
+// Upplägg per nivå ("gron", "bla", "rod"): formatet för ett träningstillfälle.
 // "cat" = momentet får en övning vald ur den kategorin (se upplagg.html).
 window.PLAN = {
   gron: {
@@ -53,6 +53,35 @@ window.PLAN = {
         tid: "3×6 min",
       },
       { moment: "Stafett/Avslutning", cat: "Lekar/slutövning" },
+    ],
+  },
+  rod: {
+    meta: "",
+    rows: [
+      { moment: "Inledande samling", text: "Kort genomgång av passets tema och syfte." },
+      {
+        moment: "Förberedelse",
+        text: "Uppvärmning med atletiska moment, gärna ett kort styrkemoment och skadeförebyggande träning.",
+        cat: "Uppvärmning",
+      },
+      {
+        moment: "Färdighetsövningar",
+        text: "Tekniska moment i mindre grupper.",
+        sub: [
+          { moment: "Grupp 1", cat: "Station" },
+          { moment: "Grupp 2", cat: "Station" },
+          { moment: "Grupp 3", cat: "Station" },
+        ],
+      },
+      {
+        moment: "Spel",
+        text: "Variera antal spelare, planstorlek och förutsättningar, t.ex. fler mål eller felvända mål.",
+        cat: "Station",
+      },
+      {
+        moment: "Avslutande samling",
+        text: "Utanför planen: vad har vi tränat på idag, och vad tyckte ni om passet?",
+      },
     ],
   },
 };

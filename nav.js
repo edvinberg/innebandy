@@ -1,7 +1,7 @@
 // Gemensam navbar för alla sidor. Läggs in först i <body> med <script src="nav.js"></script>.
-// Håller också reda på vald nivå: ?niva=gron|bla i adressen, annars den senast valda.
+// Håller också reda på vald nivå: ?niva=gron|bla|rod i adressen, annars den senast valda.
 (function () {
-  const LEVELS = { gron: "Grön nivå", bla: "Blå nivå" };
+  const LEVELS = { gron: "Grön nivå", bla: "Blå nivå", rod: "Röd nivå" };
   const here = location.pathname.split("/").pop() || "index.html";
 
   const asked = new URLSearchParams(location.search).get("niva");
@@ -105,7 +105,7 @@
     pill.href = "index.html";
     pill.title = "Byt nivå";
     pill.textContent = LEVELS[level];
-    pill.style.setProperty("--lvl", level === "gron" ? "#3fb15e" : "#2f8fe0");
+    pill.style.setProperty("--lvl", { gron: "#3fb15e", bla: "#2f8fe0", rod: "#d8343a" }[level]);
     nav.appendChild(pill);
   }
 

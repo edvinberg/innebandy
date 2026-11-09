@@ -625,7 +625,8 @@ window.DRILLS = [
     "category": "Uppvärmning",
     "levels": [
       "gron",
-      "bla"
+      "bla",
+      "rod"
     ],
     "info": [
       [
@@ -769,8 +770,12 @@ window.DRILLS = [
     ],
     "info": [
       [
+        "Syfte",
+        "Uppmärksamhet åt alla håll, snabba vändningar och fart."
+      ],
+      [
         "Anvisningar",
-        "Alla mot alla, rycka svans."
+        "Alla mot alla inom en yta som märks ut med koner. Alla har en väst som svans baktill i byxorna, gärna också en reservsvans på sig. Ta så många svansar du kan och skydda din egen. Den som blivit av med sin svans försöker ta en ny från någon annan.\nTips: sätt svansen på vänster eller höger höft. Då skyddar man den som när man skyddar bollen."
       ]
     ],
     "entities": {
@@ -821,11 +826,31 @@ window.DRILLS = [
         "team": "home",
         "x": 13.5,
         "y": 1.8
+      },
+      "X1": {
+        "type": "cone",
+        "x": 6,
+        "y": 1
+      },
+      "X2": {
+        "type": "cone",
+        "x": 6,
+        "y": 19
+      },
+      "X3": {
+        "type": "cone",
+        "x": 19,
+        "y": 1
+      },
+      "X4": {
+        "type": "cone",
+        "x": 19,
+        "y": 19
       }
     },
     "steps": [
       {
-        "text": "Alla mot alla, rycka svans.",
+        "text": "Alla mot alla innanför konerna. Ta svansar och skydda din egen.",
         "actions": []
       }
     ],
@@ -4051,7 +4076,8 @@ window.DRILLS = [
     "category": "Station",
     "levels": [
       "gron",
-      "bla"
+      "bla",
+      "rod"
     ],
     "view": [
       0,
@@ -4059,8 +4085,12 @@ window.DRILLS = [
     ],
     "info": [
       [
+        "Syfte",
+        "Passningsspel och rörelse."
+      ],
+      [
         "Anvisningar",
-        "En spelare i mitten och en spelare på varje sida. Spela runt jagaren."
+        "En jagare i mitten och en spelare på varje sida av kvadraten. Spelarna på sidorna rör sig längs sin sida för att bli spelbara och spelar bollen runt jagaren. Jagaren byter med den spelare hen tar bollen ifrån, eller står i mitten en bestämd tid."
       ]
     ],
     "entities": {
@@ -4082,17 +4112,17 @@ window.DRILLS = [
         "x": 16,
         "y": 10
       },
-      "Dd": {
-        "type": "player",
-        "team": "home",
-        "x": 12,
-        "y": 6
-      },
       "J": {
         "type": "player",
         "team": "away",
         "x": 12,
         "y": 10
+      },
+      "D": {
+        "type": "player",
+        "team": "home",
+        "x": 12,
+        "y": 6
       }
     },
     "ball": {
@@ -4102,8 +4132,36 @@ window.DRILLS = [
       {
         "text": "Jagare",
         "at": [
-          10.7,
+          13.4,
           10
+        ]
+      },
+      {
+        "text": "A",
+        "at": [
+          6.6,
+          10
+        ]
+      },
+      {
+        "text": "B",
+        "at": [
+          12,
+          15.4
+        ]
+      },
+      {
+        "text": "C",
+        "at": [
+          17.4,
+          10
+        ]
+      },
+      {
+        "text": "D",
+        "at": [
+          12,
+          4.6
         ]
       }
     ],
@@ -4151,8 +4209,16 @@ window.DRILLS = [
     ],
     "steps": [
       {
-        "text": "Bollen spelas runt jagaren. Jagaren går mot bollen.",
+        "text": "B rör sig längs sin sida och får passen av A. Jagaren går mot bollen.",
         "actions": [
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              10,
+              14
+            ]
+          },
           {
             "type": "pass",
             "from": "A",
@@ -4162,15 +4228,23 @@ window.DRILLS = [
             "type": "run",
             "who": "J",
             "to": [
-              11.5,
-              11.2
+              11,
+              11.5
             ]
           }
         ]
       },
       {
-        "text": "Nästa passning runt jagaren.",
+        "text": "C rör sig längs sin sida och får bollen av B.",
         "actions": [
+          {
+            "type": "run",
+            "who": "C",
+            "to": [
+              16,
+              12.5
+            ]
+          },
           {
             "type": "pass",
             "from": "B",
@@ -4181,35 +4255,51 @@ window.DRILLS = [
             "who": "J",
             "to": [
               13,
-              11.2
+              11.5
             ]
           }
         ]
       },
       {
-        "text": "Bollen spelas vidare runt.",
+        "text": "D rör sig längs sin sida och får bollen av C.",
         "actions": [
+          {
+            "type": "run",
+            "who": "D",
+            "to": [
+              14.5,
+              6
+            ]
+          },
           {
             "type": "pass",
             "from": "C",
-            "to": "Dd"
+            "to": "D"
           },
           {
             "type": "run",
             "who": "J",
             "to": [
-              13,
+              13.5,
               9
             ]
           }
         ]
       },
       {
-        "text": "Och tillbaka till start.",
+        "text": "A rör sig och får bollen av D. Tar jagaren bollen byter hen plats med den hen tog den från.",
         "actions": [
           {
+            "type": "run",
+            "who": "A",
+            "to": [
+              8,
+              8
+            ]
+          },
+          {
             "type": "pass",
-            "from": "Dd",
+            "from": "D",
             "to": "A"
           },
           {
@@ -4217,7 +4307,7 @@ window.DRILLS = [
             "who": "J",
             "to": [
               11,
-              9
+              8.5
             ]
           }
         ]
@@ -4230,42 +4320,127 @@ window.DRILLS = [
     "category": "Station",
     "levels": [
       "gron",
-      "bla"
+      "bla",
+      "rod"
     ],
     "view": [
       0,
-      20
+      40
     ],
     "info": [
       [
+        "Syfte",
+        "Hålla bollen inom laget och komma till avslut."
+      ],
+      [
         "Anvisningar",
-        "Spel på liten yta. Fokus på att hålla boll eller väggspel."
+        "Spelarna går ihop i par och spelar 2 mot 2 på en avgränsad yta. Välj variant efter vad ni vill träna:\n1. Håll bollen: spela utan mål.\n2. Avslut: har ni inte så många mål blir två koner ett mål.\n3. Väggspel: två väggpassare rör sig längs långsidorna utanför ytan och används för att spela vägg (give and go)."
       ]
     ],
     "entities": {
       "A": {
         "type": "player",
         "team": "home",
-        "x": 16,
+        "x": 7,
         "y": 6
       },
       "B": {
         "type": "player",
         "team": "home",
-        "x": 13,
+        "x": 9.5,
+        "y": 13
+      },
+      "a1": {
+        "type": "player",
+        "team": "away",
+        "x": 8.5,
+        "y": 8
+      },
+      "a2": {
+        "type": "player",
+        "team": "away",
+        "x": 6.5,
         "y": 13.5
       },
-      "c": {
-        "type": "player",
-        "team": "away",
-        "x": 14.3,
-        "y": 6.8
+      "k1": {
+        "type": "cone",
+        "x": 17.4,
+        "y": 2
       },
-      "d": {
+      "k2": {
+        "type": "cone",
+        "x": 19.6,
+        "y": 2
+      },
+      "k3": {
+        "type": "cone",
+        "x": 17.4,
+        "y": 18
+      },
+      "k4": {
+        "type": "cone",
+        "x": 19.6,
+        "y": 18
+      },
+      "c1": {
+        "type": "player",
+        "team": "home",
+        "x": 17,
+        "y": 7
+      },
+      "c2": {
+        "type": "player",
+        "team": "home",
+        "x": 20.5,
+        "y": 12.5
+      },
+      "d1": {
         "type": "player",
         "team": "away",
-        "x": 11,
+        "x": 19.5,
+        "y": 8.5
+      },
+      "d2": {
+        "type": "player",
+        "team": "away",
+        "x": 17.5,
+        "y": 13
+      },
+      "e1": {
+        "type": "player",
+        "team": "home",
+        "x": 28.5,
+        "y": 7
+      },
+      "e2": {
+        "type": "player",
+        "team": "home",
+        "x": 31.5,
         "y": 12.5
+      },
+      "f1": {
+        "type": "player",
+        "team": "away",
+        "x": 30,
+        "y": 8.5
+      },
+      "f2": {
+        "type": "player",
+        "team": "away",
+        "x": 29,
+        "y": 13.5
+      },
+      "W1": {
+        "type": "player",
+        "team": "third",
+        "x": 25.3,
+        "y": 10
+      },
+      "W2": {
+        "type": "player",
+        "team": "third",
+        "x": 34.7,
+        "y": 10
       }
     },
     "ball": {
@@ -4274,49 +4449,169 @@ window.DRILLS = [
     "lines": [
       {
         "from": [
-          8,
-          3
+          4.5,
+          2
         ],
         "to": [
-          8,
-          17
+          4.5,
+          18
         ]
       },
       {
         "from": [
-          18,
-          3
+          11.5,
+          2
         ],
         "to": [
-          18,
-          17
+          11.5,
+          18
         ]
       },
       {
         "from": [
-          8,
-          3
+          4.5,
+          2
         ],
         "to": [
-          18,
-          3
+          11.5,
+          2
         ]
       },
       {
         "from": [
-          8,
-          17
+          4.5,
+          18
         ],
         "to": [
-          18,
-          17
+          11.5,
+          18
+        ]
+      },
+      {
+        "from": [
+          15.5,
+          2
+        ],
+        "to": [
+          15.5,
+          18
+        ]
+      },
+      {
+        "from": [
+          22.5,
+          2
+        ],
+        "to": [
+          22.5,
+          18
+        ]
+      },
+      {
+        "from": [
+          15.5,
+          2
+        ],
+        "to": [
+          22.5,
+          2
+        ]
+      },
+      {
+        "from": [
+          15.5,
+          18
+        ],
+        "to": [
+          22.5,
+          18
+        ]
+      },
+      {
+        "from": [
+          26.5,
+          2
+        ],
+        "to": [
+          26.5,
+          18
+        ]
+      },
+      {
+        "from": [
+          33.5,
+          2
+        ],
+        "to": [
+          33.5,
+          18
+        ]
+      },
+      {
+        "from": [
+          26.5,
+          2
+        ],
+        "to": [
+          33.5,
+          2
+        ]
+      },
+      {
+        "from": [
+          26.5,
+          18
+        ],
+        "to": [
+          33.5,
+          18
         ]
       }
     ],
     "steps": [
       {
-        "text": "2 mot 2 på liten yta.",
+        "text": "2 mot 2 på avgränsad yta: utan mål, med konmål eller med väggpassare.",
         "actions": []
+      }
+    ],
+    "balls": [
+      [
+        17.6,
+        7.6
+      ],
+      [
+        29.1,
+        7.6
+      ]
+    ],
+    "labels": [
+      {
+        "text": "Utan mål",
+        "at": [
+          5.7,
+          15.8
+        ]
+      },
+      {
+        "text": "Konmål",
+        "at": [
+          16.7,
+          15.8
+        ]
+      },
+      {
+        "text": "Väggpassare",
+        "at": [
+          25.3,
+          13.4
+        ]
+      },
+      {
+        "text": "Väggpassare",
+        "at": [
+          34.7,
+          13.4
+        ]
       }
     ]
   },
@@ -6025,7 +6320,8 @@ window.DRILLS = [
     "category": "Station",
     "levels": [
       "gron",
-      "bla"
+      "bla",
+      "rod"
     ],
     "view": [
       0,
@@ -6034,7 +6330,7 @@ window.DRILLS = [
     "info": [
       [
         "Anvisningar",
-        "Tränaren ropar siffra (t.ex. \"två\") -> så många hoppar in och spelar match."
+        "Tränaren ropar siffra (t.ex. \"två\") -> så många hoppar in och spelar match.\nSpela tills bollen går i mål, ut över sargen eller tränaren bryter.\nVarianter: låt spelarna starta sittande, liggande på mage eller på andra sidan sargen. Ta bort målen och räkna tre passningar i rad inom laget som mål. Eller ställ ut koner: mål görs genom att passa mellan två koner till en lagkompis."
       ]
     ],
     "entities": {
@@ -8863,5 +9159,2617 @@ window.DRILLS = [
         ]
       }
     ]
+  },
+  {
+    "name": "Engelsk kvadrat",
+    "category": "Station",
+    "levels": [
+      "rod"
+    ],
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Speluppbyggnad och anfallsspel, med inslag av dueller."
+      ],
+      [
+        "Anvisningar",
+        "Tre zoner bredvid varandra och tre lag, ett lag i varje zon. Ledaren rullar in bollen till lag 1, som ska klara fem passningar inom zonen och sedan slå bollen över mittzonen till lag 3. Lag 2 har en spelare inne i bollzonen som stör och söker duell, och två spelare i mittzonen som försöker bryta. Växla roller mellan lagen."
+      ],
+      [
+        "Organisation",
+        "Ungefär 20×10 m (en fjärdedels plan), cirka 9 spelare (upp till 12). Gör det lättare eller svårare genom att ändra ytan, antalet spelare per zon eller antalet passningar som krävs."
+      ]
+    ],
+    "entities": {
+      "A1": {
+        "type": "player",
+        "team": "home",
+        "x": 2,
+        "y": 2
+      },
+      "A2": {
+        "type": "player",
+        "team": "home",
+        "x": 7,
+        "y": 5
+      },
+      "A3": {
+        "type": "player",
+        "team": "home",
+        "x": 9,
+        "y": 1.5
+      },
+      "D1": {
+        "type": "player",
+        "team": "away",
+        "x": 5,
+        "y": 3.2
+      },
+      "D2": {
+        "type": "player",
+        "team": "away",
+        "x": 4,
+        "y": 10
+      },
+      "D3": {
+        "type": "player",
+        "team": "away",
+        "x": 8,
+        "y": 10
+      },
+      "C1": {
+        "type": "player",
+        "team": "third",
+        "x": 2,
+        "y": 17
+      },
+      "C2": {
+        "type": "player",
+        "team": "third",
+        "x": 6,
+        "y": 15.5
+      },
+      "C3": {
+        "type": "player",
+        "team": "third",
+        "x": 9,
+        "y": 18.5
+      },
+      "L": {
+        "type": "player",
+        "team": "queue",
+        "x": 11.5,
+        "y": 3
+      }
+    },
+    "ball": {
+      "holder": "L"
+    },
+    "lines": [
+      {
+        "from": [
+          0,
+          6.7
+        ],
+        "to": [
+          10,
+          6.7
+        ]
+      },
+      {
+        "from": [
+          0,
+          13.3
+        ],
+        "to": [
+          10,
+          13.3
+        ]
+      },
+      {
+        "from": [
+          10,
+          0
+        ],
+        "to": [
+          10,
+          20
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "text": "Ledare",
+        "at": [
+          12.6,
+          3
+        ]
+      },
+      {
+        "text": "Lag 1",
+        "at": [
+          11,
+          1.5
+        ]
+      },
+      {
+        "text": "Lag 2",
+        "at": [
+          11,
+          10
+        ]
+      },
+      {
+        "text": "Lag 3",
+        "at": [
+          11,
+          18.5
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Ledaren rullar in bollen till lag 1.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "L",
+            "to": "A1"
+          }
+        ]
+      },
+      {
+        "text": "Lag 1 passar inom zonen. Spelaren från lag 2 stör och försöker vinna bollen.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "A1",
+            "to": "A2"
+          },
+          {
+            "type": "run",
+            "who": "D1",
+            "to": [
+              6,
+              4.2
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A3",
+            "to": [
+              8.5,
+              2.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Fortsätt tills laget har gjort fem passningar.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "A2",
+            "to": "A3"
+          },
+          {
+            "type": "run",
+            "who": "D1",
+            "to": [
+              7.5,
+              3
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A2",
+            "to": [
+              5,
+              5.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Efter fem passningar slår lag 1 bollen över mittzonen till lag 3. Mittspelarna försöker bryta.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "A3",
+            "to": "C3"
+          },
+          {
+            "type": "run",
+            "who": "D3",
+            "to": [
+              8.6,
+              9
+            ]
+          },
+          {
+            "type": "run",
+            "who": "D2",
+            "to": [
+              5,
+              11
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "1 mot 1 med hemjobb",
+    "category": "Station",
+    "levels": [
+      "rod"
+    ],
+    "view": [
+      0,
+      40
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Dueller 1 mot 1 i både anfall och försvar, och att komma till avslut."
+      ],
+      [
+        "Anvisningar",
+        "Två lag som står i led vid varsitt mål. Första spelaren i ena ledet anfaller 1 mot 1 mot en försvarare. Efter avslutet vänder anfallaren hem och försvarar mot nästa spelare från andra laget, som startar från hörnet. Därefter tillbaka till sitt led. Starta med utkast från målvakten eller med boll från hörnet."
+      ],
+      [
+        "Tänk på",
+        "Uppmuntra fart och att snabbt komma till avslut. Koppla gärna till omställningar i match."
+      ]
+    ],
+    "entities": {
+      "G1": {
+        "type": "goalie",
+        "team": "home",
+        "x": 4.2,
+        "y": 10
+      },
+      "G2": {
+        "type": "goalie",
+        "team": "away",
+        "x": 35.8,
+        "y": 10
+      },
+      "A1": {
+        "type": "player",
+        "team": "home",
+        "x": 2.5,
+        "y": 16.5
+      },
+      "Aq1": {
+        "type": "player",
+        "team": "queue",
+        "x": 1.5,
+        "y": 17.6
+      },
+      "Aq2": {
+        "type": "player",
+        "team": "queue",
+        "x": 1,
+        "y": 18.6
+      },
+      "B1": {
+        "type": "player",
+        "team": "away",
+        "x": 37.5,
+        "y": 3.5
+      },
+      "B2": {
+        "type": "player",
+        "team": "away",
+        "x": 38.5,
+        "y": 2.4
+      },
+      "Bq": {
+        "type": "player",
+        "team": "queue",
+        "x": 39,
+        "y": 1.4
+      }
+    },
+    "ball": {
+      "holder": "A1"
+    },
+    "labels": [
+      {
+        "text": "Lag A",
+        "at": [
+          2.5,
+          14.8
+        ]
+      },
+      {
+        "text": "Lag B",
+        "at": [
+          37.4,
+          5.2
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "A anfaller med boll mot andra målet. B kliver ut från sitt led och försvarar.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A1",
+            "via": [
+              10,
+              16
+            ],
+            "to": [
+              24,
+              12
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B1",
+            "to": [
+              29,
+              8
+            ]
+          }
+        ]
+      },
+      {
+        "text": "1 mot 1: A försöker ta sig förbi B.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A1",
+            "to": [
+              31,
+              13
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B1",
+            "to": [
+              32,
+              11
+            ]
+          }
+        ]
+      },
+      {
+        "text": "A skjuter.",
+        "actions": [
+          {
+            "type": "shot",
+            "who": "A1"
+          }
+        ]
+      },
+      {
+        "text": "Målvakten tar bollen. A vänder hem för att försvara. B går tillbaka till ledet, och nästa B-spelare startar från hörnet.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "G2",
+            "to": [
+              35.6,
+              10
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A1",
+            "to": [
+              16,
+              11
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B1",
+            "to": [
+              38.6,
+              3.6
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B2",
+            "to": [
+              31,
+              4
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Utkast från målvakten till den nya anfallaren.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "G2",
+            "to": "B2"
+          }
+        ]
+      },
+      {
+        "text": "Nu anfaller B och A försvarar.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "B2",
+            "to": [
+              11,
+              8
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A1",
+            "to": [
+              9,
+              9.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "B skjuter. A går tillbaka till sitt led, och nästa A-spelare anfaller.",
+        "actions": [
+          {
+            "type": "shot",
+            "who": "B2"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Avslutstrippeln",
+    "category": "Station",
+    "levels": [
+      "rod"
+    ],
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Avslut, och när ett avslut ska tas."
+      ],
+      [
+        "Anvisningar",
+        "Fyra led, A och D vid målet, B och C på mittlinjen. Tre faser i följd: 1) A anfaller 1 mot 0. 2) Efter avslutet vänder A och försvarar mot B och C, som anfaller 2 mot 1. 3) Efter det vänder B och C och försvarar mot A och D, som anfaller 2 mot 2 mot det lilla målet."
+      ],
+      [
+        "Tänk på",
+        "Låt spelarna själva upptäcka vilka ytor som är bra och hur man tar sig dit. Samla efter en runda och prata om vilka ytor som fungerade och vad som var svårt att försvara."
+      ]
+    ],
+    "entities": {
+      "G": {
+        "type": "goalie",
+        "team": "away",
+        "x": 4.2,
+        "y": 10
+      },
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 1.8,
+        "y": 2
+      },
+      "D": {
+        "type": "player",
+        "team": "home",
+        "x": 1.8,
+        "y": 18
+      },
+      "B": {
+        "type": "player",
+        "team": "away",
+        "x": 18.8,
+        "y": 2
+      },
+      "Cc": {
+        "type": "player",
+        "team": "away",
+        "x": 18.8,
+        "y": 18
+      },
+      "a2": {
+        "type": "player",
+        "team": "queue",
+        "x": 1,
+        "y": 1
+      },
+      "d2": {
+        "type": "player",
+        "team": "queue",
+        "x": 1,
+        "y": 19
+      },
+      "b2": {
+        "type": "player",
+        "team": "queue",
+        "x": 19.5,
+        "y": 1
+      },
+      "c2": {
+        "type": "player",
+        "team": "queue",
+        "x": 19.5,
+        "y": 19
+      },
+      "M1": {
+        "type": "cone",
+        "x": 19.5,
+        "y": 9
+      },
+      "M2": {
+        "type": "cone",
+        "x": 19.5,
+        "y": 11
+      }
+    },
+    "ball": {
+      "holder": "A"
+    },
+    "labels": [
+      {
+        "text": "A",
+        "at": [
+          3,
+          1.2
+        ]
+      },
+      {
+        "text": "D",
+        "at": [
+          3,
+          18.8
+        ]
+      },
+      {
+        "text": "B",
+        "at": [
+          17.6,
+          1.2
+        ]
+      },
+      {
+        "text": "C",
+        "at": [
+          17.6,
+          18.8
+        ]
+      },
+      {
+        "text": "Litet mål",
+        "at": [
+          18.2,
+          10
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Fas 1: A driver ut från hörnet…",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A",
+            "via": [
+              7,
+              2.5
+            ],
+            "to": [
+              12,
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "text": "…vänder upp mot mål…",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A",
+            "to": [
+              8,
+              8.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "…och skjuter.",
+        "actions": [
+          {
+            "type": "shot",
+            "who": "A"
+          }
+        ]
+      },
+      {
+        "text": "Fas 2: A vänder och blir försvarare. Målvakten slår ut till B, och B och C startar från mittlinjen.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "G",
+            "to": [
+              4.4,
+              10
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              10,
+              9
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              15,
+              4
+            ]
+          },
+          {
+            "type": "run",
+            "who": "Cc",
+            "to": [
+              15,
+              16
+            ]
+          }
+        ]
+      },
+      {
+        "text": "B får bollen.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "G",
+            "to": "B"
+          }
+        ]
+      },
+      {
+        "text": "B och C anfaller 2 mot 1 mot A.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "B",
+            "to": [
+              10,
+              5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "Cc",
+            "to": [
+              9,
+              14
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              8,
+              7.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "B passar till C…",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "B",
+            "to": "Cc"
+          },
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              7,
+              10.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "…som skjuter.",
+        "actions": [
+          {
+            "type": "shot",
+            "who": "Cc"
+          }
+        ]
+      },
+      {
+        "text": "Fas 3: B och C vänder hem för att försvara. Målvakten slår ut till D, och A och D anfaller 2 mot 2 mot det lilla målet.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "G",
+            "to": [
+              4.2,
+              10.4
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              16,
+              7
+            ]
+          },
+          {
+            "type": "run",
+            "who": "Cc",
+            "to": [
+              15,
+              12
+            ]
+          },
+          {
+            "type": "run",
+            "who": "D",
+            "to": [
+              6,
+              16
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              9,
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "text": "D får bollen.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "G",
+            "to": "D"
+          }
+        ]
+      },
+      {
+        "text": "D driver framåt och passar A.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "D",
+            "to": [
+              12,
+              15
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              14,
+              6
+            ]
+          },
+          {
+            "type": "run",
+            "who": "Cc",
+            "to": [
+              15,
+              13.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "D passar A, som tar sig mot det lilla målet.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "D",
+            "to": "A"
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              16.5,
+              8
+            ]
+          }
+        ]
+      },
+      {
+        "text": "A avslutar mot det lilla målet.",
+        "actions": [
+          {
+            "type": "shot",
+            "who": "A",
+            "to": [
+              19.4,
+              10
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Stolsinnebandy",
+    "category": "Station",
+    "levels": [
+      "rod"
+    ],
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Speluppbyggnad på ett roligt sätt, och att få med backarna i spelet."
+      ],
+      [
+        "Anvisningar",
+        "Ställ ut en stol eller bänk per lag och bestäm hur stor planen är. Två lag i varsitt led. Ledaren spelar in en boll mot ett hörn, två spelare från varje lag springer in och spelar 2 mot 2, och nästa spelare i varje led sätter sig på lagets stol (bara en åt gången). Spelas bollen tillbaka till stolsspelaren går hen in i spelet och nästa i ledet sätter sig."
+      ],
+      [
+        "Organisation",
+        "Spelet pågår tills bollen går i mål, över sargen eller över linjen där stolarna står. Då ställer sig de som spelat sist i sitt led och nya spelare kliver fram."
+      ]
+    ],
+    "entities": {
+      "S1": {
+        "type": "cone",
+        "x": 18.6,
+        "y": 6.5
+      },
+      "S2": {
+        "type": "cone",
+        "x": 18.6,
+        "y": 13.5
+      },
+      "H1": {
+        "type": "player",
+        "team": "home",
+        "x": 19,
+        "y": 5
+      },
+      "H2": {
+        "type": "player",
+        "team": "home",
+        "x": 19.4,
+        "y": 4
+      },
+      "hq1": {
+        "type": "player",
+        "team": "queue",
+        "x": 19.4,
+        "y": 3
+      },
+      "hq2": {
+        "type": "player",
+        "team": "queue",
+        "x": 19.4,
+        "y": 2
+      },
+      "A1": {
+        "type": "player",
+        "team": "away",
+        "x": 19,
+        "y": 15
+      },
+      "A2": {
+        "type": "player",
+        "team": "away",
+        "x": 19.4,
+        "y": 16
+      },
+      "aq1": {
+        "type": "player",
+        "team": "queue",
+        "x": 19.4,
+        "y": 17
+      },
+      "aq2": {
+        "type": "player",
+        "team": "queue",
+        "x": 19.4,
+        "y": 18
+      },
+      "T": {
+        "type": "player",
+        "team": "third",
+        "x": 19.2,
+        "y": 10
+      }
+    },
+    "ball": {
+      "holder": "T"
+    },
+    "lines": [
+      {
+        "from": [
+          18,
+          0
+        ],
+        "to": [
+          18,
+          20
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "text": "Stol",
+        "at": [
+          17.2,
+          6.5
+        ]
+      },
+      {
+        "text": "Stol",
+        "at": [
+          17.2,
+          13.5
+        ]
+      },
+      {
+        "text": "Ledare",
+        "at": [
+          17.4,
+          10
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Ledaren spelar in bollen mot ett hörn. Två spelare per lag springer in, och nästa i varje led sätter sig på stolen.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "T",
+            "to": "H1"
+          },
+          {
+            "type": "run",
+            "who": "H1",
+            "to": [
+              4,
+              16
+            ]
+          },
+          {
+            "type": "run",
+            "who": "H2",
+            "to": [
+              10,
+              11
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A1",
+            "to": [
+              6,
+              14
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A2",
+            "to": [
+              10,
+              6
+            ]
+          },
+          {
+            "type": "run",
+            "who": "hq1",
+            "to": [
+              18.6,
+              6.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "aq1",
+            "to": [
+              18.6,
+              13.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Hemmalaget spelar tillbaka till sin spelare på stolen.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "H1",
+            "to": "hq1"
+          },
+          {
+            "type": "run",
+            "who": "A1",
+            "to": [
+              7,
+              12
+            ]
+          },
+          {
+            "type": "run",
+            "who": "H1",
+            "to": [
+              8,
+              15
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Stolsspelaren passar in och går själv med i spelet. Nästa i ledet sätter sig på stolen.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "hq1",
+            "to": "H2"
+          },
+          {
+            "type": "run",
+            "who": "hq1",
+            "to": [
+              12,
+              5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "hq2",
+            "to": [
+              18.6,
+              6.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A2",
+            "to": [
+              9,
+              9
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Hemmalaget anfaller och skjuter.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "H2",
+            "to": [
+              8,
+              11.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A2",
+            "to": [
+              7.5,
+              10
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Skott.",
+        "actions": [
+          {
+            "type": "shot",
+            "who": "H2"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Kom alla mina kycklingar",
+    "category": "Lekar/slutövning",
+    "levels": [
+      "bla"
+    ],
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Anvisningar",
+        "Lek på halvplan. En ledare är höna på ena långsidan och en ledare börjar som varg i mitten. Spelarna delas i lag om 3–4 med västar i olika färger och står på andra långsidan. Ett lag i taget ska ta bollen över till hönan och måste passa minst två gånger på vägen. Vargen försöker ta bollen. Den som tappar bollen blir också varg, resten av laget fortsätter tills bara två är kvar.\nVariant: alla har en egen boll och driver förbi vargen."
+      ]
+    ],
+    "entities": {
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 7.5,
+        "y": 1.3
+      },
+      "B": {
+        "type": "player",
+        "team": "home",
+        "x": 8.8,
+        "y": 1.3
+      },
+      "C": {
+        "type": "player",
+        "team": "home",
+        "x": 10.1,
+        "y": 1.3
+      },
+      "l2a": {
+        "type": "player",
+        "team": "queue",
+        "x": 12.4,
+        "y": 1.3
+      },
+      "l2b": {
+        "type": "player",
+        "team": "queue",
+        "x": 13.7,
+        "y": 1.3
+      },
+      "l2c": {
+        "type": "player",
+        "team": "queue",
+        "x": 15,
+        "y": 1.3
+      },
+      "l3a": {
+        "type": "player",
+        "team": "queue",
+        "x": 16.6,
+        "y": 1.3
+      },
+      "l3b": {
+        "type": "player",
+        "team": "queue",
+        "x": 17.9,
+        "y": 1.3
+      },
+      "l3c": {
+        "type": "player",
+        "team": "queue",
+        "x": 19.2,
+        "y": 1.3
+      },
+      "V": {
+        "type": "player",
+        "team": "third",
+        "x": 13,
+        "y": 10
+      },
+      "H": {
+        "type": "player",
+        "team": "third",
+        "x": 11,
+        "y": 18.8
+      }
+    },
+    "ball": {
+      "holder": "A"
+    },
+    "labels": [
+      {
+        "text": "A",
+        "at": [
+          7.5,
+          2.7
+        ]
+      },
+      {
+        "text": "B",
+        "at": [
+          8.8,
+          2.7
+        ]
+      },
+      {
+        "text": "C",
+        "at": [
+          10.1,
+          2.7
+        ]
+      },
+      {
+        "text": "Lag 2",
+        "at": [
+          13.7,
+          3.4
+        ]
+      },
+      {
+        "text": "Lag 3",
+        "at": [
+          17.9,
+          3.4
+        ]
+      },
+      {
+        "text": "Varg",
+        "at": [
+          14.4,
+          10
+        ]
+      },
+      {
+        "text": "Höna",
+        "at": [
+          12.4,
+          18.8
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Lag 1 (A, B, C) ger sig iväg. A driver, B och C springer fram.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A",
+            "to": [
+              7.5,
+              5.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              11,
+              6.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "C",
+            "to": [
+              8,
+              9
+            ]
+          }
+        ]
+      },
+      {
+        "text": "A passar till B. Vargen går mot bollen.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "A",
+            "to": "B"
+          },
+          {
+            "type": "run",
+            "who": "V",
+            "to": [
+              12,
+              8.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "C springer förbi vargen och får passen av B.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "C",
+            "to": [
+              8.5,
+              13.5
+            ]
+          },
+          {
+            "type": "pass",
+            "from": "B",
+            "to": "C"
+          },
+          {
+            "type": "run",
+            "who": "V",
+            "to": [
+              10.5,
+              11
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              7.5,
+              9
+            ]
+          }
+        ]
+      },
+      {
+        "text": "C driver hem till hönan. A och B följer med.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "C",
+            "to": [
+              9.5,
+              17.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              7.5,
+              15.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              12.5,
+              15
+            ]
+          }
+        ]
+      }
+    ],
+    "ovrigt": true
+  },
+  {
+    "name": "Spel 3 mot 1",
+    "category": "Station",
+    "levels": [
+      "bla",
+      "rod"
+    ],
+    "view": [
+      0,
+      13
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Hålla bollen inom laget."
+      ],
+      [
+        "Anvisningar",
+        "3 mot 1 i ett avgränsat hörn. De tre anfallarna passar bollen mellan sig och rör sig för att bli spelbara. Tar försvararen bollen lämnar hen tillbaka den. Använd hörnet och sargen för att spela bollen förbi försvararen."
+      ]
+    ],
+    "entities": {
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 1.6,
+        "y": 13
+      },
+      "B": {
+        "type": "player",
+        "team": "home",
+        "x": 4,
+        "y": 18.8
+      },
+      "C": {
+        "type": "player",
+        "team": "home",
+        "x": 8,
+        "y": 15
+      },
+      "D": {
+        "type": "player",
+        "team": "away",
+        "x": 4.5,
+        "y": 15.2
+      }
+    },
+    "ball": {
+      "holder": "A"
+    },
+    "labels": [
+      {
+        "text": "A",
+        "at": [
+          1.6,
+          11.6
+        ]
+      },
+      {
+        "text": "B",
+        "at": [
+          5.4,
+          18.8
+        ]
+      },
+      {
+        "text": "C",
+        "at": [
+          9.4,
+          15
+        ]
+      }
+    ],
+    "lines": [
+      {
+        "from": [
+          0,
+          11
+        ],
+        "to": [
+          10,
+          11
+        ]
+      },
+      {
+        "from": [
+          10,
+          11
+        ],
+        "to": [
+          10,
+          20
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "A passar till B. Försvararen går mot bollen.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "A",
+            "to": "B"
+          },
+          {
+            "type": "run",
+            "who": "D",
+            "to": [
+              4,
+              17
+            ]
+          }
+        ]
+      },
+      {
+        "text": "C rör sig in i en ledig yta och får passen av B.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "C",
+            "to": [
+              7.5,
+              13
+            ]
+          },
+          {
+            "type": "pass",
+            "from": "B",
+            "to": "C"
+          },
+          {
+            "type": "run",
+            "who": "D",
+            "to": [
+              5.5,
+              14.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "A rör sig bort från försvararen och får passen av C.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              2,
+              16
+            ]
+          },
+          {
+            "type": "pass",
+            "from": "C",
+            "to": "A"
+          },
+          {
+            "type": "run",
+            "who": "D",
+            "to": [
+              4,
+              15
+            ]
+          }
+        ]
+      }
+    ],
+    "ovrigt": true
+  },
+  {
+    "name": "Passningar i kvadrat",
+    "category": "Station",
+    "levels": [
+      "bla"
+    ],
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Passningar i rörelse."
+      ],
+      [
+        "Anvisningar",
+        "Dela planen i mindre kvadrater med koner, till exempel tre par i varje kvadrat. Paren passar till varandra och är hela tiden i rörelse. Tävla gärna: fem passningar i rad ger en poäng. Står paret still dras en poäng av."
+      ]
+    ],
+    "entities": {
+      "k1": {
+        "type": "cone",
+        "x": 8,
+        "y": 1.5
+      },
+      "k2": {
+        "type": "cone",
+        "x": 8,
+        "y": 8.5
+      },
+      "k3": {
+        "type": "cone",
+        "x": 16,
+        "y": 1.5
+      },
+      "k4": {
+        "type": "cone",
+        "x": 16,
+        "y": 8.5
+      },
+      "k5": {
+        "type": "cone",
+        "x": 8,
+        "y": 11.5
+      },
+      "k6": {
+        "type": "cone",
+        "x": 8,
+        "y": 18.5
+      },
+      "k7": {
+        "type": "cone",
+        "x": 16,
+        "y": 11.5
+      },
+      "k8": {
+        "type": "cone",
+        "x": 16,
+        "y": 18.5
+      },
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 9.5,
+        "y": 2.5
+      },
+      "B": {
+        "type": "player",
+        "team": "home",
+        "x": 12.5,
+        "y": 5.5
+      },
+      "p1": {
+        "type": "player",
+        "team": "home",
+        "x": 15.2,
+        "y": 7.4
+      },
+      "p2": {
+        "type": "player",
+        "team": "home",
+        "x": 12.8,
+        "y": 7.9
+      },
+      "p3": {
+        "type": "player",
+        "team": "home",
+        "x": 15,
+        "y": 5
+      },
+      "p4": {
+        "type": "player",
+        "team": "home",
+        "x": 9.6,
+        "y": 4.6
+      },
+      "q1": {
+        "type": "player",
+        "team": "home",
+        "x": 9.6,
+        "y": 13
+      },
+      "q2": {
+        "type": "player",
+        "team": "home",
+        "x": 11.8,
+        "y": 15
+      },
+      "q3": {
+        "type": "player",
+        "team": "home",
+        "x": 14.5,
+        "y": 12.8
+      },
+      "q4": {
+        "type": "player",
+        "team": "home",
+        "x": 9.8,
+        "y": 17.2
+      },
+      "q5": {
+        "type": "player",
+        "team": "home",
+        "x": 12.6,
+        "y": 17.4
+      },
+      "q6": {
+        "type": "player",
+        "team": "home",
+        "x": 14.6,
+        "y": 15.8
+      }
+    },
+    "ball": {
+      "holder": "A"
+    },
+    "balls": [
+      [
+        15.7,
+        7.9
+      ],
+      [
+        9.2,
+        5.1
+      ],
+      [
+        10.1,
+        13.6
+      ],
+      [
+        15,
+        13.3
+      ],
+      [
+        10.4,
+        17.6
+      ]
+    ],
+    "labels": [
+      {
+        "text": "A",
+        "at": [
+          8.2,
+          2.5
+        ]
+      },
+      {
+        "text": "B",
+        "at": [
+          11.2,
+          5.5
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "A passar till B.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "A",
+            "to": "B"
+          }
+        ]
+      },
+      {
+        "text": "A rör sig till en ny yta och får tillbaka bollen av B.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              14,
+              2.6
+            ]
+          },
+          {
+            "type": "pass",
+            "from": "B",
+            "to": "A"
+          }
+        ]
+      },
+      {
+        "text": "B rör sig och får bollen igen. Fem passningar i rad ger en poäng.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              10,
+              6.8
+            ]
+          },
+          {
+            "type": "pass",
+            "from": "A",
+            "to": "B"
+          }
+        ]
+      }
+    ],
+    "ovrigt": true
+  },
+  {
+    "name": "Gladiatorerna",
+    "category": "Station",
+    "levels": [
+      "bla"
+    ],
+    "view": [
+      0,
+      40
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Ta sig förbi en försvarare med dribbling eller väggspel."
+      ],
+      [
+        "Anvisningar",
+        "Banan delas i zoner med koner. I varje zon finns något att ta sig förbi. Ett hinder kan vara fast, till exempel en stol eller pallplint, eller en ledare eller förälder som anpassar sitt motstånd efter spelaren. Använd väggpassaren eller dribbla förbi. Väggpassaren kan bytas mot en bänk eller sargbit. Avsluta med skott på mål."
+      ]
+    ],
+    "entities": {
+      "k1": {
+        "type": "cone",
+        "x": 32,
+        "y": 12
+      },
+      "k2": {
+        "type": "cone",
+        "x": 26,
+        "y": 12
+      },
+      "k3": {
+        "type": "cone",
+        "x": 20.5,
+        "y": 12
+      },
+      "H1": {
+        "type": "player",
+        "team": "away",
+        "x": 28.5,
+        "y": 17.2
+      },
+      "W": {
+        "type": "player",
+        "team": "third",
+        "x": 29,
+        "y": 12.8
+      },
+      "F": {
+        "type": "player",
+        "team": "away",
+        "x": 23.5,
+        "y": 16
+      },
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 31,
+        "y": 16.4
+      },
+      "q1": {
+        "type": "player",
+        "team": "queue",
+        "x": 34.5,
+        "y": 17.5
+      },
+      "q2": {
+        "type": "player",
+        "team": "queue",
+        "x": 35.7,
+        "y": 18
+      }
+    },
+    "ball": {
+      "holder": "A"
+    },
+    "labels": [
+      {
+        "text": "A",
+        "at": [
+          31,
+          18
+        ]
+      },
+      {
+        "text": "Hinder",
+        "at": [
+          27.1,
+          17.6
+        ]
+      },
+      {
+        "text": "Väggpassare",
+        "at": [
+          29,
+          9.7
+        ]
+      },
+      {
+        "text": "Försvarare",
+        "at": [
+          25.1,
+          17
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "A passar till väggpassaren och springer förbi hindret.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "A",
+            "to": "W"
+          },
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              26.5,
+              15.2
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Väggpassaren spelar tillbaka till A.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "W",
+            "to": "A"
+          }
+        ]
+      },
+      {
+        "text": "A dribblar förbi försvararen.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A",
+            "to": [
+              20.5,
+              15.5
+            ],
+            "via": [
+              24,
+              13
+            ]
+          },
+          {
+            "type": "run",
+            "who": "F",
+            "to": [
+              22.8,
+              15
+            ]
+          }
+        ]
+      },
+      {
+        "text": "A driver mot mål.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A",
+            "to": [
+              8,
+              12.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "A skjuter.",
+        "actions": [
+          {
+            "type": "shot",
+            "who": "A"
+          }
+        ]
+      }
+    ],
+    "ovrigt": true
+  },
+  {
+    "name": "Ajax",
+    "category": "Station",
+    "levels": [
+      "bla"
+    ],
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Hitta de lediga ytorna på planen och runt spelet."
+      ],
+      [
+        "Anvisningar",
+        "Fyra anfallare mot två försvarare med två mål, gärna på en yta runt 20 × 10 m. Anfallarna får en poäng när bollen har gått via alla fyra. Försvararna jagar bollen och försöker stoppa det. Vinner de bollen får de anfalla mot valfritt mål. Utan målvakter fungerar små mål bra."
+      ]
+    ],
+    "entities": {
+      "k1": {
+        "type": "cone",
+        "x": 1.5,
+        "y": 3
+      },
+      "k2": {
+        "type": "cone",
+        "x": 1.5,
+        "y": 17
+      },
+      "k3": {
+        "type": "cone",
+        "x": 19.2,
+        "y": 3
+      },
+      "k4": {
+        "type": "cone",
+        "x": 19.2,
+        "y": 17
+      },
+      "G1": {
+        "type": "goalie",
+        "team": "away",
+        "x": 4.2,
+        "y": 10
+      },
+      "G2": {
+        "type": "goalie",
+        "team": "away",
+        "x": 18.2,
+        "y": 10
+      },
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 7.5,
+        "y": 4.5
+      },
+      "B": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 15.5
+      },
+      "C": {
+        "type": "player",
+        "team": "home",
+        "x": 15,
+        "y": 6
+      },
+      "D": {
+        "type": "player",
+        "team": "home",
+        "x": 14.5,
+        "y": 15
+      },
+      "E1": {
+        "type": "player",
+        "team": "away",
+        "x": 8.5,
+        "y": 10
+      },
+      "E2": {
+        "type": "player",
+        "team": "away",
+        "x": 11.5,
+        "y": 12.5
+      }
+    },
+    "ball": {
+      "holder": "A"
+    },
+    "labels": [
+      {
+        "text": "A",
+        "at": [
+          7.5,
+          3.1
+        ]
+      },
+      {
+        "text": "B",
+        "at": [
+          6,
+          16.9
+        ]
+      },
+      {
+        "text": "C",
+        "at": [
+          15,
+          4.6
+        ]
+      },
+      {
+        "text": "D",
+        "at": [
+          14.5,
+          16.4
+        ]
+      },
+      {
+        "text": "Mål",
+        "at": [
+          19.3,
+          12.4
+        ]
+      }
+    ],
+    "lines": [
+      {
+        "from": [
+          19.3,
+          9.2
+        ],
+        "to": [
+          19.3,
+          10.8
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "C rör sig in i en ledig yta och får passen av A. Försvararna jagar bollen.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "C",
+            "to": [
+              13.5,
+              5
+            ]
+          },
+          {
+            "type": "pass",
+            "from": "A",
+            "to": "C"
+          },
+          {
+            "type": "run",
+            "who": "E2",
+            "to": [
+              12,
+              8
+            ]
+          },
+          {
+            "type": "run",
+            "who": "E1",
+            "to": [
+              10,
+              8.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "D rör sig fri och får bollen av C.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "D",
+            "to": [
+              15.5,
+              13.5
+            ]
+          },
+          {
+            "type": "pass",
+            "from": "C",
+            "to": "D"
+          },
+          {
+            "type": "run",
+            "who": "E2",
+            "to": [
+              13.5,
+              10.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "B rör sig fri och får bollen av D. Alla fyra har haft bollen: poäng!",
+        "actions": [
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              9,
+              15
+            ]
+          },
+          {
+            "type": "pass",
+            "from": "D",
+            "to": "B"
+          },
+          {
+            "type": "run",
+            "who": "E1",
+            "to": [
+              9,
+              12
+            ]
+          }
+        ]
+      }
+    ],
+    "ovrigt": true
+  },
+  {
+    "name": "Tampa",
+    "category": "Station",
+    "levels": [
+      "bla",
+      "rod"
+    ],
+    "view": [
+      0,
+      16
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Dueller och avslut i högt tempo."
+      ],
+      [
+        "Anvisningar",
+        "Två lag ställer sig på led från var sin målstolpe ut mot sargen. De två närmast målet i varje lag går in och spelar 2 mot 2 när ledaren slänger in en boll. Spelarna i leden är väggar och håller bollen kvar i spel. Spelet pågår tills det blir mål eller bollen går ut, sedan ny boll och nya spelare.\nMålet kan gärna ställas med öppningen snett mot ett hörn."
+      ]
+    ],
+    "entities": {
+      "G": {
+        "type": "goalie",
+        "team": "away",
+        "x": 4.1,
+        "y": 10
+      },
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 3,
+        "y": 8.2
+      },
+      "B": {
+        "type": "player",
+        "team": "home",
+        "x": 3,
+        "y": 7
+      },
+      "h2": {
+        "type": "player",
+        "team": "home",
+        "x": 3,
+        "y": 5.8
+      },
+      "h3": {
+        "type": "player",
+        "team": "home",
+        "x": 3,
+        "y": 4.6
+      },
+      "h4": {
+        "type": "player",
+        "team": "home",
+        "x": 3,
+        "y": 3.4
+      },
+      "h5": {
+        "type": "player",
+        "team": "home",
+        "x": 3,
+        "y": 2.2
+      },
+      "C": {
+        "type": "player",
+        "team": "away",
+        "x": 3,
+        "y": 11.8
+      },
+      "D": {
+        "type": "player",
+        "team": "away",
+        "x": 3,
+        "y": 13
+      },
+      "a2": {
+        "type": "player",
+        "team": "away",
+        "x": 3,
+        "y": 14.2
+      },
+      "a3": {
+        "type": "player",
+        "team": "away",
+        "x": 3,
+        "y": 15.4
+      },
+      "a4": {
+        "type": "player",
+        "team": "away",
+        "x": 3,
+        "y": 16.6
+      },
+      "a5": {
+        "type": "player",
+        "team": "away",
+        "x": 3,
+        "y": 17.8
+      },
+      "T": {
+        "type": "player",
+        "team": "third",
+        "x": 12,
+        "y": 10
+      }
+    },
+    "ball": {
+      "holder": "T"
+    },
+    "balls": [
+      [
+        12.6,
+        11.2
+      ],
+      [
+        13,
+        11
+      ],
+      [
+        12.8,
+        11.5
+      ]
+    ],
+    "labels": [
+      {
+        "text": "A",
+        "at": [
+          1.6,
+          8.2
+        ]
+      },
+      {
+        "text": "B",
+        "at": [
+          1.6,
+          7
+        ]
+      },
+      {
+        "text": "C",
+        "at": [
+          1.6,
+          11.8
+        ]
+      },
+      {
+        "text": "D",
+        "at": [
+          1.6,
+          13
+        ]
+      },
+      {
+        "text": "Ledare",
+        "at": [
+          13.4,
+          9
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Ledaren slänger in bollen. A hinner först, C går mot A.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              8,
+              7
+            ]
+          },
+          {
+            "type": "pass",
+            "from": "T",
+            "to": "A"
+          },
+          {
+            "type": "run",
+            "who": "C",
+            "to": [
+              7.5,
+              10.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "A spelar väggen med en spelare i ledet. B och D går in i spelet.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "A",
+            "to": "h3"
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              7,
+              4
+            ]
+          },
+          {
+            "type": "run",
+            "who": "D",
+            "to": [
+              7.5,
+              15
+            ]
+          }
+        ]
+      },
+      {
+        "text": "A springer förbi C och får tillbaka bollen.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              6.3,
+              8.3
+            ]
+          },
+          {
+            "type": "pass",
+            "from": "h3",
+            "to": "A"
+          },
+          {
+            "type": "run",
+            "who": "C",
+            "to": [
+              7.5,
+              9.2
+            ]
+          }
+        ]
+      },
+      {
+        "text": "A skjuter.",
+        "actions": [
+          {
+            "type": "shot",
+            "who": "A"
+          }
+        ]
+      }
+    ],
+    "ovrigt": true
+  },
+  {
+    "name": "Målen i mitten",
+    "category": "Station",
+    "levels": [
+      "bla",
+      "rod"
+    ],
+    "view": [
+      0,
+      40
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Hitta lägen till avslut och träna på att försvara mot dem."
+      ],
+      [
+        "Anvisningar",
+        "Vanlig match men med två mål rygg mot rygg i mitten, så att avsluten kommer från kortsidorna. Man får anfalla mot båda målen. Spela 2 mot 2 eller 3 mot 3 på cirka 15 × 10 m. Regel: efter en räddning eller ett insläppt mål måste laget först göra mål i det andra målet eller spela ut bollen till en bestämd yta.\nSmå mål fungerar bra. Med målvakter kan man räkna flera matcher samtidigt: utespelare mot målvakter, lag mot lag och målvakt mot målvakt."
+      ]
+    ],
+    "entities": {
+      "M1": {
+        "type": "goalie",
+        "team": "away",
+        "x": 8.4,
+        "y": 10
+      },
+      "M2": {
+        "type": "goalie",
+        "team": "away",
+        "x": 11.6,
+        "y": 10
+      },
+      "a1": {
+        "type": "player",
+        "team": "home",
+        "x": 6.5,
+        "y": 5.5
+      },
+      "a2": {
+        "type": "player",
+        "team": "home",
+        "x": 13.5,
+        "y": 13
+      },
+      "b1": {
+        "type": "player",
+        "team": "away",
+        "x": 7,
+        "y": 13.5
+      },
+      "b2": {
+        "type": "player",
+        "team": "away",
+        "x": 13,
+        "y": 6.5
+      },
+      "c1": {
+        "type": "player",
+        "team": "home",
+        "x": 26.5,
+        "y": 6
+      },
+      "c2": {
+        "type": "player",
+        "team": "home",
+        "x": 33,
+        "y": 13.5
+      },
+      "d1": {
+        "type": "player",
+        "team": "away",
+        "x": 27.5,
+        "y": 12.5
+      },
+      "d2": {
+        "type": "player",
+        "team": "away",
+        "x": 32.5,
+        "y": 7
+      }
+    },
+    "ball": {
+      "holder": "a1"
+    },
+    "balls": [
+      [
+        27,
+        6.6
+      ]
+    ],
+    "labels": [
+      {
+        "text": "Mål",
+        "at": [
+          10,
+          12.6
+        ]
+      },
+      {
+        "text": "Mål",
+        "at": [
+          30,
+          12.6
+        ]
+      }
+    ],
+    "lines": [
+      {
+        "from": [
+          9.4,
+          9.2
+        ],
+        "to": [
+          9.4,
+          10.8
+        ]
+      },
+      {
+        "from": [
+          10.6,
+          9.2
+        ],
+        "to": [
+          10.6,
+          10.8
+        ]
+      },
+      {
+        "from": [
+          29.4,
+          9.2
+        ],
+        "to": [
+          29.4,
+          10.8
+        ]
+      },
+      {
+        "from": [
+          30.6,
+          9.2
+        ],
+        "to": [
+          30.6,
+          10.8
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Match 2 mot 2 mot de två målen i mitten. Anfall åt båda hållen.",
+        "actions": []
+      }
+    ],
+    "ovrigt": true
   }
 ];

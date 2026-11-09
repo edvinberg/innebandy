@@ -94,20 +94,6 @@
       .level:hover {
         border-color: var(--ink);
       }
-      .level.disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-      }
-      .level.disabled:hover {
-        border-color: var(--rule);
-      }
-      .level small {
-        margin-left: auto;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        color: var(--ink-soft);
-      }
       .intro {
         background: linear-gradient(90deg, var(--blue) 50%, var(--black) 50%);
         color: var(--white);
@@ -252,8 +238,8 @@
         <a class="level" href="ovningar.html?niva=bla" style="--lvl: #2f8fe0"
           >Blå nivå</a
         >
-        <span class="level disabled" aria-disabled="true" style="--lvl: #d8343a"
-          >Röd nivå <small>Kommer senare</small></span
+        <a class="level" href="ovningar.html?niva=rod" style="--lvl: #d8343a"
+          >Röd nivå</a
         >
       </section>
     </div>

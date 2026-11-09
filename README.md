@@ -6,12 +6,12 @@
 
 | Fil          | Vad den gör                                                                  |
 | ------------ | ---------------------------------------------------------------------------- |
-| `index.html` | Startsida. Här väljer du nivå: grön eller blå.                                 |
+| `index.html` | Startsida. Här väljer du nivå: grön, blå eller röd.                                 |
 | `ovningar.html` | Övningsbanken, med flikar för Uppvärmning, Fys, Station, Lekar/slutövning och Småövning.                 |
 | `upplagg.html` | Upplägg. Formatet för ett träningstillfälle per nivå. Välj en övning per moment; valen sparas i webbläsaren. |
-| `plan.js`    | Momenten till Upplägg per nivå (`gron`, `bla`). `cat` = vilken kategori momentets övning väljs ur. |
+| `plan.js`    | Momenten till Upplägg per nivå (`gron`, `bla`, `rod`). `cat` = vilken kategori momentets övning väljs ur. |
 | `meta.html`  | Vårt spel. Spelidén i delar, med text och skiss för varje del.                |
-| `game.js`    | Texterna och skisserna till Vårt spel per nivå (`gron`, `bla`), i samma format som övningarna, plus principerna per nivå (`PRINCIPLES`). |
+| `game.js`    | Texterna och skisserna till Vårt spel per nivå (`gron`, `bla`, `rod`), i samma format som övningarna, plus principerna per nivå (`PRINCIPLES`). |
 | `nav.js`     | Navbaren som syns överst på alla sidor.                                       |
 | `admin.html` | Admin. Visar varje övnings JSON bredvid skissen, med förklaring av fälten.  |
 | `drills.js`  | Alla övningar. Det är den enda filen som ändras när du lägger till övningar. |
@@ -96,7 +96,7 @@ Planen är 40 × 20 m och står upprätt.
 | ---------- | --------------------------------------------------------------------------------------------- |
 | `name`     | Övningens namn.                                                                               |
 | `category` | `Uppvärmning`, `Fys`, `Station`, `Lekar/slutövning` eller `Småövning`.                                                         |
-| `levels`   | Nivåerna övningen hör till: `["bla"]`, `["gron"]` eller `["gron", "bla"]`. |
+| `levels`   | Nivåerna övningen hör till: `"gron"`, `"bla"` och/eller `"rod"`, t.ex. `["gron", "bla"]`. |
 | `view`     | Vilken del av planen som visas, som `[från x, till x]`.                                       |
 | `info`     | Rubrik och text för bladet. Rader med tom text visas inte. Radbrytning skrivs `\n`.           |
 | `entities` | Alla på planen. Namnet (`A`, `C`, `X1`) används i stegen men syns inte på planen.             |
