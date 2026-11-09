@@ -262,8 +262,17 @@
       }
 
       @media (max-width: 1100px) {
+        /* En kolumn: sidan scrollar i stället för varje kolumn för sig. */
+        html,
+        body {
+          height: auto;
+        }
         .layout {
+          flex: none;
           grid-template-columns: minmax(0, 1fr);
+        }
+        .col {
+          overflow: visible;
         }
         .list,
         .side {
