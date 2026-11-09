@@ -1,4 +1,4 @@
-# Sirius övningsbank
+# Innebandy övningsbank
 
 Övningar som ritade, animerade skisser i stället för bara text.
 
