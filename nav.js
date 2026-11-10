@@ -113,8 +113,8 @@
   links.className = "sn-links";
   const items = [["index.html", "Start"]];
   if (level) {
+    items.push([`upplagg.html?niva=${level}`, "Skapa träningspass", "upplagg.html"]);
     items.push([`ovningar.html?niva=${level}`, "Övningar", "ovningar.html"]);
-    items.push([`upplagg.html?niva=${level}`, "Upplägg", "upplagg.html"]);
   }
   items.push(["admin.html", "Admin"]);
   for (const [href, label, page] of items) {
