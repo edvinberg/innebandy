@@ -440,7 +440,7 @@
         const sel = document.createElement("select");
         sel.className = "pick";
         sel.setAttribute("aria-label", `Övning för ${r.moment}`);
-        sel.add(new Option(r.cat ? `Välj övning (${r.cat})` : "Välj övning", ""));
+        sel.add(new Option("Välj övning", ""));
         // Sparad egen övning visas som ett vanligt val i listan.
         const mine = new Option("", MINE);
         sel.add(mine);
