@@ -191,6 +191,44 @@
         flex-direction: column;
         gap: 2px;
       }
+      .pick-row {
+        display: flex;
+        gap: 8px;
+        max-width: 420px;
+      }
+      .pick-row .pick {
+        flex: 1;
+        min-width: 0;
+      }
+      .pen {
+        flex: none;
+        width: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .pen:hover {
+        border-color: var(--white);
+      }
+      .pen svg {
+        width: 18px;
+        height: 18px;
+      }
+      .custom .back {
+        color: var(--white);
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+      }
+      .custom .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
       .custom {
         display: flex;
         flex-direction: column;
@@ -316,7 +354,6 @@
       };
       const DRILLS = window.DRILLS.filter((d) => d.levels.includes(window.NIVA));
 
-      const OWN = "__egen";
       function picker(r, id) {
         const sel = document.createElement("select");
         sel.className = "pick";
@@ -340,10 +377,21 @@
           list.forEach((d) => g.appendChild(new Option(d.name, d.name)));
           sel.appendChild(g);
         }
-        sel.add(new Option("+ Egen övning…", OWN));
         const own = typeof picks[id] === "object";
-        sel.value = own ? OWN : DRILLS.some((d) => d.name === picks[id]) ? picks[id] : "";
+        sel.value = !own && DRILLS.some((d) => d.name === picks[id]) ? picks[id] : "";
         sel.toggleAttribute("data-empty", !sel.value);
+
+        const pen = document.createElement("button");
+        pen.type = "button";
+        pen.className = "pen";
+        pen.title = "Skriv egen övning";
+        pen.setAttribute("aria-label", `Skriv egen övning för ${r.moment}`);
+        pen.innerHTML =
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
+        const pickRow = document.createElement("div");
+        pickRow.className = "pick-row";
+        pickRow.hidden = own;
+        pickRow.append(sel, pen);
 
         // Egen övning: läggs in i passet direkt och skickas samtidigt som förslag.
         // Den sparas i samma form som Föreslå övning, med tom skiss (img).
@@ -387,23 +435,46 @@
             ? "Tillagd i passet och skickad som förslag."
             : "Ändringen är sparad i passet.";
         });
-        box.append(name, text, btn, note);
-
-        sel.addEventListener("change", () => {
-          if (sel.value === OWN) {
-            box.hidden = false;
-            name.focus();
-          } else {
-            box.hidden = true;
-            if (sel.value) picks[id] = sel.value;
-            else delete picks[id];
+        const back = document.createElement("button");
+        back.type = "button";
+        back.className = "back";
+        back.textContent = "Välj ur listan";
+        back.addEventListener("click", () => {
+          if (typeof picks[id] === "object") {
+            delete picks[id];
+            save();
+            renderRows();
           }
-          if (sel.value === OWN && typeof picks[id] !== "object") delete picks[id];
+          name.value = text.value = note.textContent = "";
+          btn.textContent = "Lägg till";
+          box.hidden = true;
+          pickRow.hidden = false;
+        });
+        const actions = document.createElement("div");
+        actions.className = "actions";
+        actions.append(btn, back);
+        box.append(name, text, actions, note);
+
+        pen.addEventListener("click", () => {
+          if (sel.value) {
+            delete picks[id];
+            save();
+            sel.value = "";
+            sel.toggleAttribute("data-empty", true);
+            renderRows();
+          }
+          pickRow.hidden = true;
+          box.hidden = false;
+          name.focus();
+        });
+        sel.addEventListener("change", () => {
+          if (sel.value) picks[id] = sel.value;
+          else delete picks[id];
           save();
           sel.toggleAttribute("data-empty", !sel.value);
           renderRows();
         });
-        return [sel, box];
+        return [pickRow, box];
       }
 
       // Vald övning visas i upplägget, under sitt moment.
