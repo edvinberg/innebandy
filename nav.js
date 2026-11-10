@@ -116,6 +116,7 @@
     items.push([`upplagg.html?niva=${level}`, "Skapa träningspass", "upplagg.html"]);
     items.push([`ovningar.html?niva=${level}`, "Övningar", "ovningar.html"]);
   }
+  items.push(["foresla.html", "Föreslå övning"]);
   items.push(["admin.html", "Admin"]);
   for (const [href, label, page] of items) {
     const a = document.createElement("a");

@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Innebandy – föreslå övning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+    />
+    <style>
+      /* Föreslå övning: så går det till till vänster, formuläret till höger. */
+      :root {
+        --blue: #0a3a6e;
+        --navy: #0d4c8f;
+        --black: #0b0e12;
+        --white: #ffffff;
+        --soft: rgba(255, 255, 255, 0.8);
+        --paper: #ffffff;
+        --ink: #0b0e12;
+        --ink-soft: #5b6470;
+        --rule: #dde2e8;
+        --font: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--font);
+        font-size: 15px;
+        line-height: 1.45;
+      }
+      .page {
+        min-height: calc(100vh - var(--nav-h));
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+      .intro {
+        background: linear-gradient(90deg, var(--blue) 50%, var(--black) 50%);
+        color: var(--white);
+        padding-block: 32px 36px;
+        padding-left: max(48px, env(safe-area-inset-left, 0px));
+        padding-right: 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      h1 {
+        margin: 0;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
+        line-height: 1.1;
+        font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      h1::before {
+        content: "";
+        display: block;
+        width: 232px;
+        max-width: 100%;
+        height: 4px;
+        background: radial-gradient(circle, var(--white) 1.6px, transparent 2px)
+          0 0 / 10px 4px repeat-x;
+      }
+      .meta {
+        margin: 0;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--soft);
+      }
+      .steps {
+        margin: 8px 0 0;
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        color: var(--soft);
+        max-width: 46ch;
+      }
+      .steps b {
+        color: var(--white);
+      }
+      .build {
+        padding-block: 32px 40px;
+        padding-left: 32px;
+        padding-right: max(32px, env(safe-area-inset-right, 0px));
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      h2 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        max-width: 520px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        min-width: 0;
+      }
+      .field > label,
+      .field > legend {
+        padding: 0;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .hint {
+        margin: 0;
+        font-size: 0.8125rem;
+        color: var(--ink-soft);
+      }
+      input[type="text"],
+      input[type="number"],
+      select,
+      textarea {
+        width: 100%;
+        font: inherit;
+        font-size: 0.9375rem;
+        padding: 8px 10px;
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        background: var(--paper);
+        color: var(--ink);
+      }
+      textarea {
+        min-height: 88px;
+        resize: vertical;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 2px solid var(--navy);
+        outline-offset: 0;
+        border-color: var(--navy);
+      }
+      .inline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+      }
+      .inline label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 500;
+      }
+      .numbers {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .numbers label {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        font-size: 0.8125rem;
+        font-weight: 600;
+      }
+      .error {
+        margin: 0;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: #b3261e;
+      }
+      .send {
+        align-self: flex-start;
+        font: inherit;
+        font-size: 0.875rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--white);
+        background: var(--navy);
+        border: 0;
+        border-radius: 999px;
+        padding: 10px 22px;
+        cursor: pointer;
+      }
+      .send:hover {
+        background: var(--blue);
+      }
+      .done {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 520px;
+      }
+      .done p {
+        margin: 0;
+      }
+      .summary {
+        margin: 0;
+        padding: 14px 16px;
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        display: grid;
+        grid-template-columns: max-content minmax(0, 1fr);
+        gap: 6px 16px;
+        font-size: 0.875rem;
+      }
+      .summary dt {
+        font-weight: 700;
+      }
+      .summary dd {
+        margin: 0;
+        white-space: pre-line;
+      }
+      .again {
+        align-self: flex-start;
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ink);
+        background: transparent;
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        padding: 6px 14px;
+        cursor: pointer;
+      }
+      .again:hover {
+        border-color: var(--ink);
+      }
+      @media (max-width: 820px) {
+        .page {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .intro,
+        .build {
+          padding-left: max(20px, env(safe-area-inset-left, 0px));
+          padding-right: max(20px, env(safe-area-inset-right, 0px));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script src="nav.js"></script>
+    <div class="page">
+      <section class="intro">
+        <h1>Föreslå övning</h1>
+        <ol class="steps">
+          <li><b>Beskriv övningen</b> i formuläret – bara text.</li>
+          <li><b>Vi ritar skissen</b> på planen och går igenom texten.</li>
+          <li><b>Övningen läggs in</b> i övningsbanken för de nivåer du valt.</li>
+        </ol>
+      </section>
+      <section class="build">
+        <h2>Din övning</h2>
+        <form id="form" novalidate>
+          <div class="field">
+            <label for="name">Namn *</label>
+            <input type="text" id="name" required />
+          </div>
+          <div class="field">
+            <label for="category">Kategori *</label>
+            <select id="category" required>
+              <option value="">Välj kategori</option>
+            </select>
+          </div>
+          <fieldset class="field">
+            <legend>Nivå *</legend>
+            <div class="inline" id="levels"></div>
+          </fieldset>
+          <fieldset class="field">
+            <legend>Antal</legend>
+            <div class="numbers">
+              <label>Minst spelare *<input type="number" id="min" min="1" required /></label>
+              <label>Max spelare<input type="number" id="max" min="1" /></label>
+              <label>Tränare<input type="number" id="coaches" min="0" /></label>
+            </div>
+            <p class="hint">Målvakter räknas som spelare. Lämna max tomt om alla kan vara med. Tränare = tränare som har en roll i övningen.</p>
+          </fieldset>
+          <div class="field">
+            <label for="purpose">Syfte</label>
+            <textarea id="purpose" placeholder="Vad tränar övningen?"></textarea>
+          </div>
+          <div class="field">
+            <label for="how">Anvisningar *</label>
+            <textarea id="how" required placeholder="Hur går övningen till?"></textarea>
+          </div>
+          <div class="field">
+            <label for="org">Organisation</label>
+            <textarea id="org" placeholder="Yta, material, hur spelarna delas upp."></textarea>
+          </div>
+          <p class="error" id="error" hidden></p>
+          <button class="send" type="submit">Skicka förslag</button>
+        </form>
+        <div class="done" id="done" hidden>
+          <p><b>Tack!</b> Vi ritar skissen och lägger in övningen i banken.</p>
+          <dl class="summary" id="summary"></dl>
+          <button class="again" id="again" type="button">Föreslå en till</button>
+        </div>
+      </section>
+    </div>
+    <script src="board.js"></script>
+    <script>
+      const $ = (id) => document.getElementById(id);
+      for (const c of DrillBoard.CATEGORIES) $("category").appendChild(new Option(c, c));
+      for (const [key, label] of Object.entries(window.LEVELS)) {
+        const l = document.createElement("label");
+        const box = document.createElement("input");
+        box.type = "checkbox";
+        box.value = key;
+        box.checked = key === window.NIVA;
+        l.append(box, label);
+        $("levels").appendChild(l);
+      }
+
+      // Förslaget i samma form som en övning i drills.js. Skissen (img) ritas av oss senare.
+      function read() {
+        const v = (id) => $(id).value.trim();
+        const levels = [...$("levels").querySelectorAll("input:checked")].map((b) => b.value);
+        const min = Number(v("min"));
+        const max = v("max") ? Number(v("max")) : null;
+        if (!v("name")) return "Skriv ett namn på övningen.";
+        if (!v("category")) return "Välj en kategori.";
+        if (!levels.length) return "Välj minst en nivå.";
+        if (!Number.isInteger(min) || min < 1) return "Skriv minst antal spelare (1 eller fler).";
+        if (max !== null && !(Number.isInteger(max) && max >= min)) return "Max spelare kan inte vara färre än minst.";
+        if (!v("how")) return "Beskriv hur övningen går till.";
+        const drill = {
+          name: v("name"),
+          category: v("category"),
+          levels,
+          spelare: [min, max],
+          info: [
+            ["Syfte", v("purpose")],
+            ["Anvisningar", v("how")],
+            ["Organisation", v("org")],
+          ].filter(([, t]) => t),
+          img: "",
+        };
+        if (Number(v("coaches")) > 0) drill.tranare = Number(v("coaches"));
+        return drill;
+      }
+
+      function showDone(drill) {
+        const dl = $("summary");
+        dl.innerHTML = "";
+        const rows = [
+          ["Namn", drill.name],
+          ["Kategori", drill.category],
+          ["Nivå", drill.levels.map((l) => window.LEVELS[l]).join(", ")],
+          ["Antal", DrillBoard.players(drill)],
+          ...drill.info,
+        ];
+        for (const [k, t] of rows) {
+          const dt = document.createElement("dt");
+          dt.textContent = k;
+          const dd = document.createElement("dd");
+          dd.textContent = t;
+          dl.append(dt, dd);
+        }
+        $("form").hidden = true;
+        $("done").hidden = false;
+      }
+
+      $("form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const drill = read();
+        if (typeof drill === "string") {
+          $("error").textContent = drill;
+          $("error").hidden = false;
+          return;
+        }
+        $("error").hidden = true;
+        showDone(drill);
+      });
+
+      $("again").addEventListener("click", () => {
+        $("form").reset();
+        for (const b of $("levels").querySelectorAll("input")) b.checked = b.value === window.NIVA;
+        $("done").hidden = true;
+        $("form").hidden = false;
+        $("name").focus();
+      });
+    </script>
+  </body>
+</html>
