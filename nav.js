@@ -112,11 +112,9 @@
   const links = document.createElement("div");
   links.className = "sn-links";
   const items = [];
-  if (level) {
-    items.push([`upplagg.html?niva=${level}`, "Skapa träning", "upplagg.html"]);
-    items.push([`ovningar.html?niva=${level}`, "Övningar", "ovningar.html"]);
-  }
+  if (level) items.push([`ovningar.html?niva=${level}`, "Övningar", "ovningar.html"]);
   items.push(["foresla.html", "Skapa övning"]);
+  if (level) items.push([`upplagg.html?niva=${level}`, "Skapa träning", "upplagg.html"]);
   items.push(["admin.html", "Admin"]);
   for (const [href, label, page] of items) {
     const a = document.createElement("a");
