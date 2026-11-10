@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
     />
     <style>
-      /* Upplägg: titel till vänster, momenten i tidsordning till höger. */
+      /* Skapa träningspass: val av övningar till vänster, upplägget med valda övningar till höger. */
       :root {
         --blue: #0a3a6e;
         --navy: #0d4c8f;
@@ -54,8 +54,8 @@
         background: linear-gradient(90deg, var(--blue) 50%, var(--black) 50%);
         color: var(--white);
         padding-block: 32px 36px;
-        padding-left: max(48px, env(safe-area-inset-left, 0px));
-        padding-right: 48px;
+        padding-left: 48px;
+        padding-right: max(48px, env(safe-area-inset-right, 0px));
         display: flex;
         flex-direction: column;
         gap: 14px;
@@ -97,8 +97,8 @@
       }
       .build {
         padding-block: 32px 40px;
-        padding-left: 32px;
-        padding-right: max(32px, env(safe-area-inset-right, 0px));
+        padding-left: max(32px, env(safe-area-inset-left, 0px));
+        padding-right: 32px;
         display: flex;
         flex-direction: column;
         gap: 14px;
@@ -178,11 +178,23 @@
         background: var(--paper);
         color: var(--ink);
       }
-      .desc {
-        margin: 2px 0 0;
-        max-width: 420px;
+      .chosen {
+        grid-column: 1 / -1;
+        margin: 6px 0 0;
+        padding: 8px 12px;
+        border-left: 3px solid var(--white);
+        background: rgba(255, 255, 255, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .chosen b {
+        font-size: 0.9375rem;
+      }
+      .chosen p {
+        margin: 0;
         font-size: 0.875rem;
-        color: var(--ink-soft);
+        color: var(--soft);
       }
       .pick:not([data-empty]) {
         border-color: var(--navy);
@@ -220,15 +232,15 @@
   <body>
     <script src="nav.js"></script>
     <div class="page">
-      <section class="intro">
-        <h1>Upplägg</h1>
-        <p class="meta" id="meta"></p>
-        <ol class="rows" id="rows"></ol>
-      </section>
       <section class="build">
         <h2>Skapa träningspass</h2>
         <ol class="picks" id="picks"></ol>
         <button class="clear" id="clear" type="button">Rensa valda övningar</button>
+      </section>
+      <section class="intro">
+        <h1>Upplägg</h1>
+        <p class="meta" id="meta"></p>
+        <ol class="rows" id="rows"></ol>
       </section>
     </div>
     <script src="drills.js"></script>
@@ -277,28 +289,32 @@
           sel.appendChild(g);
         }
         sel.value = DRILLS.some((d) => d.name === picks[id]) ? picks[id] : "";
-        // Förklaringen till vald övning visas under listan.
-        const desc = document.createElement("p");
-        desc.className = "desc";
-        const mark = () => {
-          sel.toggleAttribute("data-empty", !sel.value);
-          const d = DRILLS.find((x) => x.name === sel.value);
-          desc.textContent = d
-            ? [DrillBoard.players(d) + ".", ...d.info.map(([, t]) => t).filter(Boolean)].join(" ")
-            : "";
-          desc.hidden = !desc.textContent;
-        };
-        mark();
+        sel.toggleAttribute("data-empty", !sel.value);
         sel.addEventListener("change", () => {
           if (sel.value) picks[id] = sel.value;
           else delete picks[id];
           save();
-          mark();
+          sel.toggleAttribute("data-empty", !sel.value);
+          renderRows();
         });
-        return [sel, desc];
+        return sel;
       }
 
-      function row(r) {
+      // Vald övning visas i upplägget, under sitt moment.
+      function chosen(id) {
+        const d = DRILLS.find((x) => x.name === picks[id]);
+        if (!d) return null;
+        const box = document.createElement("div");
+        box.className = "chosen";
+        const name = document.createElement("b");
+        name.textContent = d.name;
+        const p = document.createElement("p");
+        p.textContent = [DrillBoard.players(d).replace(/^./, (c) => c.toUpperCase()) + ".", ...d.info.map(([, t]) => t).filter(Boolean)].join(" ");
+        box.append(name, p);
+        return box;
+      }
+
+      function row(r, id) {
         const li = document.createElement("li");
         li.className = "row";
         const m = document.createElement("span");
@@ -314,16 +330,21 @@
           p.textContent = r.text;
           li.appendChild(p);
         }
+        const c = chosen(id);
+        if (c) li.appendChild(c);
         if (r.sub) {
           const ul = document.createElement("ul");
           ul.className = "sub";
-          r.sub.forEach((s) => ul.appendChild(row(s)));
+          r.sub.forEach((s, j) => ul.appendChild(row(s, `${id}.${j}`)));
           li.appendChild(ul);
         }
         return li;
       }
       const rows = document.getElementById("rows");
-      plan.rows.forEach((r) => rows.appendChild(row(r)));
+      const renderRows = () => {
+        rows.innerHTML = "";
+        plan.rows.forEach((r, i) => rows.appendChild(row(r, String(i))));
+      };
 
       // Skapa träningspass: en lista per moment som har en kategori.
       const list = document.getElementById("picks");
@@ -338,16 +359,18 @@
             const m = document.createElement("span");
             m.className = "moment";
             m.textContent = label;
-            li.append(m, ...picker(it, id));
+            li.append(m, picker(it, id));
             list.appendChild(li);
           }
         });
       };
       render();
+      renderRows();
       document.getElementById("clear").addEventListener("click", () => {
         picks = {};
         save();
         render();
+        renderRows();
       });
     </script>
   </body>
