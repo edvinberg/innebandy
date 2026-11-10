@@ -96,7 +96,7 @@
   const brand = document.createElement("a");
   brand.className = "sn-brand";
   brand.href = "index.html";
-  brand.textContent = "Innebandyövningar";
+  brand.textContent = "Övningsbank";
   nav.appendChild(brand);
 
   if (level) {
