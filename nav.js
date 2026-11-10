@@ -72,7 +72,7 @@
       .sn { gap: 12px; overflow: visible; }
       .sn-brand { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; align-self: center; }
       .sn-burger { display: inline-flex; }
-      .sn-level { display: none; }
+      .sn-level { padding: 4px 10px; font-size: 0.6875rem; }
       .sn-links {
         display: none; position: absolute; top: 100%; left: 0; right: 0;
         flex-direction: column; gap: 0; background: #0b0e12;

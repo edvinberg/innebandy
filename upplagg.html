@@ -361,6 +361,55 @@
       .clear:hover {
         border-color: var(--white);
       }
+      .head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .compact-btn {
+        flex: none;
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--navy);
+        background: transparent;
+        border: 1px solid var(--navy);
+        border-radius: 999px;
+        padding: 5px 14px;
+        cursor: pointer;
+      }
+      /* Kompakt: bara upplägget med moment, tider och övningsnamn – ryms i en skärmdump. */
+      body.compact .sn,
+      body.compact .build,
+      body.compact .meta,
+      body.compact .text,
+      body.compact .chosen p,
+      body.compact .chosen small,
+      body.compact .intro h1::before {
+        display: none;
+      }
+      body.compact .page {
+        grid-template-columns: minmax(0, 1fr);
+        min-height: 0;
+      }
+      body.compact .intro {
+        padding-block: 16px;
+        gap: 8px;
+      }
+      body.compact h1 {
+        font-size: 1.5rem;
+      }
+      body.compact .row {
+        padding-block: 6px;
+      }
+      body.compact .chosen {
+        margin: 2px 0 0;
+        padding: 2px 8px;
+      }
+      body.compact .chosen b {
+        font-size: 0.875rem;
+      }
       @media (max-width: 820px) {
         .page {
           grid-template-columns: minmax(0, 1fr);
@@ -398,7 +447,10 @@
         </div>
       </section>
       <section class="intro">
-        <h1>Upplägg</h1>
+        <div class="head">
+          <h1>Upplägg</h1>
+          <button class="compact-btn" id="compact" type="button" aria-pressed="false">Kompakt</button>
+        </div>
         <p class="meta" id="meta"></p>
         <ol class="rows" id="rows"></ol>
       </section>
@@ -782,6 +834,12 @@
           store("passlage", mode);
           showMode();
         });
+      document.getElementById("compact").addEventListener("click", (e) => {
+        const on = document.body.classList.toggle("compact");
+        e.currentTarget.setAttribute("aria-pressed", String(on));
+        e.currentTarget.textContent = on ? "Tillbaka" : "Kompakt";
+        window.scrollTo(0, 0);
+      });
       render();
       renderFree();
       showMode();
