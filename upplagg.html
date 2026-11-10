@@ -113,6 +113,102 @@
         text-transform: uppercase;
         letter-spacing: 0.02em;
       }
+      .modes {
+        display: inline-flex;
+        align-self: flex-start;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 999px;
+        padding: 3px;
+        gap: 2px;
+      }
+      .modes button {
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--white);
+        background: transparent;
+        border: 0;
+        border-radius: 999px;
+        padding: 6px 14px;
+        cursor: pointer;
+      }
+      .modes button[aria-pressed="true"] {
+        background: var(--white);
+        color: var(--navy);
+      }
+      .mode-box {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .free-line {
+        display: flex;
+        gap: 6px;
+        max-width: 420px;
+      }
+      .free-line .pick {
+        flex: 1;
+        min-width: 0;
+      }
+      .tid-in {
+        width: 76px;
+        flex: none;
+        font: inherit;
+        font-size: 0.875rem;
+        padding: 8px;
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        background: var(--paper);
+        color: var(--ink);
+      }
+      .icon {
+        flex: none;
+        width: 32px;
+        font: inherit;
+        color: var(--white);
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .icon:disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
+      .free-tools {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .ghost {
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--white);
+        background: transparent;
+        border: 1px dashed rgba(255, 255, 255, 0.45);
+        border-radius: 999px;
+        padding: 6px 14px;
+        cursor: pointer;
+      }
+      .ghost:hover {
+        border-color: var(--white);
+      }
+      .rows.free {
+        counter-reset: n;
+      }
+      .rows.free .chosen b::before {
+        counter-increment: n;
+        content: counter(n) ". ";
+      }
+      .rows.free .chosen {
+        grid-column: 1;
+        margin: 0;
+      }
+      .rows.free .tid {
+        align-self: start;
+        padding-top: 8px;
+      }
       .picks {
         list-style: none;
         margin: 0;
@@ -285,8 +381,21 @@
     <div class="page">
       <section class="build">
         <h2>Skapa träningspass</h2>
-        <ol class="picks" id="picks"></ol>
-        <button class="clear" id="clear" type="button">Rensa valda övningar</button>
+        <div class="modes" role="group" aria-label="Sätt att bygga passet">
+          <button type="button" data-mode="mall">Utgå från upplägg</button>
+          <button type="button" data-mode="fri">Fri lista</button>
+        </div>
+        <div class="mode-box" id="mallBox">
+          <ol class="picks" id="picks"></ol>
+          <button class="clear" id="clear" type="button">Rensa valda övningar</button>
+        </div>
+        <div class="mode-box" id="freeBox" hidden>
+          <ol class="picks" id="free"></ol>
+          <div class="free-tools">
+            <button class="ghost" id="addFree" type="button">+ Lägg till övning</button>
+            <button class="clear" id="clearFree" type="button">Rensa listan</button>
+          </div>
+        </div>
       </section>
       <section class="intro">
         <h1>Upplägg</h1>
@@ -303,25 +412,34 @@
       meta.textContent = plan.meta;
       meta.hidden = !plan.meta;
 
-      // Valda övningar sparas i webbläsaren, en uppsättning per nivå.
-      const KEY = `pass-${window.NIVA}`;
-      let picks = {};
-      try {
-        picks = JSON.parse(localStorage.getItem(KEY)) || {};
-      } catch {}
-      const save = () => {
+      // Allt sparas i webbläsaren, per nivå. Två sätt att bygga passet:
+      // "mall" = ett val per moment i nivåns upplägg, "fri" = en egen lista i valfri ordning.
+      const load = (key, empty) => {
         try {
-          localStorage.setItem(KEY, JSON.stringify(picks));
+          return JSON.parse(localStorage.getItem(key)) || empty;
+        } catch {
+          return empty;
+        }
+      };
+      const store = (key, value) => {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
         } catch {}
       };
+      const mall = { p: load(`pass-${window.NIVA}`, {}) };
+      mall.save = () => store(`pass-${window.NIVA}`, mall.p);
+      // Fri lista: rader i ordning med tid; vald övning per rad ligger i fri.p[rad-id].
+      const fri = load(`fri-${window.NIVA}`, { rows: [], p: {}, next: 0 });
+      fri.save = () => store(`fri-${window.NIVA}`, { rows: fri.rows, p: fri.p, next: fri.next });
+      let mode = load("passlage", "mall");
       const DRILLS = window.DRILLS.filter((d) => d.levels.includes(window.NIVA));
 
       const OWN = "__egen";
-      function picker(r, id) {
+      function picker(r, id, st) {
         const sel = document.createElement("select");
         sel.className = "pick";
         sel.setAttribute("aria-label", `Övning för ${r.moment}`);
-        sel.add(new Option(`Välj övning (${r.cat})`, ""));
+        sel.add(new Option(r.cat ? `Välj övning (${r.cat})` : "Välj övning", ""));
         sel.add(new Option("+ Egen övning…", OWN));
         // Momentets kategori först, sedan alla andra kategorier.
         const inCat = DRILLS.filter((d) => d.category === r.cat);
@@ -341,8 +459,8 @@
           list.forEach((d) => g.appendChild(new Option(d.name, d.name)));
           sel.appendChild(g);
         }
-        const own = typeof picks[id] === "object";
-        sel.value = own ? OWN : DRILLS.some((d) => d.name === picks[id]) ? picks[id] : "";
+        const own = typeof st.p[id] === "object";
+        sel.value = own ? OWN : DRILLS.some((d) => d.name === st.p[id]) ? st.p[id] : "";
         sel.toggleAttribute("data-empty", !sel.value);
 
         // Egen övning: läggs in i passet direkt och skickas samtidigt som förslag.
@@ -363,8 +481,8 @@
         const note = document.createElement("p");
         note.className = "note";
         if (own) {
-          name.value = picks[id].name;
-          text.value = picks[id].info[0][1];
+          name.value = st.p[id].name;
+          text.value = st.p[id].info[0][1];
           note.textContent = "I passet och skickad som förslag.";
         }
         btn.addEventListener("click", () => {
@@ -372,16 +490,16 @@
             note.textContent = "Skriv både namn och beskrivning.";
             return;
           }
-          const first = typeof picks[id] !== "object";
-          picks[id] = {
+          const first = typeof st.p[id] !== "object";
+          st.p[id] = {
             name: name.value.trim(),
-            category: r.cat,
+            ...(r.cat && { category: r.cat }),
             levels: [window.NIVA],
             info: [["Anvisningar", text.value.trim()]],
             img: "",
           };
-          save();
-          renderRows();
+          st.save();
+          renderResult();
           btn.textContent = "Spara";
           note.textContent = first
             ? "Tillagd i passet och skickad som förslag."
@@ -395,21 +513,21 @@
             name.focus();
           } else {
             box.hidden = true;
-            if (sel.value) picks[id] = sel.value;
-            else delete picks[id];
+            if (sel.value) st.p[id] = sel.value;
+            else delete st.p[id];
           }
-          if (sel.value === OWN && typeof picks[id] !== "object") delete picks[id];
-          save();
+          if (sel.value === OWN && typeof st.p[id] !== "object") delete st.p[id];
+          st.save();
           sel.toggleAttribute("data-empty", !sel.value);
-          renderRows();
+          renderResult();
         });
         return [sel, box];
       }
 
       // Vald övning visas i upplägget, under sitt moment.
-      function chosen(id) {
-        const own = typeof picks[id] === "object";
-        const d = own ? picks[id] : DRILLS.find((x) => x.name === picks[id]);
+      function chosen(id, st) {
+        const own = typeof st.p[id] === "object";
+        const d = own ? st.p[id] : DRILLS.find((x) => x.name === st.p[id]);
         if (!d) return null;
         const box = document.createElement("div");
         box.className = "chosen";
@@ -444,7 +562,7 @@
           p.textContent = r.text;
           li.appendChild(p);
         }
-        const c = chosen(id);
+        const c = chosen(id, mall);
         if (c) li.appendChild(c);
         if (r.sub) {
           const ul = document.createElement("ul");
@@ -458,6 +576,26 @@
       const renderRows = () => {
         rows.innerHTML = "";
         plan.rows.forEach((r, i) => rows.appendChild(row(r, String(i))));
+      };
+      const renderFreeRows = () => {
+        rows.innerHTML = "";
+        fri.rows.forEach((r) => {
+          const c = chosen(r.id, fri);
+          if (!c) return;
+          const li = document.createElement("li");
+          li.className = "row";
+          const t = document.createElement("span");
+          t.className = "tid";
+          t.textContent = r.tid;
+          li.append(c, t);
+          rows.appendChild(li);
+        });
+      };
+      const renderResult = () => {
+        rows.classList.toggle("free", mode === "fri");
+        meta.hidden = mode === "fri" || !plan.meta;
+        if (mode === "mall") renderRows();
+        else renderFreeRows();
       };
 
       // Skapa träningspass: en lista per moment som har en kategori.
@@ -473,19 +611,100 @@
             const m = document.createElement("span");
             m.className = "moment";
             m.textContent = label;
-            li.append(m, ...picker(it, id));
+            li.append(m, ...picker(it, id, mall));
             list.appendChild(li);
           }
         });
       };
-      render();
-      renderRows();
       document.getElementById("clear").addEventListener("click", () => {
-        picks = {};
-        save();
+        mall.p = {};
+        mall.save();
         render();
-        renderRows();
+        renderResult();
       });
+
+      // Fri lista: en rad per övning, med tid och knappar för att flytta och ta bort.
+      const freeList = document.getElementById("free");
+      const iconBtn = (label, glyph, disabled, onClick) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "icon";
+        b.textContent = glyph;
+        b.title = label;
+        b.setAttribute("aria-label", label);
+        b.disabled = disabled;
+        b.addEventListener("click", onClick);
+        return b;
+      };
+      const renderFree = () => {
+        freeList.innerHTML = "";
+        fri.rows.forEach((r, i) => {
+          const li = document.createElement("li");
+          const tid = document.createElement("input");
+          tid.className = "tid-in";
+          tid.placeholder = "Tid";
+          tid.value = r.tid;
+          tid.setAttribute("aria-label", "Tid");
+          tid.addEventListener("input", () => {
+            r.tid = tid.value;
+            fri.save();
+            renderResult();
+          });
+          const shift = (d) => {
+            fri.rows.splice(i + d, 0, ...fri.rows.splice(i, 1));
+            fri.save();
+            renderFree();
+            renderResult();
+          };
+          const [sel, own] = picker({ moment: `rad ${i + 1}`, cat: "" }, r.id, fri);
+          const line = document.createElement("div");
+          line.className = "free-line";
+          line.append(
+            sel,
+            tid,
+            iconBtn("Flytta upp", "↑", i === 0, () => shift(-1)),
+            iconBtn("Flytta ner", "↓", i === fri.rows.length - 1, () => shift(1)),
+            iconBtn("Ta bort", "✕", false, () => {
+              fri.rows.splice(i, 1);
+              delete fri.p[r.id];
+              fri.save();
+              renderFree();
+              renderResult();
+            }),
+          );
+          li.append(line, own);
+          freeList.appendChild(li);
+        });
+      };
+      document.getElementById("addFree").addEventListener("click", () => {
+        fri.rows.push({ id: "r" + fri.next++, tid: "" });
+        fri.save();
+        renderFree();
+      });
+      document.getElementById("clearFree").addEventListener("click", () => {
+        fri.rows = [];
+        fri.p = {};
+        fri.save();
+        renderFree();
+        renderResult();
+      });
+
+      const showMode = () => {
+        for (const b of document.querySelectorAll(".modes button"))
+          b.setAttribute("aria-pressed", String(b.dataset.mode === mode));
+        document.getElementById("mallBox").hidden = mode !== "mall";
+        document.getElementById("freeBox").hidden = mode !== "fri";
+        renderResult();
+      };
+      for (const b of document.querySelectorAll(".modes button"))
+        b.addEventListener("click", () => {
+          mode = b.dataset.mode;
+          store("passlage", mode);
+          showMode();
+        });
+      render();
+      renderFree();
+      showMode();
     </script>
   </body>
 </html>
