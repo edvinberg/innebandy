@@ -191,6 +191,54 @@
         flex-direction: column;
         gap: 2px;
       }
+      .custom {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 420px;
+        margin-top: 4px;
+      }
+      .custom input,
+      .custom textarea {
+        width: 100%;
+        font: inherit;
+        font-size: 0.875rem;
+        padding: 8px 10px;
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        background: var(--paper);
+        color: var(--ink);
+      }
+      .custom textarea {
+        min-height: 72px;
+        resize: vertical;
+      }
+      .custom button {
+        align-self: flex-start;
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--navy);
+        background: var(--white);
+        border: 0;
+        border-radius: 999px;
+        padding: 6px 16px;
+        cursor: pointer;
+      }
+      .custom .note {
+        margin: 0;
+        font-size: 0.8125rem;
+        color: var(--soft);
+      }
+      .chosen small {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+      }
       .chosen b {
         font-size: 0.9375rem;
       }
@@ -268,6 +316,7 @@
       };
       const DRILLS = window.DRILLS.filter((d) => d.levels.includes(window.NIVA));
 
+      const OWN = "__egen";
       function picker(r, id) {
         const sel = document.createElement("select");
         sel.className = "pick";
@@ -291,28 +340,90 @@
           list.forEach((d) => g.appendChild(new Option(d.name, d.name)));
           sel.appendChild(g);
         }
-        sel.value = DRILLS.some((d) => d.name === picks[id]) ? picks[id] : "";
+        sel.add(new Option("+ Egen övning…", OWN));
+        const own = typeof picks[id] === "object";
+        sel.value = own ? OWN : DRILLS.some((d) => d.name === picks[id]) ? picks[id] : "";
         sel.toggleAttribute("data-empty", !sel.value);
+
+        // Egen övning: läggs in i passet direkt och skickas samtidigt som förslag.
+        // Den sparas i samma form som Föreslå övning, med tom skiss (img).
+        const box = document.createElement("div");
+        box.className = "custom";
+        box.hidden = !own;
+        const name = document.createElement("input");
+        name.type = "text";
+        name.placeholder = "Namn på övningen";
+        name.setAttribute("aria-label", `Namn på egen övning för ${r.moment}`);
+        const text = document.createElement("textarea");
+        text.placeholder = "Hur går övningen till?";
+        text.setAttribute("aria-label", `Beskrivning av egen övning för ${r.moment}`);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = own ? "Spara" : "Lägg till";
+        const note = document.createElement("p");
+        note.className = "note";
+        if (own) {
+          name.value = picks[id].name;
+          text.value = picks[id].info[0][1];
+          note.textContent = "I passet och skickad som förslag.";
+        }
+        btn.addEventListener("click", () => {
+          if (!name.value.trim() || !text.value.trim()) {
+            note.textContent = "Skriv både namn och beskrivning.";
+            return;
+          }
+          const first = typeof picks[id] !== "object";
+          picks[id] = {
+            name: name.value.trim(),
+            category: r.cat,
+            levels: [window.NIVA],
+            info: [["Anvisningar", text.value.trim()]],
+            img: "",
+          };
+          save();
+          renderRows();
+          btn.textContent = "Spara";
+          note.textContent = first
+            ? "Tillagd i passet och skickad som förslag."
+            : "Ändringen är sparad i passet.";
+        });
+        box.append(name, text, btn, note);
+
         sel.addEventListener("change", () => {
-          if (sel.value) picks[id] = sel.value;
-          else delete picks[id];
+          if (sel.value === OWN) {
+            box.hidden = false;
+            name.focus();
+          } else {
+            box.hidden = true;
+            if (sel.value) picks[id] = sel.value;
+            else delete picks[id];
+          }
+          if (sel.value === OWN && typeof picks[id] !== "object") delete picks[id];
           save();
           sel.toggleAttribute("data-empty", !sel.value);
           renderRows();
         });
-        return sel;
+        return [sel, box];
       }
 
       // Vald övning visas i upplägget, under sitt moment.
       function chosen(id) {
-        const d = DRILLS.find((x) => x.name === picks[id]);
+        const own = typeof picks[id] === "object";
+        const d = own ? picks[id] : DRILLS.find((x) => x.name === picks[id]);
         if (!d) return null;
         const box = document.createElement("div");
         box.className = "chosen";
         const name = document.createElement("b");
         name.textContent = d.name;
         const p = document.createElement("p");
-        p.textContent = [DrillBoard.players(d).replace(/^./, (c) => c.toUpperCase()) + ".", ...d.info.map(([, t]) => t).filter(Boolean)].join(" ");
+        p.textContent = own
+          ? d.info[0][1]
+          : [DrillBoard.players(d).replace(/^./, (c) => c.toUpperCase()) + ".", ...d.info.map(([, t]) => t).filter(Boolean)].join(" ");
+        if (own) {
+          const tag = document.createElement("small");
+          tag.textContent = "Egen övning · skickad som förslag";
+          box.append(tag);
+        }
         box.append(name, p);
         return box;
       }
@@ -362,7 +473,7 @@
             const m = document.createElement("span");
             m.className = "moment";
             m.textContent = label;
-            li.append(m, picker(it, id));
+            li.append(m, ...picker(it, id));
             list.appendChild(li);
           }
         });
