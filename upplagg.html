@@ -171,10 +171,6 @@
         border-radius: 8px;
         cursor: pointer;
       }
-      .icon:disabled {
-        opacity: 0.3;
-        cursor: default;
-      }
       .free-tools {
         display: flex;
         flex-wrap: wrap;
@@ -435,11 +431,15 @@
       const DRILLS = window.DRILLS.filter((d) => d.levels.includes(window.NIVA));
 
       const OWN = "__egen";
+      const MINE = "__min";
       function picker(r, id, st) {
         const sel = document.createElement("select");
         sel.className = "pick";
         sel.setAttribute("aria-label", `Övning för ${r.moment}`);
         sel.add(new Option(r.cat ? `Välj övning (${r.cat})` : "Välj övning", ""));
+        // Sparad egen övning visas som ett vanligt val i listan.
+        const mine = new Option("", MINE);
+        sel.add(mine);
         sel.add(new Option("+ Egen övning…", OWN));
         // Momentets kategori först, sedan alla andra kategorier.
         const inCat = DRILLS.filter((d) => d.category === r.cat);
@@ -460,14 +460,16 @@
           sel.appendChild(g);
         }
         const own = typeof st.p[id] === "object";
-        sel.value = own ? OWN : DRILLS.some((d) => d.name === st.p[id]) ? st.p[id] : "";
+        mine.hidden = !own;
+        if (own) mine.text = st.p[id].name;
+        sel.value = own ? MINE : DRILLS.some((d) => d.name === st.p[id]) ? st.p[id] : "";
         sel.toggleAttribute("data-empty", !sel.value);
 
         // Egen övning: läggs in i passet direkt och skickas samtidigt som förslag.
         // Den sparas i samma form som Föreslå övning, med tom skiss (img).
         const box = document.createElement("div");
         box.className = "custom";
-        box.hidden = !own;
+        box.hidden = true;
         const name = document.createElement("input");
         name.type = "text";
         name.placeholder = "Namn på övningen";
@@ -477,20 +479,13 @@
         text.setAttribute("aria-label", `Beskrivning av egen övning för ${r.moment}`);
         const btn = document.createElement("button");
         btn.type = "button";
-        btn.textContent = own ? "Spara" : "Lägg till";
         const note = document.createElement("p");
         note.className = "note";
-        if (own) {
-          name.value = st.p[id].name;
-          text.value = st.p[id].info[0][1];
-          note.textContent = "I passet och skickad som förslag.";
-        }
         btn.addEventListener("click", () => {
           if (!name.value.trim() || !text.value.trim()) {
             note.textContent = "Skriv både namn och beskrivning.";
             return;
           }
-          const first = typeof st.p[id] !== "object";
           st.p[id] = {
             name: name.value.trim(),
             ...(r.cat && { category: r.cat }),
@@ -499,24 +494,31 @@
             img: "",
           };
           st.save();
+          mine.text = st.p[id].name;
+          mine.hidden = false;
+          sel.value = MINE;
+          box.hidden = true;
           renderResult();
-          btn.textContent = "Spara";
-          note.textContent = first
-            ? "Tillagd i passet och skickad som förslag."
-            : "Ändringen är sparad i passet.";
         });
         box.append(name, text, btn, note);
 
         sel.addEventListener("change", () => {
           if (sel.value === OWN) {
+            // Öppna formuläret, ifyllt om det redan finns en egen övning här.
+            const has = typeof st.p[id] === "object";
+            if (!has) delete st.p[id];
+            name.value = has ? st.p[id].name : "";
+            text.value = has ? st.p[id].info[0][1] : "";
+            btn.textContent = has ? "Spara" : "Lägg till";
+            note.textContent = "";
             box.hidden = false;
             name.focus();
-          } else {
+          } else if (sel.value !== MINE) {
             box.hidden = true;
+            mine.hidden = true;
             if (sel.value) st.p[id] = sel.value;
             else delete st.p[id];
-          }
-          if (sel.value === OWN && typeof st.p[id] !== "object") delete st.p[id];
+          } else box.hidden = true;
           st.save();
           sel.toggleAttribute("data-empty", !sel.value);
           renderResult();
@@ -625,14 +627,13 @@
 
       // Fri lista: en rad per övning, med tid och knappar för att flytta och ta bort.
       const freeList = document.getElementById("free");
-      const iconBtn = (label, glyph, disabled, onClick) => {
+      const iconBtn = (label, glyph, onClick) => {
         const b = document.createElement("button");
         b.type = "button";
         b.className = "icon";
         b.textContent = glyph;
         b.title = label;
         b.setAttribute("aria-label", label);
-        b.disabled = disabled;
         b.addEventListener("click", onClick);
         return b;
       };
@@ -650,21 +651,13 @@
             fri.save();
             renderResult();
           });
-          const shift = (d) => {
-            fri.rows.splice(i + d, 0, ...fri.rows.splice(i, 1));
-            fri.save();
-            renderFree();
-            renderResult();
-          };
           const [sel, own] = picker({ moment: `rad ${i + 1}`, cat: "" }, r.id, fri);
           const line = document.createElement("div");
           line.className = "free-line";
           line.append(
             sel,
             tid,
-            iconBtn("Flytta upp", "↑", i === 0, () => shift(-1)),
-            iconBtn("Flytta ner", "↓", i === fri.rows.length - 1, () => shift(1)),
-            iconBtn("Ta bort", "✕", false, () => {
+            iconBtn("Ta bort", "✕", () => {
               fri.rows.splice(i, 1);
               delete fri.p[r.id];
               fri.save();
