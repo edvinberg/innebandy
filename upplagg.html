@@ -113,6 +113,26 @@
         text-transform: uppercase;
         letter-spacing: 0.02em;
       }
+      .count {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .count input {
+        width: 72px;
+        font: inherit;
+        font-size: 0.9375rem;
+        letter-spacing: 0;
+        padding: 6px 8px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 8px;
+        background: var(--white);
+        color: var(--black);
+      }
       .modes {
         display: inline-flex;
         align-self: flex-start;
@@ -331,6 +351,9 @@
         text-transform: uppercase;
         color: var(--ink-soft);
       }
+      .chosen .warn {
+        color: #b3261e;
+      }
       .chosen b {
         font-size: 0.9375rem;
       }
@@ -381,6 +404,7 @@
           <button type="button" data-mode="mall">Utgå från upplägg</button>
           <button type="button" data-mode="fri">Fri lista</button>
         </div>
+        <label class="count">Antal spelare <input type="number" id="antal" min="1" placeholder="Alla" /></label>
         <div class="mode-box" id="mallBox">
           <ol class="picks" id="picks"></ol>
           <div class="free-tools">
@@ -458,6 +482,11 @@
           const list = DRILLS.filter((d) => d.category === c);
           groups.push([c, [...list.filter((d) => !d.ovrigt), ...list.filter((d) => d.ovrigt)]]);
         }
+        // Med antal spelare angivet hamnar övningar som inte passar i en egen grupp sist.
+        const n = antal.get();
+        const misfits = groups.flatMap(([, list]) => list.filter((d) => !DrillBoard.fits(d, n)));
+        for (const g of groups) g[1] = g[1].filter((d) => DrillBoard.fits(d, n));
+        groups.push([`Passar inte ${n} spelare`, misfits]);
         for (const [label, list] of groups) {
           if (!list.length) continue;
           const g = document.createElement("optgroup");
@@ -585,6 +614,13 @@
           box.append(tag);
         }
         box.append(name, p);
+        const n = antal.get();
+        if (!DrillBoard.fits(d, n)) {
+          const warn = document.createElement("small");
+          warn.className = "warn";
+          warn.textContent = `Passar ${DrillBoard.players(d)}, ni är ${n}`;
+          box.append(warn);
+        }
         return box;
       }
 
@@ -691,9 +727,10 @@
       document.getElementById("lucky").addEventListener("click", () => {
         const used = new Set();
         const pickFor = (cat) => {
+          // Helst övningar som passar antalet spelare och är Tränarens val.
           const free = DRILLS.filter((d) => d.category === cat && !used.has(d.name));
-          const top = free.filter((d) => !d.ovrigt);
-          const pool = top.length ? top : free;
+          const fit = free.filter((d) => DrillBoard.fits(d, antal.get()));
+          const pool = [fit.filter((d) => !d.ovrigt), fit, free.filter((d) => !d.ovrigt), free].find((l) => l.length) || [];
           const d = pool[Math.floor(Math.random() * pool.length)];
           if (d) used.add(d.name);
           return d;
@@ -781,6 +818,14 @@
           store("passlage", mode);
           showMode();
         });
+      const antalIn = document.getElementById("antal");
+      antalIn.value = antal.get() || "";
+      antalIn.addEventListener("input", () => {
+        antal.set(Number(antalIn.value) > 0 ? Math.floor(Number(antalIn.value)) : 0);
+        render();
+        renderFree();
+        renderResult();
+      });
       render();
       renderFree();
       showMode();

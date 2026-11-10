@@ -575,5 +575,12 @@
     return s;
   }
 
-  window.DrillBoard = { create, validate, players, CATEGORIES };
+  // Passar övningen n spelare? Tomt n = inget filter. Egna övningar utan antal passar alltid.
+  function fits(d, n) {
+    if (!n || !d.spelare) return true;
+    const [min, max] = d.spelare;
+    return n >= min && (max === null || n <= max);
+  }
+
+  window.DrillBoard = { create, validate, players, fits, CATEGORIES };
 })();

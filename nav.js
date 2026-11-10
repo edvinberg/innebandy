@@ -141,3 +141,19 @@
   nav.appendChild(burger);
   document.body.prepend(nav);
 })();
+
+// Antal spelare på träningen, gemensamt för Övningar och Skapa träning. Tomt = inget filter.
+window.antal = {
+  get() {
+    try {
+      return Number(localStorage.getItem("antal")) || 0;
+    } catch {
+      return 0;
+    }
+  },
+  set(n) {
+    try {
+      localStorage.setItem("antal", String(n || ""));
+    } catch {}
+  },
+};

@@ -89,6 +89,29 @@
         color: var(--white);
         border-bottom-color: var(--white);
       }
+      .count {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .count input {
+        width: 72px;
+        font: inherit;
+        font-size: 0.9375rem;
+        letter-spacing: 0;
+        padding: 6px 8px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 8px;
+        background: var(--white);
+        color: var(--black);
+      }
+      .drill-btn.nofit:not([aria-current="true"]) {
+        opacity: 0.35;
+      }
       nav#drillNav {
         display: flex;
         flex-direction: column;
@@ -315,6 +338,7 @@
     <div class="slide">
       <section class="text">
         <nav id="catNav" aria-label="Kategorier"></nav>
+        <label class="count">Antal spelare <input type="number" id="antal" min="1" placeholder="Alla" /></label>
         <nav id="drillNav" aria-label="Övningar"></nav>
         <h2 id="drillName"></h2>
         <p class="players" id="drillPlayers"></p>
@@ -430,6 +454,11 @@
             b.type = "button";
             b.textContent = DRILLS[i].name;
             b.setAttribute("aria-current", i === idx ? "true" : "false");
+            // Passar inte antalet spelare: tonas ned men går att öppna.
+            if (!DrillBoard.fits(DRILLS[i], antal.get())) {
+              b.classList.add("nofit");
+              b.title = `Passar ${DrillBoard.players(DRILLS[i])}`;
+            }
             b.addEventListener("click", () => select(i));
             pills.appendChild(b);
           }
@@ -514,6 +543,12 @@
         if (e.key === "ArrowLeft") board.prev();
       });
 
+      const antalIn = $("antal");
+      antalIn.value = antal.get() || "";
+      antalIn.addEventListener("input", () => {
+        antal.set(Number(antalIn.value) > 0 ? Math.floor(Number(antalIn.value)) : 0);
+        renderNav();
+      });
       showCategory(cat);
     </script>
   </body>
