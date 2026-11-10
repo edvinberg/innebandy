@@ -150,17 +150,6 @@
         flex: 1;
         min-width: 0;
       }
-      .tid-in {
-        width: 76px;
-        flex: none;
-        font: inherit;
-        font-size: 0.875rem;
-        padding: 8px;
-        border: 1px solid var(--rule);
-        border-radius: 8px;
-        background: var(--paper);
-        color: var(--ink);
-      }
       .icon {
         flex: none;
         width: 32px;
@@ -214,10 +203,6 @@
       .rows.free .chosen {
         grid-column: 1;
         margin: 0;
-      }
-      .rows.free .tid {
-        align-self: start;
-        padding-top: 8px;
       }
       .picks {
         list-style: none;
@@ -398,7 +383,7 @@
         <div class="mode-box" id="mallBox">
           <ol class="picks" id="picks"></ol>
           <div class="free-tools">
-            <button class="lucky" id="lucky" type="button">Låt tränaren skapa</button>
+            <button class="lucky" id="lucky" type="button">Generera ett pass</button>
             <button class="clear" id="clear" type="button">Rensa valda övningar</button>
           </div>
         </div>
@@ -441,7 +426,7 @@
       };
       const mall = { p: load(`pass-${window.NIVA}`, {}) };
       mall.save = () => store(`pass-${window.NIVA}`, mall.p);
-      // Fri lista: rader i ordning med tid; vald övning per rad ligger i fri.p[rad-id].
+      // Fri lista: rader i ordning; vald övning per rad ligger i fri.p[rad-id].
       const fri = load(`fri-${window.NIVA}`, { rows: [], p: {}, next: 0 });
       fri.save = () => store(`fri-${window.NIVA}`, { rows: fri.rows, p: fri.p, next: fri.next });
       let mode = load("passlage", "mall");
@@ -611,10 +596,7 @@
           if (!c) return;
           const li = document.createElement("li");
           li.className = "row";
-          const t = document.createElement("span");
-          t.className = "tid";
-          t.textContent = r.tid;
-          li.append(c, t);
+          li.append(c);
           rows.appendChild(li);
         });
       };
@@ -672,7 +654,7 @@
           }
         });
       };
-      // Låt tränaren skapa: fyller varje moment med en slumpad övning ur momentets kategori,
+      // Generera ett pass: fyller varje moment med en slumpad övning ur momentets kategori,
       // helst ur Tränarens val, och samma övning används bara en gång.
       document.getElementById("lucky").addEventListener("click", () => {
         const used = new Set();
@@ -708,7 +690,7 @@
         renderResult();
       });
 
-      // Fri lista: en rad per övning, med tid och knappar för att flytta och ta bort.
+      // Fri lista: en rad per övning, med knapp för att ta bort.
       const freeList = document.getElementById("free");
       const iconBtn = (label, glyph, onClick) => {
         const b = document.createElement("button");
@@ -724,22 +706,11 @@
         freeList.innerHTML = "";
         fri.rows.forEach((r, i) => {
           const li = document.createElement("li");
-          const tid = document.createElement("input");
-          tid.className = "tid-in";
-          tid.placeholder = "Tid";
-          tid.value = r.tid;
-          tid.setAttribute("aria-label", "Tid");
-          tid.addEventListener("input", () => {
-            r.tid = tid.value;
-            fri.save();
-            renderResult();
-          });
           const [sel, own] = picker({ moment: `rad ${i + 1}`, cat: "" }, r.id, fri);
           const line = document.createElement("div");
           line.className = "free-line";
           line.append(
             sel,
-            tid,
             iconBtn("Ta bort", "✕", () => {
               fri.rows.splice(i, 1);
               delete fri.p[r.id];
@@ -753,7 +724,7 @@
         });
       };
       document.getElementById("addFree").addEventListener("click", () => {
-        fri.rows.push({ id: "r" + fri.next++, tid: "" });
+        fri.rows.push({ id: "r" + fri.next++ });
         fri.save();
         renderFree();
       });
