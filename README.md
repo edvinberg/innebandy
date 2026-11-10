@@ -65,6 +65,7 @@ Planen är 40 × 20 m och står upprätt.
   "name": "Anfall 2 mot 1",
   "category": "Station",
   "levels": ["bla"],
+  "spelare": [4, 9],
   "view": [0, 22],
   "info": [
     ["Vad?", "Anfall 2 mot 1."],
@@ -104,6 +105,8 @@ Planen är 40 × 20 m och står upprätt.
 | `labels`   | Text på planen, till exempel ledens bokstav.                                                  |
 | `balls`    | Extra bollar som ligger still, till exempel en hög vid ett led.                               |
 | `lines`    | Streckade linjer, till exempel zongränser.                                                    |
+| `spelare`  | Rekommenderat antal spelare `[min, max]`, målvakter inräknade. `[min, null]` = alla kan vara med. Max är satt så att kön blir kort; fler spelare = kör övningen parallellt. |
+| `tranare`  | Valfri. Antal tränare som har en roll i övningen (rullar in boll, tar, ropar). Utan = ingen tränare behövs. |
 | `ovrigt`   | Valfri. `true` = övningen ligger bakom knappen Visa resten i sin kategori. Utan = toppövning. Ordningen i listan följer ordningen i `drills.js`. |
 | `steps`    | Stegen i ordning. Allt i samma steg sker samtidigt.                                           |
 |            | Ett steg med `"actions": []` = bara uppställning, inga knappar eller steglista (t.ex. matcher). |

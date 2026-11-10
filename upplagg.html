@@ -283,7 +283,9 @@
         const mark = () => {
           sel.toggleAttribute("data-empty", !sel.value);
           const d = DRILLS.find((x) => x.name === sel.value);
-          desc.textContent = d ? d.info.map(([, t]) => t).filter(Boolean).join(" ") : "";
+          desc.textContent = d
+            ? [DrillBoard.players(d) + ".", ...d.info.map(([, t]) => t).filter(Boolean)].join(" ")
+            : "";
           desc.hidden = !desc.textContent;
         };
         mark();

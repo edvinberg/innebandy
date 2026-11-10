@@ -57,6 +57,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      2,
+      4
+    ],
     "steps": [
       {
         "text": "A driver åt ena sidan. B flyttar med.",
@@ -312,6 +316,10 @@ window.DRILLS = [
         11.3
       ]
     ],
+    "spelare": [
+      4,
+      9
+    ],
     "steps": [
       {
         "text": "A och B springer upp längs sargen mot konerna.",
@@ -520,6 +528,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      2,
+      null
+    ],
     "steps": [
       {
         "text": "A gör utfall framåt och passar B samtidigt.",
@@ -685,6 +697,10 @@ window.DRILLS = [
         5.45
       ]
     ],
+    "spelare": [
+      2,
+      6
+    ],
     "steps": [
       {
         "text": "A dribblar förbi första konan.",
@@ -848,6 +864,10 @@ window.DRILLS = [
         "y": 19
       }
     },
+    "spelare": [
+      6,
+      null
+    ],
     "steps": [
       {
         "text": "Alla mot alla innanför konerna. Ta svansar och skydda din egen.",
@@ -968,6 +988,11 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      4,
+      null
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "Alla joggar runt i mitten.",
@@ -1148,6 +1173,10 @@ window.DRILLS = [
         18.8
       ]
     ],
+    "spelare": [
+      4,
+      null
+    ],
     "steps": [
       {
         "text": "Dribbla utan krock. Kommandon: \"Byt boll\", \"Sitt\", \"Vänd\".",
@@ -1230,6 +1259,10 @@ window.DRILLS = [
           9.8
         ]
       }
+    ],
+    "spelare": [
+      6,
+      null
     ],
     "steps": [
       {
@@ -1373,6 +1406,10 @@ window.DRILLS = [
         4.4,
         5.4
       ]
+    ],
+    "spelare": [
+      6,
+      null
     ],
     "steps": [
       {
@@ -1577,6 +1614,10 @@ window.DRILLS = [
         1.8
       ]
     ],
+    "spelare": [
+      6,
+      null
+    ],
     "steps": [
       {
         "text": "Båda lagen skjuter bollarna över mittlinjen till andra sidan.",
@@ -1711,6 +1752,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      8,
+      null
+    ],
     "steps": [
       {
         "text": "En kull-lek.",
@@ -1793,6 +1838,10 @@ window.DRILLS = [
           13.4
         ]
       }
+    ],
+    "spelare": [
+      8,
+      null
     ],
     "steps": [
       {
@@ -1900,6 +1949,10 @@ window.DRILLS = [
         17.8,
         15.8
       ]
+    ],
+    "spelare": [
+      4,
+      null
     ],
     "steps": [
       {
@@ -2052,6 +2105,10 @@ window.DRILLS = [
         4.3
       ]
     ],
+    "spelare": [
+      6,
+      null
+    ],
     "steps": [
       {
         "text": "En tagare utan boll försöker ta bollen från någon.",
@@ -2135,6 +2192,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      8,
+      null
+    ],
     "steps": [
       {
         "text": "Krypa mellan benen för att befria.",
@@ -2217,6 +2278,10 @@ window.DRILLS = [
           13.4
         ]
       }
+    ],
+    "spelare": [
+      8,
+      null
     ],
     "steps": [
       {
@@ -2353,6 +2418,11 @@ window.DRILLS = [
         16.4
       ]
     ],
+    "spelare": [
+      6,
+      null
+    ],
+    "tranare": 2,
     "steps": [
       {
         "text": "Barnen tar en boll var och springer mot andra sidan. Tränarna försöker ta dem.",
@@ -2517,6 +2587,10 @@ window.DRILLS = [
         "y": 13
       }
     },
+    "spelare": [
+      8,
+      null
+    ],
     "steps": [
       {
         "text": "Spelarna springer över planen förbi bläckfiskarna. Bläckfiskarna sitter fast.",
@@ -2789,6 +2863,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      8,
+      null
+    ],
     "steps": [
       {
         "text": "Spelarna springer ut från sina bon i hörnen mot hajens bo i mitten.",
@@ -2959,6 +3037,11 @@ window.DRILLS = [
         12.1
       ]
     ],
+    "spelare": [
+      3,
+      6
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "Tränaren rullar bollen mot sarghörnet. A och B springer efter bollen.",
@@ -3166,6 +3249,11 @@ window.DRILLS = [
         12.7
       ]
     ],
+    "spelare": [
+      2,
+      6
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "A och B springer från varsitt hörn längs konbågen, in mot varandra.",
@@ -3335,6 +3423,10 @@ window.DRILLS = [
         16.6
       ]
     ],
+    "spelare": [
+      4,
+      7
+    ],
     "steps": [
       {
         "text": "A slår en lång passning ner i hörnet. B springer och hämtar.",
@@ -3482,6 +3574,10 @@ window.DRILLS = [
         9.6
       ]
     ],
+    "spelare": [
+      4,
+      7
+    ],
     "steps": [
       {
         "text": "Spelare 1 springer utan boll längs sargen ner i hörnet.",
@@ -3621,6 +3717,11 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      3,
+      7
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "A driver mot mål. Tränaren sätter press på A.",
@@ -3754,6 +3855,10 @@ window.DRILLS = [
         6.3
       ]
     ],
+    "spelare": [
+      3,
+      6
+    ],
     "steps": [
       {
         "text": "A driver upp längs sargen mot konan.",
@@ -3862,6 +3967,10 @@ window.DRILLS = [
         34.7,
         4.6
       ]
+    ],
+    "spelare": [
+      3,
+      6
     ],
     "steps": [
       {
@@ -4009,6 +4118,10 @@ window.DRILLS = [
         2.4,
         15.6
       ]
+    ],
+    "spelare": [
+      4,
+      7
     ],
     "steps": [
       {
@@ -4206,6 +4319,10 @@ window.DRILLS = [
           14
         ]
       }
+    ],
+    "spelare": [
+      5,
+      6
     ],
     "steps": [
       {
@@ -4568,6 +4685,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      4,
+      6
+    ],
     "steps": [
       {
         "text": "2 mot 2 på avgränsad yta: utan mål, med konmål eller med väggpassare.",
@@ -4721,6 +4842,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      6,
+      8
+    ],
     "steps": [
       {
         "text": "Två små planer på bredden. 3 mot 3 på varje.",
@@ -4819,6 +4944,10 @@ window.DRILLS = [
     "ball": {
       "holder": "C"
     },
+    "spelare": [
+      8,
+      10
+    ],
     "steps": [
       {
         "text": "Match 3 mot 3 med målvakt.",
@@ -4901,6 +5030,11 @@ window.DRILLS = [
         16.6
       ]
     ],
+    "spelare": [
+      2,
+      null
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "Spelarna dribblar stillastående. Tränaren visar fingrar och spelarna ropar siffran med blicken upp.",
@@ -4994,6 +5128,10 @@ window.DRILLS = [
           12.5
         ]
       }
+    ],
+    "spelare": [
+      2,
+      6
     ],
     "steps": [
       {
@@ -5126,6 +5264,10 @@ window.DRILLS = [
         2.6
       ]
     ],
+    "spelare": [
+      2,
+      6
+    ],
     "steps": [
       {
         "text": "A driver bollen på utsidan av konerna.",
@@ -5248,6 +5390,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      4,
+      5
+    ],
     "steps": [
       {
         "text": "A passar B.",
@@ -5341,6 +5487,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      2,
+      null
+    ],
     "steps": [
       {
         "text": "A sveppassar till B.",
@@ -5424,6 +5574,10 @@ window.DRILLS = [
         11
       ]
     ],
+    "spelare": [
+      2,
+      4
+    ],
     "steps": [
       {
         "text": "A står med ryggen mot mål. B passar A.",
@@ -5506,6 +5660,10 @@ window.DRILLS = [
         14,
         16.2
       ]
+    ],
+    "spelare": [
+      3,
+      5
     ],
     "steps": [
       {
@@ -5617,6 +5775,10 @@ window.DRILLS = [
           17.6
         ]
       }
+    ],
+    "spelare": [
+      6,
+      8
     ],
     "steps": [
       {
@@ -5824,6 +5986,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      2,
+      6
+    ],
     "steps": [
       {
         "text": "A hoppar över hindret.",
@@ -5972,6 +6138,10 @@ window.DRILLS = [
         7
       ]
     ],
+    "spelare": [
+      3,
+      7
+    ],
     "steps": [
       {
         "text": "A dribblar genom konbanan.",
@@ -6106,6 +6276,10 @@ window.DRILLS = [
         8
       ]
     ],
+    "spelare": [
+      3,
+      6
+    ],
     "steps": [
       {
         "text": "A driver bollen upp mot konan.",
@@ -6236,6 +6410,10 @@ window.DRILLS = [
         13.7,
         1.2
       ]
+    ],
+    "spelare": [
+      4,
+      8
     ],
     "steps": [
       {
@@ -6439,6 +6617,11 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      8,
+      14
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "Tränaren ropar en siffra. Så många från varje lag springer in och spelar.",
@@ -6555,6 +6738,10 @@ window.DRILLS = [
         10.45
       ]
     ],
+    "spelare": [
+      4,
+      null
+    ],
     "steps": [
       {
         "text": "Alla dribblar fritt till musiken. Vid stopp: dribbla på stället, få upp bollen eller skridskohopp.",
@@ -6643,6 +6830,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      8,
+      null
+    ],
     "steps": [
       {
         "text": "Tagaren jagar. Den som blir tagen gör utfall, jämfotahopp eller situps och är sedan med igen.",
@@ -6710,6 +6901,11 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      3,
+      10
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "Ledaren springer upp längs sargen. B och C följer efter.",
@@ -6906,6 +7102,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      2,
+      null
+    ],
     "steps": [
       {
         "text": "A, B, C och D ligger ned med klubba och boll längs sargen.",
@@ -7067,6 +7267,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      4,
+      12
+    ],
     "steps": [
       {
         "text": "Alla driver boll i fyrkanten, slår bort de andras bollar och skyddar sin egen.",
@@ -7160,6 +7364,10 @@ window.DRILLS = [
           14.6
         ]
       }
+    ],
+    "spelare": [
+      2,
+      null
     ],
     "steps": [
       {
@@ -7261,6 +7469,10 @@ window.DRILLS = [
         21.18,
         10.45
       ]
+    ],
+    "spelare": [
+      2,
+      6
     ],
     "steps": [
       {
@@ -7450,6 +7662,10 @@ window.DRILLS = [
           15.5
         ]
       }
+    ],
+    "spelare": [
+      6,
+      10
     ],
     "steps": [
       {
@@ -7642,6 +7858,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      4,
+      8
+    ],
     "steps": [
       {
         "text": "A startar med boll mot bortre målet.",
@@ -7718,6 +7938,10 @@ window.DRILLS = [
         "y": 10.7
       }
     },
+    "spelare": [
+      2,
+      null
+    ],
     "steps": [
       {
         "text": "Stående eller sittande rygg mot rygg. Flytta en klubba från ena sidan till andra med överlämning.",
@@ -7770,6 +7994,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      1,
+      null
+    ],
     "steps": [
       {
         "text": "Kliv upp på bänken och ner igen, växla ben.",
@@ -7801,6 +8029,10 @@ window.DRILLS = [
         "y": 10
       }
     },
+    "spelare": [
+      1,
+      null
+    ],
     "steps": [
       {
         "text": "Knäböj.",
@@ -7832,6 +8064,10 @@ window.DRILLS = [
         "y": 10
       }
     },
+    "spelare": [
+      1,
+      null
+    ],
     "steps": [
       {
         "text": "Knäböj med bandyklubba.",
@@ -7884,6 +8120,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      1,
+      null
+    ],
     "steps": [
       {
         "text": "Armhävningar med händerna mot bänken.",
@@ -7915,6 +8155,10 @@ window.DRILLS = [
         "y": 10
       }
     },
+    "spelare": [
+      1,
+      null
+    ],
     "steps": [
       {
         "text": "Planka.",
@@ -7947,6 +8191,10 @@ window.DRILLS = [
         "y": 10
       }
     },
+    "spelare": [
+      1,
+      null
+    ],
     "steps": [
       {
         "text": "Planka med Makarena.",
@@ -7978,6 +8226,10 @@ window.DRILLS = [
         "y": 10
       }
     },
+    "spelare": [
+      1,
+      null
+    ],
     "steps": [
       {
         "text": "Planka och rotera upp till sidoplanka åt varannat håll.",
@@ -8010,6 +8262,10 @@ window.DRILLS = [
         "y": 10
       }
     },
+    "spelare": [
+      1,
+      null
+    ],
     "steps": [
       {
         "text": "Hoppa från sida till sida som en skridskoåkare.",
@@ -8041,6 +8297,10 @@ window.DRILLS = [
         "y": 0.9
       }
     },
+    "spelare": [
+      1,
+      null
+    ],
     "steps": [
       {
         "text": "Sitt mot sargen med 90 grader i knäna.",
@@ -8072,6 +8332,10 @@ window.DRILLS = [
         "y": 10
       }
     },
+    "spelare": [
+      1,
+      null
+    ],
     "steps": [
       {
         "text": "Draken.",
@@ -8110,6 +8374,10 @@ window.DRILLS = [
         "y": 12
       }
     },
+    "spelare": [
+      2,
+      null
+    ],
     "steps": [
       {
         "text": "I par: stå på ett ben och kör tumbrottning.",
@@ -8141,6 +8409,10 @@ window.DRILLS = [
         "y": 10
       }
     },
+    "spelare": [
+      1,
+      null
+    ],
     "steps": [
       {
         "text": "Stå på ett ben och blunda.",
@@ -8179,6 +8451,10 @@ window.DRILLS = [
         "y": 12
       }
     },
+    "spelare": [
+      2,
+      null
+    ],
     "steps": [
       {
         "text": "Situps mot varandra, high-five i mitten.",
@@ -8210,6 +8486,10 @@ window.DRILLS = [
         "y": 10
       }
     },
+    "spelare": [
+      1,
+      null
+    ],
     "steps": [
       {
         "text": "Skidhopp med Valle.",
@@ -8284,6 +8564,10 @@ window.DRILLS = [
         18.8,
         12
       ]
+    ],
+    "spelare": [
+      2,
+      6
     ],
     "steps": [
       {
@@ -8401,6 +8685,10 @@ window.DRILLS = [
         7
       ]
     ],
+    "spelare": [
+      2,
+      6
+    ],
     "steps": [
       {
         "text": "A tar några steg med bollen mot mål.",
@@ -8497,6 +8785,10 @@ window.DRILLS = [
         19.9,
         9.6
       ]
+    ],
+    "spelare": [
+      2,
+      6
     ],
     "steps": [
       {
@@ -8638,6 +8930,10 @@ window.DRILLS = [
         12.8
       ]
     ],
+    "spelare": [
+      2,
+      6
+    ],
     "steps": [
       {
         "text": "A driver till första konen och vänder skarpt.",
@@ -8764,6 +9060,11 @@ window.DRILLS = [
         7.8
       ]
     ],
+    "spelare": [
+      2,
+      5
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "A står bredbent med ryggen mot tränaren. Tränaren passar mellan A:s ben.",
@@ -8854,6 +9155,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      2,
+      null
+    ],
     "steps": [
       {
         "text": "A flippar bollen över bänken till B.",
@@ -8941,6 +9246,10 @@ window.DRILLS = [
         13.6,
         16.2
       ]
+    ],
+    "spelare": [
+      3,
+      6
     ],
     "steps": [
       {
@@ -9102,6 +9411,10 @@ window.DRILLS = [
         31,
         14.4
       ]
+    ],
+    "spelare": [
+      3,
+      null
     ],
     "steps": [
       {
@@ -9311,6 +9624,11 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      9,
+      12
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "Ledaren rullar in bollen till lag 1.",
@@ -9494,6 +9812,10 @@ window.DRILLS = [
           5.2
         ]
       }
+    ],
+    "spelare": [
+      6,
+      10
     ],
     "steps": [
       {
@@ -9759,6 +10081,10 @@ window.DRILLS = [
           10
         ]
       }
+    ],
+    "spelare": [
+      5,
+      9
     ],
     "steps": [
       {
@@ -10148,6 +10474,11 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      6,
+      10
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "Ledaren spelar in bollen mot ett hörn. Två spelare per lag springer in, och nästa i varje led sätter sig på stolen.",
@@ -10438,6 +10769,11 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      6,
+      16
+    ],
+    "tranare": 2,
     "steps": [
       {
         "text": "Lag 1 (A, B, C) ger sig iväg. A driver, B och C springer fram.",
@@ -10646,6 +10982,10 @@ window.DRILLS = [
           20
         ]
       }
+    ],
+    "spelare": [
+      4,
+      5
     ],
     "steps": [
       {
@@ -10897,6 +11237,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      6,
+      null
+    ],
     "steps": [
       {
         "text": "A passar till B.",
@@ -11053,6 +11397,11 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      4,
+      8
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "A passar till väggpassaren och springer förbi hindret.",
@@ -11273,6 +11622,10 @@ window.DRILLS = [
           10.8
         ]
       }
+    ],
+    "spelare": [
+      6,
+      8
     ],
     "steps": [
       {
@@ -11525,6 +11878,11 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      7,
+      13
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "Ledaren slänger in bollen. A hinner först, C går mot A.",
@@ -11770,6 +12128,10 @@ window.DRILLS = [
           10.8
         ]
       }
+    ],
+    "spelare": [
+      4,
+      10
     ],
     "steps": [
       {
@@ -12066,6 +12428,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      8,
+      null
+    ],
     "steps": [
       {
         "text": "Alla spelar innebandy samtidigt, runt och över hindren.",
@@ -12201,6 +12567,10 @@ window.DRILLS = [
         17,
         11.8
       ]
+    ],
+    "spelare": [
+      2,
+      null
     ],
     "steps": [
       {
@@ -12353,6 +12723,11 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      2,
+      null
+    ],
+    "tranare": 1,
     "steps": [
       {
         "text": "Alla sitter på huk och väntar på ledarens kommando.",
@@ -12560,6 +12935,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      8,
+      null
+    ],
     "steps": [
       {
         "text": "Den tagna spelaren står still och dribblar. En fri spelare passar till hen…",
@@ -12661,6 +13040,10 @@ window.DRILLS = [
         16.6,
         17.6
       ]
+    ],
+    "spelare": [
+      4,
+      null
     ],
     "steps": [
       {
@@ -12931,6 +13314,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      8,
+      null
+    ],
     "steps": [
       {
         "text": "Alla med klubba och boll på linjen. Höken i mitten.",
@@ -13075,6 +13462,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      6,
+      null
+    ],
     "steps": [
       {
         "text": "Alla driver över mot andra sidan. Skuggan försöker ta bollar.",
@@ -13217,6 +13608,10 @@ window.DRILLS = [
         "y": 16.6
       }
     },
+    "spelare": [
+      8,
+      null
+    ],
     "steps": [
       {
         "text": "Hela laget tar sig tillsammans fram till konen…",
@@ -13553,6 +13948,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      6,
+      null
+    ],
     "steps": [
       {
         "text": "Alla springer över och försöker ta en kon från andra lagets sida.",
@@ -13815,6 +14214,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      6,
+      null
+    ],
     "steps": [
       {
         "text": "Gruppen tar sig i armkrok genom slalombanan och gör en övning vid varje kon.",
@@ -13983,6 +14386,10 @@ window.DRILLS = [
         1.6,
         3.1
       ]
+    ],
+    "spelare": [
+      3,
+      7
     ],
     "steps": [
       {
@@ -14165,6 +14572,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      4,
+      5
+    ],
     "steps": [
       {
         "text": "Jägaren går mot A, som vänder bort med bollen.",
@@ -14308,6 +14719,10 @@ window.DRILLS = [
         14.6
       ]
     ],
+    "spelare": [
+      3,
+      null
+    ],
     "steps": [
       {
         "text": "A passar B…",
@@ -14423,6 +14838,10 @@ window.DRILLS = [
     "ball": {
       "holder": "A"
     },
+    "spelare": [
+      6,
+      8
+    ],
     "steps": [
       {
         "text": "Laget passar runt för att hålla bollen borta från försvararen.",
@@ -14623,6 +15042,10 @@ window.DRILLS = [
         ]
       }
     ],
+    "spelare": [
+      2,
+      4
+    ],
     "steps": [
       {
         "text": "A driver i sidled för att hitta en väg förbi B.",
@@ -14810,6 +15233,10 @@ window.DRILLS = [
           10
         ]
       }
+    ],
+    "spelare": [
+      6,
+      6
     ],
     "steps": [
       {

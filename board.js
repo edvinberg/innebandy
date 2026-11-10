@@ -71,6 +71,17 @@
       if (typeof e.x !== "number" || typeof e.y !== "number")
         throw new Error(`"${id}" behöver x och y som siffror.`);
     }
+    const sp = d.spelare;
+    if (
+      !Array.isArray(sp) ||
+      sp.length !== 2 ||
+      !Number.isInteger(sp[0]) ||
+      sp[0] < 1 ||
+      !(sp[1] === null || (Number.isInteger(sp[1]) && sp[1] >= sp[0]))
+    )
+      throw new Error('"spelare" ska se ut som [min, max], eller [min, null] om alla kan vara med.');
+    if ("tranare" in d && !(Number.isInteger(d.tranare) && d.tranare >= 1))
+      throw new Error('"tranare" ska vara ett heltal, minst 1.');
     if (d.view && !(isPoint(d.view) && d.view[0] < d.view[1]))
       throw new Error('"view" ska se ut som [0, 20].');
     if (d.ball?.holder && !ids.includes(d.ball.holder))
@@ -556,5 +567,13 @@
     };
   }
 
-  window.DrillBoard = { create, validate, CATEGORIES };
+  // Rekommenderat antal, t.ex. "4–7 spelare · 1 tränare". Målvakter räknas som spelare.
+  function players(d) {
+    const [min, max] = d.spelare;
+    let s = max === null ? `minst ${min} spelare` : min === max ? `${min} spelare` : `${min}–${max} spelare`;
+    if (d.tranare) s += ` · ${d.tranare} tränare`;
+    return s;
+  }
+
+  window.DrillBoard = { create, validate, players, CATEGORIES };
 })();

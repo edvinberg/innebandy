@@ -151,6 +151,11 @@
         background: radial-gradient(circle, var(--white) 1.6px, transparent 2px)
           0 0 / 10px 4px repeat-x;
       }
+      .players {
+        margin: -8px 0 16px;
+        font-weight: 600;
+        opacity: 0.8;
+      }
       dl#drillInfo {
         margin: 0;
         max-width: 62ch;
@@ -300,6 +305,7 @@
         <nav id="catNav" aria-label="Kategorier"></nav>
         <nav id="drillNav" aria-label="Övningar"></nav>
         <h2 id="drillName"></h2>
+        <p class="players" id="drillPlayers"></p>
         <dl id="drillInfo"></dl>
         <p class="empty" id="emptyMsg" hidden>Inga övningar här än.</p>
       </section>
@@ -443,6 +449,7 @@
         idx = -1;
         renderNav();
         $("drillName").textContent = c;
+        $("drillPlayers").textContent = "";
         $("drillInfo").innerHTML = "";
         $("emptyMsg").hidden = false;
         $("board").hidden = true;
@@ -457,6 +464,7 @@
         $("emptyMsg").hidden = true;
         $("board").hidden = false;
         $("drillName").textContent = drill.name;
+        $("drillPlayers").textContent = DrillBoard.players(drill);
         const info = $("drillInfo");
         info.innerHTML = "";
         for (const [h, t] of drill.info || []) {
