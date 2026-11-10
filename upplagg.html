@@ -176,6 +176,19 @@
         flex-wrap: wrap;
         gap: 8px;
       }
+      .lucky {
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--navy);
+        background: var(--white);
+        border: 0;
+        border-radius: 999px;
+        padding: 6px 16px;
+        cursor: pointer;
+      }
       .ghost {
         font: inherit;
         font-size: 0.8125rem;
@@ -383,7 +396,10 @@
         </div>
         <div class="mode-box" id="mallBox">
           <ol class="picks" id="picks"></ol>
-          <button class="clear" id="clear" type="button">Rensa valda övningar</button>
+          <div class="free-tools">
+            <button class="lucky" id="lucky" type="button">Låt tränaren skapa</button>
+            <button class="clear" id="clear" type="button">Rensa valda övningar</button>
+          </div>
         </div>
         <div class="mode-box" id="freeBox" hidden>
           <ol class="picks" id="free"></ol>
@@ -618,6 +634,31 @@
           }
         });
       };
+      // Låt tränaren skapa: fyller varje moment med en slumpad övning ur momentets kategori,
+      // helst ur Tränarens val, och samma övning används bara en gång.
+      document.getElementById("lucky").addEventListener("click", () => {
+        const used = new Set();
+        const pickFor = (cat) => {
+          const free = DRILLS.filter((d) => d.category === cat && !used.has(d.name));
+          const top = free.filter((d) => !d.ovrigt);
+          const pool = top.length ? top : free;
+          const d = pool[Math.floor(Math.random() * pool.length)];
+          if (d) used.add(d.name);
+          return d;
+        };
+        mall.p = {};
+        plan.rows.forEach((r, i) => {
+          const items = [[r, String(i)], ...(r.sub || []).map((sub, j) => [sub, `${i}.${j}`])];
+          for (const [it, id] of items) {
+            if (!it.cat) continue;
+            const d = pickFor(it.cat);
+            if (d) mall.p[id] = d.name;
+          }
+        });
+        mall.save();
+        render();
+        renderResult();
+      });
       document.getElementById("clear").addEventListener("click", () => {
         mall.p = {};
         mall.save();
