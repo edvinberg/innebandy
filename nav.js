@@ -115,7 +115,6 @@
   if (level) {
     items.push([`ovningar.html?niva=${level}`, "Övningar", "ovningar.html"]);
     items.push([`upplagg.html?niva=${level}`, "Upplägg", "upplagg.html"]);
-    items.push([`meta.html?niva=${level}`, "Vårt spel", "meta.html"]);
   }
   items.push(["admin.html", "Admin"]);
   for (const [href, label, page] of items) {
