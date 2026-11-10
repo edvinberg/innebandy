@@ -5987,8 +5987,8 @@ window.DRILLS = [
       }
     ],
     "spelare": [
-      2,
-      6
+      1,
+      null
     ],
     "steps": [
       {
