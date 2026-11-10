@@ -141,22 +141,3 @@
   nav.appendChild(burger);
   document.body.prepend(nav);
 })();
-
-// Dela en länk: delningsmenyn där den finns (mobil), annars kopieras länken.
-window.shareLink = async (btn, title, url) => {
-  if (navigator.share) {
-    try {
-      await navigator.share({ title, url });
-    } catch {}
-    return;
-  }
-  const label = btn.textContent;
-  try {
-    await navigator.clipboard.writeText(url);
-    btn.textContent = "Länk kopierad";
-  } catch {
-    window.prompt("Kopiera länken:", url);
-    return;
-  }
-  setTimeout(() => (btn.textContent = label), 2000);
-};

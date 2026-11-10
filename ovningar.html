@@ -168,22 +168,6 @@
         font-weight: 600;
         opacity: 0.8;
       }
-      .share {
-        align-self: flex-start;
-        margin: -4px 0 16px;
-        font: inherit;
-        font-size: 0.8125rem;
-        font-weight: 600;
-        color: var(--white);
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.45);
-        border-radius: 999px;
-        padding: 5px 14px;
-        cursor: pointer;
-      }
-      .share:hover {
-        border-color: var(--white);
-      }
       dl#drillInfo {
         margin: 0;
         max-width: 62ch;
@@ -334,7 +318,6 @@
         <nav id="drillNav" aria-label="Övningar"></nav>
         <h2 id="drillName"></h2>
         <p class="players" id="drillPlayers"></p>
-        <button class="share" id="share" type="button">Dela övning</button>
         <dl id="drillInfo"></dl>
         <p class="empty" id="emptyMsg" hidden>Inga övningar här än.</p>
       </section>
@@ -472,7 +455,6 @@
         renderNav();
         $("drillName").textContent = c;
         $("drillPlayers").textContent = "";
-        $("share").hidden = true;
         $("drillInfo").innerHTML = "";
         $("emptyMsg").hidden = false;
         $("board").hidden = true;
@@ -488,7 +470,6 @@
         $("board").hidden = false;
         $("drillName").textContent = drill.name;
         $("drillPlayers").textContent = DrillBoard.players(drill);
-        $("share").hidden = false;
         const info = $("drillInfo");
         info.innerHTML = "";
         for (const [h, t] of drill.info || []) {
@@ -533,16 +514,7 @@
         if (e.key === "ArrowLeft") board.prev();
       });
 
-      // Delad länk: ovningar.html?niva=bla&ovning=Namn öppnar den övningen.
-      $("share").addEventListener("click", () => {
-        const url = new URL(location.href);
-        url.hash = "";
-        url.search = new URLSearchParams({ niva: window.NIVA, ovning: DRILLS[idx].name });
-        shareLink($("share"), DRILLS[idx].name, url.href);
-      });
-      const shared = DRILLS.findIndex((d) => d.name === new URLSearchParams(location.search).get("ovning"));
-      if (shared >= 0) select(shared);
-      else showCategory(cat);
+      showCategory(cat);
     </script>
   </body>
 </html>
