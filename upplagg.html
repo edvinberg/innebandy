@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>Innebandy – skapa träningspass</title>
+    <title>Innebandy – skapa träning</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
     />
     <style>
-      /* Skapa träningspass: val av övningar till vänster, upplägget med valda övningar till höger. */
+      /* Skapa träning: val av övningar till vänster, upplägget med valda övningar till höger. */
       :root {
         --blue: #0a3a6e;
         --navy: #0d4c8f;
@@ -375,7 +375,7 @@
     <script src="nav.js"></script>
     <div class="page">
       <section class="build">
-        <h2>Skapa träningspass</h2>
+        <h2>Skapa träning</h2>
         <div class="modes" role="group" aria-label="Sätt att bygga passet">
           <button type="button" data-mode="mall">Utgå från upplägg</button>
           <button type="button" data-mode="fri">Fri lista</button>
@@ -615,7 +615,7 @@
         else renderFreeRows();
       };
 
-      // Skapa träningspass: en lista per moment som har en kategori.
+      // Skapa träning: en lista per moment som har en kategori.
       const list = document.getElementById("picks");
       const render = () => {
         list.innerHTML = "";

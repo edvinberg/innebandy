@@ -8,7 +8,7 @@
 | ------------ | ---------------------------------------------------------------------------- |
 | `index.html` | Startsida. Här väljer du nivå: grön, blå eller röd.                                 |
 | `ovningar.html` | Övningsbanken, med flikar för Uppvärmning, Fys, Station, Lekar/slutövning och Småövning.                 |
-| `upplagg.html` | Skapa träningspass (första sidan efter nivåval). Formatet för ett träningstillfälle per nivå. Välj en övning per moment; valen sparas i webbläsaren. |
+| `upplagg.html` | Skapa träning (första sidan efter nivåval). Formatet för ett träningstillfälle per nivå. Välj en övning per moment; valen sparas i webbläsaren. |
 | `foresla.html` | Föreslå övning. Formulär med bara text; skissen (`img`) ritas senare. Förslaget sparas inte än. |
 | `plan.js`    | Momenten till Upplägg per nivå (`gron`, `bla`, `rod`). `cat` = vilken kategori momentets övning väljs ur. |
 | `meta.html`  | Vårt spel. Spelidén i delar, med text och skiss för varje del.                |

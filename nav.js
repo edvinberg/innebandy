@@ -113,7 +113,7 @@
   links.className = "sn-links";
   const items = [];
   if (level) {
-    items.push([`upplagg.html?niva=${level}`, "Skapa träningspass", "upplagg.html"]);
+    items.push([`upplagg.html?niva=${level}`, "Skapa träning", "upplagg.html"]);
     items.push([`ovningar.html?niva=${level}`, "Övningar", "ovningar.html"]);
   }
   items.push(["foresla.html", "Föreslå övning"]);
