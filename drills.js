@@ -59,7 +59,7 @@ window.DRILLS = [
     ],
     "spelare": [
       2,
-      4
+      null
     ],
     "steps": [
       {
@@ -4322,7 +4322,7 @@ window.DRILLS = [
     ],
     "spelare": [
       5,
-      6
+      null
     ],
     "steps": [
       {
@@ -4687,7 +4687,7 @@ window.DRILLS = [
     ],
     "spelare": [
       4,
-      6
+      null
     ],
     "steps": [
       {
@@ -5130,8 +5130,8 @@ window.DRILLS = [
       }
     ],
     "spelare": [
-      2,
-      6
+      1,
+      null
     ],
     "steps": [
       {
@@ -5392,7 +5392,7 @@ window.DRILLS = [
     ],
     "spelare": [
       4,
-      5
+      null
     ],
     "steps": [
       {
@@ -8566,8 +8566,8 @@ window.DRILLS = [
       ]
     ],
     "spelare": [
-      2,
-      6
+      1,
+      null
     ],
     "steps": [
       {
@@ -8787,8 +8787,8 @@ window.DRILLS = [
       ]
     ],
     "spelare": [
-      2,
-      6
+      1,
+      null
     ],
     "steps": [
       {
@@ -8931,8 +8931,8 @@ window.DRILLS = [
       ]
     ],
     "spelare": [
-      2,
-      6
+      1,
+      null
     ],
     "steps": [
       {
@@ -10985,7 +10985,7 @@ window.DRILLS = [
     ],
     "spelare": [
       4,
-      5
+      null
     ],
     "steps": [
       {
@@ -14574,7 +14574,7 @@ window.DRILLS = [
     ],
     "spelare": [
       4,
-      5
+      null
     ],
     "steps": [
       {
@@ -15044,7 +15044,7 @@ window.DRILLS = [
     ],
     "spelare": [
       2,
-      4
+      null
     ],
     "steps": [
       {

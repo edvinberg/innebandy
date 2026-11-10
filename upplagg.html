@@ -404,6 +404,7 @@
     <script src="drills.js"></script>
     <script src="board.js"></script>
     <script src="plan.js"></script>
+    <script src="forslag.js"></script>
     <script>
       const plan = window.PLAN[window.NIVA];
       const meta = document.getElementById("meta");
@@ -490,6 +491,7 @@
             note.textContent = "Skriv både namn och beskrivning.";
             return;
           }
+          const isNew = typeof st.p[id] !== "object" || st.p[id] === null;
           st.p[id] = {
             name: name.value.trim(),
             ...(r.cat && { category: r.cat }),
@@ -498,6 +500,8 @@
             img: "",
           };
           st.save();
+          // Ny egen övning skickas också som förslag (en gång, inte vid varje ändring).
+          if (isNew) Forslag.add(st.p[id]);
           mine.text = st.p[id].name;
           mine.hidden = false;
           sel.value = MINE;

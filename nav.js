@@ -111,7 +111,7 @@
 
   const links = document.createElement("div");
   links.className = "sn-links";
-  const items = [["index.html", "Start"]];
+  const items = [];
   if (level) {
     items.push([`upplagg.html?niva=${level}`, "Skapa träningspass", "upplagg.html"]);
     items.push([`ovningar.html?niva=${level}`, "Övningar", "ovningar.html"]);

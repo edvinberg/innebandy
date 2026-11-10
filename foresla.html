@@ -256,6 +256,86 @@
       .again:hover {
         border-color: var(--ink);
       }
+      .modes {
+        display: inline-flex;
+        align-self: flex-start;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 999px;
+        padding: 3px;
+        gap: 2px;
+      }
+      .modes button {
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--white);
+        background: transparent;
+        border: 0;
+        border-radius: 999px;
+        padding: 6px 14px;
+        cursor: pointer;
+      }
+      .modes button[aria-pressed="true"] {
+        background: var(--white);
+        color: var(--navy);
+      }
+      .inbox ol {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 620px;
+      }
+      .inbox li {
+        padding: 10px 12px;
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) max-content;
+        gap: 2px 12px;
+      }
+      .inbox .sub {
+        grid-column: 1;
+        font-size: 0.8125rem;
+        color: var(--ink-soft);
+      }
+      .inbox .how {
+        grid-column: 1 / -1;
+        margin: 6px 0 0;
+        font-size: 0.875rem;
+        white-space: pre-line;
+      }
+      .inbox .why {
+        grid-column: 1 / -1;
+        margin: 8px 0 0;
+        padding-top: 8px;
+        border-top: 1px solid var(--rule);
+        font-size: 0.8125rem;
+        color: var(--ink-soft);
+      }
+      .status {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        align-self: start;
+        font-size: 0.6875rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        border-radius: 999px;
+        padding: 3px 10px;
+        background: #e8ecf1;
+        color: var(--ink);
+      }
+      .status.godkand {
+        background: #3fb15e;
+        color: var(--white);
+      }
+      .status.avbojd {
+        background: #d8343a;
+        color: var(--white);
+      }
       @media (max-width: 820px) {
         .page {
           grid-template-columns: minmax(0, 1fr);
@@ -273,13 +353,17 @@
     <div class="page">
       <section class="intro">
         <h1>Föreslå övning</h1>
-        <ol class="steps">
+        <div class="modes" role="group" aria-label="Visa">
+          <button type="button" data-view="new">Föreslå</button>
+          <button type="button" data-view="inbox">Inkomna förslag</button>
+        </div>
+        <ol class="steps" id="steps">
           <li><b>Beskriv övningen</b> i formuläret – bara text.</li>
           <li><b>Vi ritar skissen</b> på planen och går igenom texten.</li>
           <li><b>Övningen läggs in</b> i övningsbanken för de nivåer du valt.</li>
         </ol>
       </section>
-      <section class="build">
+      <section class="build" id="newView">
         <h2>Din övning</h2>
         <form id="form" novalidate>
           <div class="field">
@@ -321,13 +405,18 @@
           <button class="send" type="submit">Skicka förslag</button>
         </form>
         <div class="done" id="done" hidden>
-          <p><b>Tack!</b> Vi ritar skissen och lägger in övningen i banken.</p>
+          <p><b>Tack!</b> Förslaget syns nu under Inkomna förslag, där du kan följa vad som händer med det.</p>
           <dl class="summary" id="summary"></dl>
           <button class="again" id="again" type="button">Föreslå en till</button>
         </div>
       </section>
+      <section class="build inbox" id="inboxView" hidden>
+        <h2>Inkomna förslag</h2>
+        <ol id="inbox"></ol>
+      </section>
     </div>
     <script src="board.js"></script>
+    <script src="forslag.js"></script>
     <script>
       const $ = (id) => document.getElementById(id);
       for (const c of DrillBoard.CATEGORIES) $("category").appendChild(new Option(c, c));
@@ -390,7 +479,48 @@
         $("done").hidden = false;
       }
 
-      $("form").addEventListener("submit", (e) => {
+      async function renderInbox() {
+        const ol = $("inbox");
+        ol.innerHTML = "";
+        for (const f of await Forslag.list()) {
+          const li = document.createElement("li");
+          const name = document.createElement("b");
+          name.textContent = f.name;
+          const st = document.createElement("span");
+          st.className = `status ${f.status}`;
+          st.textContent = Forslag.STATUS[f.status];
+          const sub = document.createElement("span");
+          sub.className = "sub";
+          sub.textContent = [f.skapad, ...f.levels.map((l) => window.LEVELS[l])].join(" · ");
+          li.append(name, st, sub);
+          const how = document.createElement("p");
+          how.className = "how";
+          how.textContent = f.info.find(([h]) => h === "Anvisningar")[1];
+          li.appendChild(how);
+          if (f.kommentar) {
+            const why = document.createElement("p");
+            why.className = "why";
+            why.textContent = f.kommentar;
+            li.appendChild(why);
+          }
+          ol.appendChild(li);
+        }
+      }
+      renderInbox();
+
+      // Växla mellan att föreslå och att se inkomna förslag.
+      const showView = (view) => {
+        $("newView").hidden = view !== "new";
+        $("inboxView").hidden = view !== "inbox";
+        $("steps").hidden = view !== "new";
+        for (const b of document.querySelectorAll(".modes button"))
+          b.setAttribute("aria-pressed", String(b.dataset.view === view));
+      };
+      for (const b of document.querySelectorAll(".modes button"))
+        b.addEventListener("click", () => showView(b.dataset.view));
+      showView("new");
+
+      $("form").addEventListener("submit", async (e) => {
         e.preventDefault();
         const drill = read();
         if (typeof drill === "string") {
@@ -399,7 +529,15 @@
           return;
         }
         $("error").hidden = true;
+        try {
+          await Forslag.add(drill);
+        } catch {
+          $("error").textContent = "Förslaget kunde inte skickas. Försök igen.";
+          $("error").hidden = false;
+          return;
+        }
         showDone(drill);
+        renderInbox();
       });
 
       $("again").addEventListener("click", () => {
