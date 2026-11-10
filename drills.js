@@ -10303,6 +10303,7 @@ window.DRILLS = [
     "name": "Kom alla mina kycklingar",
     "category": "Lekar/slutövning",
     "levels": [
+      "gron",
       "bla"
     ],
     "view": [
@@ -10724,6 +10725,7 @@ window.DRILLS = [
     "name": "Passningar i kvadrat",
     "category": "Station",
     "levels": [
+      "gron",
       "bla"
     ],
     "view": [
@@ -11618,6 +11620,7 @@ window.DRILLS = [
     "name": "Målen i mitten",
     "category": "Station",
     "levels": [
+      "gron",
       "bla",
       "rod"
     ],
@@ -11633,6 +11636,10 @@ window.DRILLS = [
       [
         "Anvisningar",
         "Vanlig match men med två mål rygg mot rygg i mitten, så att avsluten kommer från kortsidorna. Man får anfalla mot båda målen. Spela 2 mot 2 eller 3 mot 3 på cirka 15 × 10 m. Regel: efter en räddning eller ett insläppt mål måste laget först göra mål i det andra målet eller spela ut bollen till en bestämd yta.\nSmå mål fungerar bra. Med målvakter kan man räkna flera matcher samtidigt: utespelare mot målvakter, lag mot lag och målvakt mot målvakt."
+      ],
+      [
+        "Grön nivå",
+        "Ca 10×10 m, 2 mot 2 (senare 3 mot 3 eller 4 mot 4). I början får motståndarna ta returer; senare gäller retur-regeln ovan."
       ]
     ],
     "entities": {
@@ -11771,5 +11778,3044 @@ window.DRILLS = [
       }
     ],
     "ovrigt": true
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Skeppsbrott",
+    "category": "Uppvärmning",
+    "view": [
+      0,
+      40
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Aktivering. Spelarna måste lyfta blicken, prata med varandra och hitta en plan för att göra mål."
+      ],
+      [
+        "Anvisningar",
+        "Ställ ut så mycket material som möjligt över hela planen: koner, mattor, rockringar, bänkar – bara fantasin sätter gränser. Ställ ut några mål, dela in i 2–4 lag och spela innebandy över hela planen, trots hindren."
+      ],
+      [
+        "Organisation",
+        "2–4 lag. Antal mål och bollar efter gruppens storlek och planens yta."
+      ]
+    ],
+    "entities": {
+      "c1": {
+        "type": "cone",
+        "x": 6,
+        "y": 4
+      },
+      "c2": {
+        "type": "cone",
+        "x": 6,
+        "y": 15
+      },
+      "c3": {
+        "type": "cone",
+        "x": 14,
+        "y": 9
+      },
+      "c4": {
+        "type": "cone",
+        "x": 22,
+        "y": 3
+      },
+      "c5": {
+        "type": "cone",
+        "x": 26,
+        "y": 16
+      },
+      "c6": {
+        "type": "cone",
+        "x": 31,
+        "y": 8
+      },
+      "c7": {
+        "type": "cone",
+        "x": 34,
+        "y": 14
+      },
+      "h1": {
+        "type": "player",
+        "team": "home",
+        "x": 9,
+        "y": 5
+      },
+      "h2": {
+        "type": "player",
+        "team": "home",
+        "x": 17,
+        "y": 13
+      },
+      "h3": {
+        "type": "player",
+        "team": "home",
+        "x": 27,
+        "y": 6
+      },
+      "h4": {
+        "type": "player",
+        "team": "home",
+        "x": 33,
+        "y": 3
+      },
+      "a1": {
+        "type": "player",
+        "team": "away",
+        "x": 10,
+        "y": 14
+      },
+      "a2": {
+        "type": "player",
+        "team": "away",
+        "x": 19,
+        "y": 5
+      },
+      "a3": {
+        "type": "player",
+        "team": "away",
+        "x": 24,
+        "y": 11
+      },
+      "a4": {
+        "type": "player",
+        "team": "away",
+        "x": 30,
+        "y": 17
+      },
+      "t1": {
+        "type": "player",
+        "team": "third",
+        "x": 7,
+        "y": 9
+      },
+      "t2": {
+        "type": "player",
+        "team": "third",
+        "x": 15,
+        "y": 17
+      },
+      "t3": {
+        "type": "player",
+        "team": "third",
+        "x": 21,
+        "y": 9
+      }
+    },
+    "balls": [
+      [
+        9.6,
+        5.6
+      ],
+      [
+        24.6,
+        11.6
+      ],
+      [
+        15.6,
+        17.6
+      ]
+    ],
+    "lines": [
+      {
+        "from": [
+          4,
+          10.5
+        ],
+        "to": [
+          4,
+          15.5
+        ]
+      },
+      {
+        "from": [
+          6,
+          10.5
+        ],
+        "to": [
+          6,
+          15.5
+        ]
+      },
+      {
+        "from": [
+          4,
+          10.5
+        ],
+        "to": [
+          6,
+          10.5
+        ]
+      },
+      {
+        "from": [
+          4,
+          15.5
+        ],
+        "to": [
+          6,
+          15.5
+        ]
+      },
+      {
+        "from": [
+          13,
+          2
+        ],
+        "to": [
+          13,
+          7
+        ]
+      },
+      {
+        "from": [
+          15,
+          2
+        ],
+        "to": [
+          15,
+          7
+        ]
+      },
+      {
+        "from": [
+          13,
+          2
+        ],
+        "to": [
+          15,
+          2
+        ]
+      },
+      {
+        "from": [
+          13,
+          7
+        ],
+        "to": [
+          15,
+          7
+        ]
+      },
+      {
+        "from": [
+          28,
+          11
+        ],
+        "to": [
+          28,
+          15
+        ]
+      },
+      {
+        "from": [
+          31,
+          11
+        ],
+        "to": [
+          31,
+          15
+        ]
+      },
+      {
+        "from": [
+          28,
+          11
+        ],
+        "to": [
+          31,
+          11
+        ]
+      },
+      {
+        "from": [
+          28,
+          15
+        ],
+        "to": [
+          31,
+          15
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "text": "Hinder",
+        "at": [
+          5,
+          13
+        ]
+      },
+      {
+        "text": "Hinder",
+        "at": [
+          14,
+          4.5
+        ]
+      },
+      {
+        "text": "Rockringar",
+        "at": [
+          29.5,
+          13
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Alla spelar innebandy samtidigt, runt och över hindren.",
+        "actions": []
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Koordinationslek",
+    "category": "Uppvärmning",
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Koordination."
+      ],
+      [
+        "Anvisningar",
+        "Alla har klubba och boll. Spring framåt, snurra ett varv och fortsätt. Spring baklänges, snurra och fortsätt backa. Sätt dig, kasta upp bollen, res dig och fånga den innan den studsar."
+      ],
+      [
+        "Två och två",
+        "En sitter, en står bakom och släpper bollen framför eller bredvid den som sitter, som ska försöka ta den. Eller: en står framför, den bakom kastar bollen över kompisen som ska fånga."
+      ]
+    ],
+    "entities": {
+      "p1": {
+        "type": "player",
+        "team": "home",
+        "x": 5.5,
+        "y": 4
+      },
+      "p2": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 12
+      },
+      "p3": {
+        "type": "player",
+        "team": "home",
+        "x": 8,
+        "y": 17
+      },
+      "p4": {
+        "type": "player",
+        "team": "home",
+        "x": 9,
+        "y": 7
+      },
+      "p5": {
+        "type": "player",
+        "team": "home",
+        "x": 11,
+        "y": 2
+      },
+      "p6": {
+        "type": "player",
+        "team": "home",
+        "x": 11.5,
+        "y": 14
+      },
+      "p7": {
+        "type": "player",
+        "team": "home",
+        "x": 13,
+        "y": 9.5
+      },
+      "p8": {
+        "type": "player",
+        "team": "home",
+        "x": 15,
+        "y": 4.5
+      },
+      "p9": {
+        "type": "player",
+        "team": "home",
+        "x": 15.5,
+        "y": 16
+      },
+      "p10": {
+        "type": "player",
+        "team": "home",
+        "x": 17,
+        "y": 11
+      }
+    },
+    "balls": [
+      [
+        5.5,
+        4.8
+      ],
+      [
+        6,
+        12.8
+      ],
+      [
+        8,
+        17.8
+      ],
+      [
+        9,
+        7.8
+      ],
+      [
+        11,
+        2.8
+      ],
+      [
+        11.5,
+        14.8
+      ],
+      [
+        13,
+        10.3
+      ],
+      [
+        15,
+        5.3
+      ],
+      [
+        15.5,
+        16.8
+      ],
+      [
+        17,
+        11.8
+      ]
+    ],
+    "steps": [
+      {
+        "text": "Alla jobbar samtidigt med varsin klubba och boll.",
+        "actions": []
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Reaktionsleken",
+    "category": "Uppvärmning",
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Reaktionssnabbhet."
+      ],
+      [
+        "Anvisningar",
+        "Två och två sitter på huk mitt emot varandra med en låg kon emellan. Ledaren ropar t.ex. ”huvud” (händerna på huvudet) och ”axlar” (händerna på axlarna). När ledaren ropar ”kon” gäller det att vara först att ta konen."
+      ],
+      [
+        "Organisation",
+        "Låga markeringskoner på rad, en spelare på var sida om varje kon."
+      ]
+    ],
+    "entities": {
+      "k0": {
+        "type": "cone",
+        "x": 7,
+        "y": 10
+      },
+      "h0": {
+        "type": "player",
+        "team": "home",
+        "x": 7,
+        "y": 8.8
+      },
+      "a0": {
+        "type": "player",
+        "team": "away",
+        "x": 7,
+        "y": 11.2
+      },
+      "k1": {
+        "type": "cone",
+        "x": 9,
+        "y": 10
+      },
+      "h1": {
+        "type": "player",
+        "team": "home",
+        "x": 9,
+        "y": 8.8
+      },
+      "a1": {
+        "type": "player",
+        "team": "away",
+        "x": 9,
+        "y": 11.2
+      },
+      "k2": {
+        "type": "cone",
+        "x": 11,
+        "y": 10
+      },
+      "h2": {
+        "type": "player",
+        "team": "home",
+        "x": 11,
+        "y": 8.8
+      },
+      "a2": {
+        "type": "player",
+        "team": "away",
+        "x": 11,
+        "y": 11.2
+      },
+      "k3": {
+        "type": "cone",
+        "x": 13,
+        "y": 10
+      },
+      "h3": {
+        "type": "player",
+        "team": "home",
+        "x": 13,
+        "y": 8.8
+      },
+      "a3": {
+        "type": "player",
+        "team": "away",
+        "x": 13,
+        "y": 11.2
+      },
+      "k4": {
+        "type": "cone",
+        "x": 15,
+        "y": 10
+      },
+      "h4": {
+        "type": "player",
+        "team": "home",
+        "x": 15,
+        "y": 8.8
+      },
+      "a4": {
+        "type": "player",
+        "team": "away",
+        "x": 15,
+        "y": 11.2
+      },
+      "k5": {
+        "type": "cone",
+        "x": 17,
+        "y": 10
+      },
+      "h5": {
+        "type": "player",
+        "team": "home",
+        "x": 17,
+        "y": 8.8
+      },
+      "a5": {
+        "type": "player",
+        "team": "away",
+        "x": 17,
+        "y": 11.2
+      },
+      "L": {
+        "type": "player",
+        "team": "third",
+        "x": 10,
+        "y": 15
+      }
+    },
+    "labels": [
+      {
+        "text": "Ledare",
+        "at": [
+          11.4,
+          16.5
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Alla sitter på huk och väntar på ledarens kommando.",
+        "actions": []
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Kull med passning",
+    "category": "Uppvärmning",
+    "view": [
+      0,
+      40
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Passningar och vickningar på ett roligt sätt."
+      ],
+      [
+        "Anvisningar",
+        "En eller flera tagare. Alla, även tagarna, har varsin boll och dribblar runt i sin zon. Den som blir tagen stannar och dribblar stillastående. För att bli fri ska en fri spelare passa till den tagna, så byter de boll."
+      ],
+      [
+        "Organisation",
+        "Hela laget på hela planen går bra, men dela gärna upp i två eller tre zoner så att tempot blir högt och alla är i rörelse."
+      ]
+    ],
+    "entities": {
+      "F": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 4
+      },
+      "T": {
+        "type": "player",
+        "team": "home",
+        "x": 8,
+        "y": 13
+      },
+      "t1": {
+        "type": "player",
+        "team": "away",
+        "x": 9,
+        "y": 8
+      },
+      "u1": {
+        "type": "player",
+        "team": "home",
+        "x": 5,
+        "y": 17
+      },
+      "f2": {
+        "type": "player",
+        "team": "home",
+        "x": 17,
+        "y": 5
+      },
+      "f3": {
+        "type": "player",
+        "team": "home",
+        "x": 19,
+        "y": 14
+      },
+      "t2": {
+        "type": "player",
+        "team": "away",
+        "x": 21,
+        "y": 9
+      },
+      "u2": {
+        "type": "player",
+        "team": "home",
+        "x": 23,
+        "y": 3
+      },
+      "f4": {
+        "type": "player",
+        "team": "home",
+        "x": 30,
+        "y": 4
+      },
+      "f5": {
+        "type": "player",
+        "team": "home",
+        "x": 31,
+        "y": 15
+      },
+      "t3": {
+        "type": "player",
+        "team": "away",
+        "x": 33,
+        "y": 10
+      },
+      "u3": {
+        "type": "player",
+        "team": "home",
+        "x": 35,
+        "y": 6
+      }
+    },
+    "ball": {
+      "holder": "F"
+    },
+    "balls": [
+      [
+        8.6,
+        13.6
+      ],
+      [
+        9.6,
+        8.6
+      ],
+      [
+        5.6,
+        17.6
+      ],
+      [
+        17.6,
+        5.6
+      ],
+      [
+        19.6,
+        14.6
+      ],
+      [
+        21.6,
+        9.6
+      ],
+      [
+        23.6,
+        3.6
+      ],
+      [
+        30.6,
+        4.6
+      ],
+      [
+        31.6,
+        15.6
+      ],
+      [
+        33.6,
+        10.6
+      ],
+      [
+        35.6,
+        6.6
+      ]
+    ],
+    "lines": [
+      {
+        "from": [
+          13.3,
+          0
+        ],
+        "to": [
+          13.3,
+          20
+        ]
+      },
+      {
+        "from": [
+          26.7,
+          0
+        ],
+        "to": [
+          26.7,
+          20
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "text": "Zon 1",
+        "at": [
+          12,
+          10
+        ]
+      },
+      {
+        "text": "Zon 2",
+        "at": [
+          25.4,
+          10
+        ]
+      },
+      {
+        "text": "Zon 3",
+        "at": [
+          38,
+          14
+        ]
+      },
+      {
+        "text": "Tagen",
+        "at": [
+          9.4,
+          15
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Den tagna spelaren står still och dribblar. En fri spelare passar till hen…",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "F",
+            "to": [
+              7,
+              7
+            ]
+          },
+          {
+            "type": "run",
+            "who": "t1",
+            "to": [
+              10,
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "…och de byter boll. Nu är den tagna fri igen.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "F",
+            "to": "T"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Vändningen",
+    "category": "Uppvärmning",
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Att vända med klubba och boll – för att skaffa tid och yta eller komma ifrån en försvarare. Vänd med bröstet/höften, med en eller två händer, på forehand eller backhand."
+      ],
+      [
+        "Anvisningar",
+        "Alla driver boll mot varandra, säger hej till någon och vänder sedan åt andra hållet. Säg hej till så många som möjligt. Gör det svårare: vänd bara med en hand på klubban, eller bara åt backhandhållet."
+      ],
+      [
+        "Frågor",
+        "Hur nära kan man komma innan klubborna krockar? Vilket håll är lättast att vända åt, och varför?"
+      ]
+    ],
+    "entities": {
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 5,
+        "y": 4
+      },
+      "B": {
+        "type": "player",
+        "team": "home",
+        "x": 5,
+        "y": 16
+      },
+      "Cc": {
+        "type": "player",
+        "team": "home",
+        "x": 16,
+        "y": 3
+      },
+      "D": {
+        "type": "player",
+        "team": "home",
+        "x": 16,
+        "y": 17
+      }
+    },
+    "ball": {
+      "holder": "A"
+    },
+    "balls": [
+      [
+        5.6,
+        16.6
+      ],
+      [
+        16.6,
+        3.6
+      ],
+      [
+        16.6,
+        17.6
+      ]
+    ],
+    "steps": [
+      {
+        "text": "Alla driver in mot mitten.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A",
+            "to": [
+              9.5,
+              8.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              9.5,
+              11.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "Cc",
+            "to": [
+              12,
+              8
+            ]
+          },
+          {
+            "type": "run",
+            "who": "D",
+            "to": [
+              12,
+              12
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Säg hej – och vänd med boll åt andra hållet.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A",
+            "via": [
+              10.5,
+              7.5
+            ],
+            "to": [
+              6,
+              3
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "via": [
+              10.5,
+              12.5
+            ],
+            "to": [
+              6,
+              17
+            ]
+          },
+          {
+            "type": "run",
+            "who": "Cc",
+            "via": [
+              11,
+              7
+            ],
+            "to": [
+              16,
+              2
+            ]
+          },
+          {
+            "type": "run",
+            "who": "D",
+            "via": [
+              11,
+              13
+            ],
+            "to": [
+              16,
+              18
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Under hökens alla vingar",
+    "category": "Lekar/slutövning",
+    "view": [
+      0,
+      40
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Lek med boll: driva boll, tempoväxling och att se ytor."
+      ],
+      [
+        "Anvisningar",
+        "Alla står med klubba och boll längs ena kortsidan. Höken i mitten ropar ”Under hökens alla vingar kom!”. Gruppen svarar ”Vilken färg?” och höken säger en färg. De som har den färgen på kläderna får driva över fritt, sedan försöker höken kulla så många som möjligt av de andra. Kullade hjälper höken nästa gång. Sist kullad vinner."
+      ],
+      [
+        "Organisation",
+        "Klubba och bollar. Korta av planen efter hur många som är med."
+      ]
+    ],
+    "entities": {
+      "p0": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 2
+      },
+      "p1": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 4
+      },
+      "p2": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 6
+      },
+      "p3": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 8
+      },
+      "p4": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 10
+      },
+      "p5": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 12
+      },
+      "p6": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 14
+      },
+      "p7": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 16
+      },
+      "p8": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 18
+      },
+      "H": {
+        "type": "player",
+        "team": "third",
+        "x": 18,
+        "y": 10
+      },
+      "c1": {
+        "type": "cone",
+        "x": 6,
+        "y": 0.8
+      },
+      "c2": {
+        "type": "cone",
+        "x": 6,
+        "y": 19.2
+      },
+      "c3": {
+        "type": "cone",
+        "x": 34,
+        "y": 0.8
+      },
+      "c4": {
+        "type": "cone",
+        "x": 34,
+        "y": 19.2
+      }
+    },
+    "balls": [
+      [
+        7,
+        2.4
+      ],
+      [
+        7,
+        4.4
+      ],
+      [
+        7,
+        6.4
+      ],
+      [
+        7,
+        8.4
+      ],
+      [
+        7,
+        10.4
+      ],
+      [
+        7,
+        12.4
+      ],
+      [
+        7,
+        14.4
+      ],
+      [
+        7,
+        16.4
+      ],
+      [
+        7,
+        18.4
+      ]
+    ],
+    "lines": [
+      {
+        "from": [
+          6,
+          0
+        ],
+        "to": [
+          6,
+          20
+        ]
+      },
+      {
+        "from": [
+          34,
+          0
+        ],
+        "to": [
+          34,
+          20
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "text": "Höken",
+        "at": [
+          19.4,
+          10
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Alla med klubba och boll på linjen. Höken i mitten.",
+        "actions": []
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Sommarskuggan",
+    "category": "Lekar/slutövning",
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Att skydda bollen och hitta ytor att driva i – i en rörig miljö, ungefär som i match."
+      ],
+      [
+        "Anvisningar",
+        "En jagare i mitten. Alla andra driver boll från sida till sida och försöker ta sig över till bo. Ju fler som blir tagna, desto svårare blir det att ta sig över."
+      ],
+      [
+        "Svårighetsgrader",
+        "1) Skuggan har klubba och tar bollen. 2) Skuggan har klubba och tar både svans och boll – svansen är ett extraliv. 3) Skuggan har ingen klubba och tar bara svansar."
+      ]
+    ],
+    "entities": {
+      "p0": {
+        "type": "player",
+        "team": "home",
+        "x": 4,
+        "y": 1.5
+      },
+      "p1": {
+        "type": "player",
+        "team": "home",
+        "x": 6,
+        "y": 1.5
+      },
+      "p2": {
+        "type": "player",
+        "team": "home",
+        "x": 8,
+        "y": 1.5
+      },
+      "p3": {
+        "type": "player",
+        "team": "home",
+        "x": 10,
+        "y": 1.5
+      },
+      "p4": {
+        "type": "player",
+        "team": "home",
+        "x": 12,
+        "y": 1.5
+      },
+      "p5": {
+        "type": "player",
+        "team": "home",
+        "x": 14,
+        "y": 1.5
+      },
+      "p6": {
+        "type": "player",
+        "team": "home",
+        "x": 16,
+        "y": 1.5
+      },
+      "p7": {
+        "type": "player",
+        "team": "home",
+        "x": 18,
+        "y": 1.5
+      },
+      "S": {
+        "type": "player",
+        "team": "third",
+        "x": 10,
+        "y": 10
+      }
+    },
+    "ball": {
+      "holder": "p3"
+    },
+    "balls": [
+      [
+        4.5,
+        2.2
+      ],
+      [
+        6.5,
+        2.2
+      ],
+      [
+        8.5,
+        2.2
+      ],
+      [
+        12.5,
+        2.2
+      ],
+      [
+        14.5,
+        2.2
+      ],
+      [
+        16.5,
+        2.2
+      ],
+      [
+        18.5,
+        2.2
+      ]
+    ],
+    "labels": [
+      {
+        "text": "Skuggan",
+        "at": [
+          11.4,
+          11.2
+        ]
+      },
+      {
+        "text": "Bo",
+        "at": [
+          19,
+          1.5
+        ]
+      },
+      {
+        "text": "Bo",
+        "at": [
+          19,
+          18.5
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Alla driver över mot andra sidan. Skuggan försöker ta bollar.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "p3",
+            "to": [
+              11,
+              9
+            ]
+          },
+          {
+            "type": "run",
+            "who": "S",
+            "to": [
+              9.5,
+              10.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Skydda bollen och hitta ytan förbi skuggan.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "p3",
+            "via": [
+              12.5,
+              12
+            ],
+            "to": [
+              10,
+              18.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "S",
+            "to": [
+              11,
+              12
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Lagstafett",
+    "category": "Lekar/slutövning",
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Lek och samarbete."
+      ],
+      [
+        "Anvisningar",
+        "Grupper om 4–5 barn. Ledaren bestämmer hur många fötter laget får ha i golvet när de tar sig runt konen, och kanske att någon också måste använda händerna. Låt lagen själva lösa hur de klarar uppgiften."
+      ]
+    ],
+    "entities": {
+      "k1": {
+        "type": "cone",
+        "x": 3,
+        "y": 1.5
+      },
+      "k2": {
+        "type": "cone",
+        "x": 3,
+        "y": 18.5
+      },
+      "h1": {
+        "type": "player",
+        "team": "home",
+        "x": 17,
+        "y": 1.5
+      },
+      "h2": {
+        "type": "player",
+        "team": "home",
+        "x": 17,
+        "y": 2.8
+      },
+      "h3": {
+        "type": "player",
+        "team": "home",
+        "x": 17,
+        "y": 4.1
+      },
+      "h4": {
+        "type": "player",
+        "team": "home",
+        "x": 18.3,
+        "y": 2.1
+      },
+      "h5": {
+        "type": "player",
+        "team": "home",
+        "x": 18.3,
+        "y": 3.4
+      },
+      "a1": {
+        "type": "player",
+        "team": "away",
+        "x": 17,
+        "y": 18.5
+      },
+      "a2": {
+        "type": "player",
+        "team": "away",
+        "x": 17,
+        "y": 17.2
+      },
+      "a3": {
+        "type": "player",
+        "team": "away",
+        "x": 17,
+        "y": 15.9
+      },
+      "a4": {
+        "type": "player",
+        "team": "away",
+        "x": 18.3,
+        "y": 17.9
+      },
+      "a5": {
+        "type": "player",
+        "team": "away",
+        "x": 18.3,
+        "y": 16.6
+      }
+    },
+    "steps": [
+      {
+        "text": "Hela laget tar sig tillsammans fram till konen…",
+        "actions": [
+          {
+            "type": "run",
+            "who": "h1",
+            "to": [
+              4.5,
+              1.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "h2",
+            "to": [
+              4.5,
+              2.8
+            ]
+          },
+          {
+            "type": "run",
+            "who": "h3",
+            "to": [
+              4.5,
+              4.1
+            ]
+          },
+          {
+            "type": "run",
+            "who": "h4",
+            "to": [
+              5.8,
+              2.1
+            ]
+          },
+          {
+            "type": "run",
+            "who": "h5",
+            "to": [
+              5.8,
+              3.4
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a1",
+            "to": [
+              4.5,
+              18.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a2",
+            "to": [
+              4.5,
+              17.2
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a3",
+            "to": [
+              4.5,
+              15.9
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a4",
+            "to": [
+              5.8,
+              17.9
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a5",
+            "to": [
+              5.8,
+              16.6
+            ]
+          }
+        ]
+      },
+      {
+        "text": "…runt den och tillbaka – med bara så många fötter i golvet som ledaren bestämt.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "h1",
+            "via": [
+              1.5,
+              3
+            ],
+            "to": [
+              17,
+              1.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "h2",
+            "via": [
+              1.5,
+              3
+            ],
+            "to": [
+              17,
+              2.8
+            ]
+          },
+          {
+            "type": "run",
+            "who": "h3",
+            "via": [
+              1.5,
+              3
+            ],
+            "to": [
+              17,
+              4.1
+            ]
+          },
+          {
+            "type": "run",
+            "who": "h4",
+            "via": [
+              1.5,
+              3
+            ],
+            "to": [
+              18.3,
+              2.1
+            ]
+          },
+          {
+            "type": "run",
+            "who": "h5",
+            "via": [
+              1.5,
+              3
+            ],
+            "to": [
+              18.3,
+              3.4
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a1",
+            "via": [
+              1.5,
+              17
+            ],
+            "to": [
+              17,
+              18.5
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a2",
+            "via": [
+              1.5,
+              17
+            ],
+            "to": [
+              17,
+              17.2
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a3",
+            "via": [
+              1.5,
+              17
+            ],
+            "to": [
+              17,
+              15.9
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a4",
+            "via": [
+              1.5,
+              17
+            ],
+            "to": [
+              18.3,
+              17.9
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a5",
+            "via": [
+              1.5,
+              17
+            ],
+            "to": [
+              18.3,
+              16.6
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Tjuva koner",
+    "category": "Lekar/slutövning",
+    "view": [
+      0,
+      40
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Korta, intensiva intervaller och rumsuppfattning."
+      ],
+      [
+        "Anvisningar",
+        "Två lag. Markera två linjer med ca 10 m emellan. Varje lag lägger lika många koner som det är barn i laget bakom sin linje. Målet är att ta så många koner som möjligt från andra laget och lägga dem bakom sin egen linje. Bara en kon åt gången. Kör 30–60 sekunder och räkna konerna efter varje intervall."
+      ]
+    ],
+    "entities": {
+      "hk1": {
+        "type": "cone",
+        "x": 8,
+        "y": 6
+      },
+      "hk2": {
+        "type": "cone",
+        "x": 8,
+        "y": 10
+      },
+      "hk3": {
+        "type": "cone",
+        "x": 8,
+        "y": 14
+      },
+      "ak1": {
+        "type": "cone",
+        "x": 32,
+        "y": 6
+      },
+      "ak2": {
+        "type": "cone",
+        "x": 32,
+        "y": 10
+      },
+      "ak3": {
+        "type": "cone",
+        "x": 32,
+        "y": 14
+      },
+      "h1": {
+        "type": "player",
+        "team": "home",
+        "x": 14,
+        "y": 5
+      },
+      "h2": {
+        "type": "player",
+        "team": "home",
+        "x": 14,
+        "y": 8.5
+      },
+      "h3": {
+        "type": "player",
+        "team": "home",
+        "x": 14,
+        "y": 11.5
+      },
+      "h4": {
+        "type": "player",
+        "team": "home",
+        "x": 14,
+        "y": 15
+      },
+      "a1": {
+        "type": "player",
+        "team": "away",
+        "x": 26,
+        "y": 5
+      },
+      "a2": {
+        "type": "player",
+        "team": "away",
+        "x": 26,
+        "y": 8.5
+      },
+      "a3": {
+        "type": "player",
+        "team": "away",
+        "x": 26,
+        "y": 11.5
+      },
+      "a4": {
+        "type": "player",
+        "team": "away",
+        "x": 26,
+        "y": 15
+      }
+    },
+    "lines": [
+      {
+        "from": [
+          15,
+          0
+        ],
+        "to": [
+          15,
+          20
+        ]
+      },
+      {
+        "from": [
+          25,
+          0
+        ],
+        "to": [
+          25,
+          20
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Alla springer över och försöker ta en kon från andra lagets sida.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "h1",
+            "to": [
+              31.4,
+              6
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a4",
+            "to": [
+              8.6,
+              14
+            ]
+          },
+          {
+            "type": "run",
+            "who": "h3",
+            "to": [
+              24,
+              12
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a2",
+            "to": [
+              16,
+              8
+            ]
+          }
+        ]
+      },
+      {
+        "text": "En kon i taget bärs hem och läggs bakom den egna linjen.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "h1",
+            "to": [
+              10,
+              4
+            ]
+          },
+          {
+            "type": "run",
+            "who": "ak1",
+            "to": [
+              10.6,
+              4
+            ]
+          },
+          {
+            "type": "run",
+            "who": "a4",
+            "to": [
+              30,
+              16
+            ]
+          },
+          {
+            "type": "run",
+            "who": "hk3",
+            "to": [
+              30.6,
+              16
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Slalomfys",
+    "category": "Fys",
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Samarbete med inslag av fysisk träning. Bygg på efter fantasi."
+      ],
+      [
+        "Anvisningar",
+        "Grupper om 3–4 kopplar ihop sig i armkrok, rygg mot rygg, och släpper aldrig taget. Bana 1: en slalombana med koner – vid varje kon gör gruppen t.ex. knäböj, upphopp eller utfallssteg. Bana 2: hinderbana med tjockmatta, plint eller rockringar, och till sist ska alla få med sig varsin boll. En i gruppen leder, de andra blundar."
+      ],
+      [
+        "Organisation",
+        "Koner, tjockmatta, plintar, rockringar – det hallen har."
+      ]
+    ],
+    "entities": {
+      "s1": {
+        "type": "cone",
+        "x": 5,
+        "y": 4
+      },
+      "s2": {
+        "type": "cone",
+        "x": 8,
+        "y": 2
+      },
+      "s3": {
+        "type": "cone",
+        "x": 11,
+        "y": 4
+      },
+      "s4": {
+        "type": "cone",
+        "x": 14,
+        "y": 2
+      },
+      "s5": {
+        "type": "cone",
+        "x": 17,
+        "y": 4
+      },
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 2.5,
+        "y": 2.4
+      },
+      "B": {
+        "type": "player",
+        "team": "home",
+        "x": 2.5,
+        "y": 3.6
+      },
+      "Cc": {
+        "type": "player",
+        "team": "home",
+        "x": 1.6,
+        "y": 3
+      },
+      "D": {
+        "type": "player",
+        "team": "away",
+        "x": 2.5,
+        "y": 16.4
+      },
+      "E": {
+        "type": "player",
+        "team": "away",
+        "x": 2.5,
+        "y": 17.6
+      },
+      "F": {
+        "type": "player",
+        "team": "away",
+        "x": 1.6,
+        "y": 17
+      }
+    },
+    "balls": [
+      [
+        18.6,
+        14
+      ],
+      [
+        19,
+        14.6
+      ],
+      [
+        18.4,
+        15.2
+      ],
+      [
+        19,
+        15.8
+      ]
+    ],
+    "lines": [
+      {
+        "from": [
+          8,
+          15
+        ],
+        "to": [
+          8,
+          18
+        ]
+      },
+      {
+        "from": [
+          11,
+          15
+        ],
+        "to": [
+          11,
+          18
+        ]
+      },
+      {
+        "from": [
+          8,
+          15
+        ],
+        "to": [
+          11,
+          15
+        ]
+      },
+      {
+        "from": [
+          8,
+          18
+        ],
+        "to": [
+          11,
+          18
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "text": "Bana 1",
+        "at": [
+          1.4,
+          6.2
+        ]
+      },
+      {
+        "text": "Bana 2",
+        "at": [
+          1.4,
+          13.8
+        ]
+      },
+      {
+        "text": "Tjockmatta",
+        "at": [
+          9.5,
+          13.4
+        ]
+      },
+      {
+        "text": "Rockringar",
+        "at": [
+          14,
+          18
+        ]
+      },
+      {
+        "text": "Bollar",
+        "at": [
+          17.2,
+          14.6
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Gruppen tar sig i armkrok genom slalombanan och gör en övning vid varje kon.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "A",
+            "via": [
+              8,
+              4.4
+            ],
+            "to": [
+              14,
+              3.4
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "via": [
+              8,
+              5.6000000000000005
+            ],
+            "to": [
+              14,
+              4.6
+            ]
+          },
+          {
+            "type": "run",
+            "who": "Cc",
+            "via": [
+              7.1,
+              5
+            ],
+            "to": [
+              13.1,
+              4
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Vidare runt sista konen och tillbaka.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "A",
+            "via": [
+              18.5,
+              4.5
+            ],
+            "to": [
+              3,
+              6
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "via": [
+              18.5,
+              5.7
+            ],
+            "to": [
+              3,
+              7.2
+            ]
+          },
+          {
+            "type": "run",
+            "who": "Cc",
+            "via": [
+              17.6,
+              5.1
+            ],
+            "to": [
+              2.1,
+              6.6
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Skottövning",
+    "category": "Småövning",
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Att våga skjuta och läsa situationen. De bästa målskyttarna skjuter ofta inte hårdast, utan smartast – precision före kraft."
+      ],
+      [
+        "Anvisningar",
+        "Börja i hörnet, driv längs sargen och sväng i en båge in mot mål och skjut. Spring sedan ner till hörnet och börja om åt andra hållet. Säg vilket skott barnen ska prova: dragskott, handledsskott eller backhandskott."
+      ],
+      [
+        "Frågor",
+        "Hur siktar man? Hur hårt behöver man skjuta?"
+      ]
+    ],
+    "entities": {
+      "G": {
+        "type": "goalie",
+        "team": "away",
+        "x": 4.2,
+        "y": 10
+      },
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 1.8,
+        "y": 2.2
+      },
+      "q1": {
+        "type": "player",
+        "team": "queue",
+        "x": 1.2,
+        "y": 1.2
+      },
+      "q2": {
+        "type": "player",
+        "team": "queue",
+        "x": 2.6,
+        "y": 1
+      },
+      "c1": {
+        "type": "cone",
+        "x": 10,
+        "y": 5
+      },
+      "c2": {
+        "type": "cone",
+        "x": 16,
+        "y": 5
+      },
+      "c3": {
+        "type": "cone",
+        "x": 14,
+        "y": 14
+      },
+      "c4": {
+        "type": "cone",
+        "x": 16,
+        "y": 17
+      }
+    },
+    "ball": {
+      "holder": "A"
+    },
+    "balls": [
+      [
+        1,
+        2.6
+      ],
+      [
+        1.6,
+        3.1
+      ]
+    ],
+    "steps": [
+      {
+        "text": "Driv längs sargen…",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A",
+            "via": [
+              9,
+              1.5
+            ],
+            "to": [
+              16,
+              2.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "…runt konen och i en båge in mot mål.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A",
+            "via": [
+              17.5,
+              6
+            ],
+            "to": [
+              9,
+              8
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Skjut – med det skott ledaren har sagt.",
+        "actions": [
+          {
+            "type": "shot",
+            "who": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Kull med vändning",
+    "category": "Station",
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Att röra sig åt alla håll i olika fart med god bollkontroll, som i match."
+      ],
+      [
+        "Anvisningar",
+        "En ruta på ca 10×10 m med fyra spelare: en jägare utan boll och tre som skyddar sina bollar. Den som blir av med bollen blir jägare och försöker vinna en boll från någon annan. Spela efter innebandyregler så långt det går. Håll igång ca 5 minuter."
+      ],
+      [
+        "Frågor",
+        "När är det svårt att behålla bollen? När är det svårt att vinna tillbaka den?"
+      ]
+    ],
+    "entities": {
+      "k1": {
+        "type": "cone",
+        "x": 8,
+        "y": 5
+      },
+      "k2": {
+        "type": "cone",
+        "x": 8,
+        "y": 15
+      },
+      "k3": {
+        "type": "cone",
+        "x": 18,
+        "y": 5
+      },
+      "k4": {
+        "type": "cone",
+        "x": 18,
+        "y": 15
+      },
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 11,
+        "y": 12
+      },
+      "B": {
+        "type": "player",
+        "team": "home",
+        "x": 11,
+        "y": 7
+      },
+      "Cc": {
+        "type": "player",
+        "team": "home",
+        "x": 16,
+        "y": 12
+      },
+      "J": {
+        "type": "player",
+        "team": "away",
+        "x": 15,
+        "y": 8
+      }
+    },
+    "ball": {
+      "holder": "A"
+    },
+    "balls": [
+      [
+        11.6,
+        7.6
+      ],
+      [
+        16.6,
+        12.6
+      ]
+    ],
+    "lines": [
+      {
+        "from": [
+          8,
+          5
+        ],
+        "to": [
+          8,
+          15
+        ]
+      },
+      {
+        "from": [
+          18,
+          5
+        ],
+        "to": [
+          18,
+          15
+        ]
+      },
+      {
+        "from": [
+          8,
+          5
+        ],
+        "to": [
+          18,
+          5
+        ]
+      },
+      {
+        "from": [
+          8,
+          15
+        ],
+        "to": [
+          18,
+          15
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "text": "Jägare",
+        "at": [
+          16.4,
+          7
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Jägaren går mot A, som vänder bort med bollen.",
+        "actions": [
+          {
+            "type": "run",
+            "who": "J",
+            "to": [
+              12.2,
+              10.6
+            ]
+          },
+          {
+            "type": "dribble",
+            "who": "A",
+            "via": [
+              11,
+              13.5
+            ],
+            "to": [
+              9.5,
+              11
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Jägaren vinner bollen. A blir ny jägare.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "J",
+            "to": [
+              10.2,
+              10.4
+            ]
+          },
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              12,
+              12
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Passningsleken",
+    "category": "Station",
+    "view": [
+      0,
+      40
+    ],
+    "info": [
+      [
+        "Syfte",
+        "En passning är en dialog: det krävs både en passare och en mottagare. Passa aldrig om ingen är redo att ta emot."
+      ],
+      [
+        "Anvisningar",
+        "Barnen i grupper om tre, utspridda över planen. Passa i turordning, sedan fria passningar. Gå därefter över till 2 mot 1 där en jagar de andra, och byt jagare. Minska ytan om det ska bli mer rörigt."
+      ],
+      [
+        "Frågor",
+        "Var ska jag passa? När ska jag passa?"
+      ]
+    ],
+    "entities": {
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 7,
+        "y": 4
+      },
+      "B": {
+        "type": "player",
+        "team": "home",
+        "x": 10,
+        "y": 9
+      },
+      "Cc": {
+        "type": "player",
+        "team": "home",
+        "x": 13,
+        "y": 4.5
+      },
+      "d1": {
+        "type": "player",
+        "team": "away",
+        "x": 28,
+        "y": 5
+      },
+      "d2": {
+        "type": "player",
+        "team": "away",
+        "x": 31,
+        "y": 8
+      },
+      "d3": {
+        "type": "player",
+        "team": "away",
+        "x": 32,
+        "y": 3
+      },
+      "e1": {
+        "type": "player",
+        "team": "third",
+        "x": 25,
+        "y": 14
+      },
+      "e2": {
+        "type": "player",
+        "team": "third",
+        "x": 29,
+        "y": 17
+      },
+      "e3": {
+        "type": "player",
+        "team": "third",
+        "x": 32,
+        "y": 13
+      }
+    },
+    "ball": {
+      "holder": "A"
+    },
+    "balls": [
+      [
+        28.6,
+        5.6
+      ],
+      [
+        25.6,
+        14.6
+      ]
+    ],
+    "steps": [
+      {
+        "text": "A passar B…",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "A",
+            "to": "B"
+          }
+        ]
+      },
+      {
+        "text": "…B passar C…",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "B",
+            "to": "Cc"
+          },
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              8,
+              8
+            ]
+          }
+        ]
+      },
+      {
+        "text": "…och C passar A. Fortsätt i turordning, sedan fritt.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "Cc",
+            "to": "A"
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              12,
+              10
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Speluppbyggnad",
+    "category": "Station",
+    "view": [
+      0,
+      40
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Att behålla bollen i laget genom rörelse och passningar."
+      ],
+      [
+        "Anvisningar",
+        "Börja med 3 mot 1. Det bollförande laget håller bollen inom en begränsad yta. Vinner försvararen bollen tar hen den med sig till sin egen yta, där medspelarna väntar. Andra laget skickar då över en försvarare, och så fortsätter det."
+      ],
+      [
+        "Organisation",
+        "Anpassa antalet spelare efter svårighetsgrad, och ytan efter antalet spelare."
+      ]
+    ],
+    "entities": {
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 7,
+        "y": 10
+      },
+      "B": {
+        "type": "player",
+        "team": "home",
+        "x": 12,
+        "y": 15
+      },
+      "Cc": {
+        "type": "player",
+        "team": "home",
+        "x": 15,
+        "y": 6
+      },
+      "D": {
+        "type": "player",
+        "team": "away",
+        "x": 12,
+        "y": 11
+      },
+      "E": {
+        "type": "player",
+        "team": "away",
+        "x": 27,
+        "y": 7
+      },
+      "F": {
+        "type": "player",
+        "team": "away",
+        "x": 27,
+        "y": 13
+      }
+    },
+    "ball": {
+      "holder": "A"
+    },
+    "steps": [
+      {
+        "text": "Laget passar runt för att hålla bollen borta från försvararen.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "A",
+            "to": "B"
+          },
+          {
+            "type": "run",
+            "who": "D",
+            "to": [
+              12,
+              13
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Rör er så att det finns en passningsväg.",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "B",
+            "to": "Cc"
+          },
+          {
+            "type": "run",
+            "who": "A",
+            "to": [
+              9,
+              6
+            ]
+          },
+          {
+            "type": "run",
+            "who": "D",
+            "to": [
+              13,
+              8.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "Försvararen vinner bollen…",
+        "actions": [
+          {
+            "type": "pass",
+            "from": "Cc",
+            "to": "A"
+          },
+          {
+            "type": "dribble",
+            "who": "D",
+            "to": [
+              10.5,
+              6.5
+            ]
+          }
+        ]
+      },
+      {
+        "text": "…och tar den med sig till sitt lags yta. Nu skickar andra laget över en försvarare.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "D",
+            "to": [
+              26,
+              10
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              22,
+              12
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "1 mot 1 genom konmål",
+    "category": "Station",
+    "view": [
+      0,
+      20
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Att röra sig åt alla håll i olika fart med god bollkontroll."
+      ],
+      [
+        "Anvisningar",
+        "1 mot 1 på en liten plan, ca 5×5 m. Två koner med ca 1 m emellan mitt i rutan är mål – driv bollen igenom, från vilket håll som helst, för poäng. Spela ca 1 minut och byt sedan, så matcherna blir jämna. Går att utveckla till 2 mot 2."
+      ],
+      [
+        "Frågor",
+        "Hur skapar man yta för att komma åt målet? När är det lätt att försvara?"
+      ]
+    ],
+    "entities": {
+      "k1": {
+        "type": "cone",
+        "x": 8,
+        "y": 7.5
+      },
+      "k2": {
+        "type": "cone",
+        "x": 8,
+        "y": 12.5
+      },
+      "k3": {
+        "type": "cone",
+        "x": 13,
+        "y": 7.5
+      },
+      "k4": {
+        "type": "cone",
+        "x": 13,
+        "y": 12.5
+      },
+      "m1": {
+        "type": "cone",
+        "x": 10.5,
+        "y": 9.5
+      },
+      "m2": {
+        "type": "cone",
+        "x": 10.5,
+        "y": 10.5
+      },
+      "A": {
+        "type": "player",
+        "team": "home",
+        "x": 9,
+        "y": 11.8
+      },
+      "B": {
+        "type": "player",
+        "team": "away",
+        "x": 12,
+        "y": 9
+      }
+    },
+    "ball": {
+      "holder": "A"
+    },
+    "lines": [
+      {
+        "from": [
+          8,
+          7.5
+        ],
+        "to": [
+          8,
+          12.5
+        ]
+      },
+      {
+        "from": [
+          13,
+          7.5
+        ],
+        "to": [
+          13,
+          12.5
+        ]
+      },
+      {
+        "from": [
+          8,
+          7.5
+        ],
+        "to": [
+          13,
+          7.5
+        ]
+      },
+      {
+        "from": [
+          8,
+          12.5
+        ],
+        "to": [
+          13,
+          12.5
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "A driver i sidled för att hitta en väg förbi B.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A",
+            "to": [
+              9.2,
+              9
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              11.4,
+              9.4
+            ]
+          }
+        ]
+      },
+      {
+        "text": "A vänder och driver igenom konmålet – poäng.",
+        "actions": [
+          {
+            "type": "dribble",
+            "who": "A",
+            "via": [
+              9.6,
+              10.6
+            ],
+            "to": [
+              12,
+              10.2
+            ]
+          },
+          {
+            "type": "run",
+            "who": "B",
+            "to": [
+              11.6,
+              11
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "levels": [
+      "gron"
+    ],
+    "ovrigt": true,
+    "name": "Trillingmatchen",
+    "category": "Station",
+    "view": [
+      0,
+      40
+    ],
+    "info": [
+      [
+        "Syfte",
+        "Att utmana, finta och dribbla förbi en motståndare – och sedan skapa en ny situation för pass eller avslut."
+      ],
+      [
+        "Anvisningar",
+        "Tre separata 1 mot 1-matcher spelas samtidigt på samma plan, så det blir många dueller i en rörig miljö. Laborera med antal och planyta. Liten yta ger mindre tid och svårare övning; stor yta blir mer driva-boll och risken är att det blir styrspel."
+      ],
+      [
+        "Organisation",
+        "Ca 15×10 m med två mål."
+      ],
+      [
+        "Frågor",
+        "Vad behöver man tänka på i anfall 1 mot 1? Och i försvar?"
+      ]
+    ],
+    "entities": {
+      "A1": {
+        "type": "player",
+        "team": "home",
+        "x": 19,
+        "y": 6
+      },
+      "B1": {
+        "type": "player",
+        "team": "away",
+        "x": 21,
+        "y": 6
+      },
+      "A2": {
+        "type": "player",
+        "team": "home",
+        "x": 19,
+        "y": 10
+      },
+      "B2": {
+        "type": "player",
+        "team": "away",
+        "x": 21,
+        "y": 10
+      },
+      "A3": {
+        "type": "player",
+        "team": "home",
+        "x": 19,
+        "y": 14
+      },
+      "B3": {
+        "type": "player",
+        "team": "away",
+        "x": 21,
+        "y": 14
+      },
+      "k1": {
+        "type": "cone",
+        "x": 12.5,
+        "y": 5
+      },
+      "k2": {
+        "type": "cone",
+        "x": 12.5,
+        "y": 15
+      },
+      "k3": {
+        "type": "cone",
+        "x": 27.5,
+        "y": 5
+      },
+      "k4": {
+        "type": "cone",
+        "x": 27.5,
+        "y": 15
+      }
+    },
+    "balls": [
+      [
+        19.6,
+        6.6
+      ],
+      [
+        19.6,
+        10.6
+      ],
+      [
+        19.6,
+        14.6
+      ]
+    ],
+    "lines": [
+      {
+        "from": [
+          12.5,
+          9
+        ],
+        "to": [
+          12.5,
+          11
+        ]
+      },
+      {
+        "from": [
+          27.5,
+          9
+        ],
+        "to": [
+          27.5,
+          11
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "text": "Mål",
+        "at": [
+          11.4,
+          10
+        ]
+      },
+      {
+        "text": "Mål",
+        "at": [
+          28.8,
+          10
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "text": "Tre par spelar 1 mot 1 samtidigt mot samma två mål.",
+        "actions": []
+      }
+    ]
   }
 ];
