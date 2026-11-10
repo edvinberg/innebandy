@@ -279,6 +279,28 @@
         background: var(--white);
         color: var(--navy);
       }
+      .closed-note {
+        margin: 0;
+        max-width: 520px;
+        padding: 10px 14px;
+        border-left: 4px solid #d8343a;
+        background: #fbeaea;
+        font-size: 0.875rem;
+      }
+      .lock {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .lock * {
+        cursor: not-allowed;
+      }
       .inbox ol {
         list-style: none;
         margin: 0;
@@ -365,7 +387,10 @@
       </section>
       <section class="build" id="newView">
         <h2>Din övning</h2>
+        <p class="closed-note"><b>Stängt just nu.</b> Det går inte att skicka förslag än.</p>
         <form id="form" novalidate>
+          <!-- Avstängt tills förslagen sparas på riktigt. Ta bort disabled för att öppna. -->
+          <fieldset class="lock" disabled>
           <div class="field">
             <label for="name">Namn *</label>
             <input type="text" id="name" required />
@@ -403,6 +428,7 @@
           </div>
           <p class="error" id="error" hidden></p>
           <button class="send" type="submit">Skicka förslag</button>
+          </fieldset>
         </form>
         <div class="done" id="done" hidden>
           <p><b>Tack!</b> Förslaget syns nu under Inkomna förslag, där du kan följa vad som händer med det.</p>
