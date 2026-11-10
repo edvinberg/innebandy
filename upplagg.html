@@ -290,6 +290,7 @@
         margin-top: 4px;
       }
       .custom input,
+      .custom select,
       .custom textarea {
         width: 100%;
         font: inherit;
@@ -482,20 +483,41 @@
         const text = document.createElement("textarea");
         text.placeholder = "Hur går övningen till?";
         text.setAttribute("aria-label", `Beskrivning av egen övning för ${r.moment}`);
+        const min = document.createElement("input");
+        min.type = "number";
+        min.min = "1";
+        min.placeholder = "Minst antal spelare";
+        min.setAttribute("aria-label", `Minst antal spelare för egen övning för ${r.moment}`);
+        // Fri lista har inga moment, så där väljer man kategori själv.
+        const cat = document.createElement("select");
+        cat.hidden = !!r.cat;
+        cat.setAttribute("aria-label", `Kategori för egen övning för ${r.moment}`);
+        cat.add(new Option("Välj kategori", ""));
+        for (const c of DrillBoard.CATEGORIES) cat.add(new Option(c, c));
         const btn = document.createElement("button");
         btn.type = "button";
         const note = document.createElement("p");
         note.className = "note";
         btn.addEventListener("click", () => {
+          const n = Number(min.value);
           if (!name.value.trim() || !text.value.trim()) {
             note.textContent = "Skriv både namn och beskrivning.";
+            return;
+          }
+          if (!r.cat && !cat.value) {
+            note.textContent = "Välj en kategori.";
+            return;
+          }
+          if (!Number.isInteger(n) || n < 1) {
+            note.textContent = "Skriv minst antal spelare (1 eller fler).";
             return;
           }
           const isNew = typeof st.p[id] !== "object" || st.p[id] === null;
           st.p[id] = {
             name: name.value.trim(),
-            ...(r.cat && { category: r.cat }),
+            category: r.cat || cat.value,
             levels: [window.NIVA],
+            spelare: [n, null],
             info: [["Anvisningar", text.value.trim()]],
             img: "",
           };
@@ -508,7 +530,7 @@
           box.hidden = true;
           renderResult();
         });
-        box.append(name, text, btn, note);
+        box.append(name, cat, min, text, btn, note);
 
         sel.addEventListener("change", () => {
           if (sel.value === OWN) {
@@ -517,6 +539,8 @@
             if (!has) delete st.p[id];
             name.value = has ? st.p[id].name : "";
             text.value = has ? st.p[id].info[0][1] : "";
+            cat.value = has ? st.p[id].category || "" : "";
+            min.value = has && st.p[id].spelare ? st.p[id].spelare[0] : "";
             btn.textContent = has ? "Spara" : "Lägg till";
             note.textContent = "";
             box.hidden = false;
@@ -552,9 +576,9 @@
         const name = document.createElement("b");
         name.textContent = d.name;
         const p = document.createElement("p");
-        p.textContent = own
-          ? d.info[0][1]
-          : [DrillBoard.players(d).replace(/^./, (c) => c.toUpperCase()) + ".", ...d.info.map(([, t]) => t).filter(Boolean)].join(" ");
+        // Egna övningar sparade före antal spelare fanns saknar spelare.
+        const count = d.spelare ? [DrillBoard.players(d).replace(/^./, (c) => c.toUpperCase()) + "."] : [];
+        p.textContent = [...count, ...d.info.map(([, t]) => t).filter(Boolean)].join(" ");
         if (own) {
           const tag = document.createElement("small");
           tag.textContent = "Egen övning · skickad som förslag";
