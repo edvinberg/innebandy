@@ -261,8 +261,8 @@
         // Momentets kategori först, sedan alla andra kategorier.
         const inCat = DRILLS.filter((d) => d.category === r.cat);
         const groups = [
-          ["Topp", inCat.filter((d) => !d.ovrigt)],
-          ["Resten", inCat.filter((d) => d.ovrigt)],
+          ["Tränarens val", inCat.filter((d) => !d.ovrigt)],
+          ["Fler övningar", inCat.filter((d) => d.ovrigt)],
         ];
         for (const c of DrillBoard.CATEGORIES) {
           if (c === r.cat) continue;
