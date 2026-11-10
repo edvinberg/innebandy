@@ -91,6 +91,24 @@
       }
       nav#drillNav {
         display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .drill-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .drill-group h3 {
+        margin: 0;
+        font-size: 0.6875rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--soft);
+      }
+      .drill-pills {
+        display: flex;
         flex-wrap: wrap;
         gap: 6px;
       }
@@ -110,20 +128,14 @@
         color: var(--navy);
         border-color: var(--white);
       }
-      .more-btn {
-        font: inherit;
-        font-size: 0.8125rem;
-        font-weight: 600;
+      .drill-group.rest .drill-btn:not([aria-current="true"]) {
         color: var(--soft);
-        cursor: pointer;
-        background: transparent;
-        border: 1px dashed rgba(255, 255, 255, 0.45);
-        border-radius: 999px;
-        padding: 4px 12px;
+        border-color: rgba(255, 255, 255, 0.25);
+        font-weight: 500;
       }
-      .more-btn:hover {
+      .drill-group.rest .drill-btn:not([aria-current="true"]):hover {
         color: var(--white);
-        border-color: var(--white);
+        border-color: rgba(255, 255, 255, 0.45);
       }
       .empty {
         margin: 0;
@@ -370,7 +382,6 @@
       const CATS = DrillBoard.CATEGORIES;
       const board = DrillBoard.create($("rink"), $("canvasWrap"), updateUI);
       let idx = -1;
-      let showRest = false;
       // Fliken skrivs i adressen (#station osv.), men sidan öppnas alltid på Uppvärmning.
       const slug = (c) =>
         c
@@ -403,40 +414,34 @@
           $("catNav").appendChild(b);
         }
         $("drillNav").innerHTML = "";
-        // Övningar med "ovrigt": true ligger bakom knappen Visa resten.
+        // Två grupper: tränarens val först, övningar med "ovrigt": true under Fler övningar.
         const inCat = DRILLS.map((d, i) => i).filter((i) => DRILLS[i].category === cat);
-        const main = inCat.filter((i) => !DRILLS[i].ovrigt);
-        const rest = inCat.filter((i) => DRILLS[i].ovrigt);
-        const open = showRest || rest.includes(idx);
-        const pill = (i) => {
-          const b = document.createElement("button");
-          b.className = "drill-btn";
-          b.type = "button";
-          b.textContent = DRILLS[i].name;
-          b.setAttribute("aria-current", i === idx ? "true" : "false");
-          b.addEventListener("click", () => select(i));
-          $("drillNav").appendChild(b);
+        const group = (title, list, cls) => {
+          if (!list.length) return;
+          const g = document.createElement("div");
+          g.className = "drill-group " + cls;
+          const h = document.createElement("h3");
+          h.textContent = title;
+          const pills = document.createElement("div");
+          pills.className = "drill-pills";
+          for (const i of list) {
+            const b = document.createElement("button");
+            b.className = "drill-btn";
+            b.type = "button";
+            b.textContent = DRILLS[i].name;
+            b.setAttribute("aria-current", i === idx ? "true" : "false");
+            b.addEventListener("click", () => select(i));
+            pills.appendChild(b);
+          }
+          g.append(h, pills);
+          $("drillNav").appendChild(g);
         };
-        main.forEach(pill);
-        if (rest.length) {
-          const m = document.createElement("button");
-          m.className = "more-btn";
-          m.type = "button";
-          m.setAttribute("aria-expanded", String(open));
-          m.textContent = open ? "Dölj resten" : `Visa resten (${rest.length})`;
-          m.addEventListener("click", () => {
-            showRest = !open;
-            if (!showRest && rest.includes(idx)) select(main.length ? main[0] : rest[0]);
-            else renderNav();
-          });
-          $("drillNav").appendChild(m);
-          if (open) rest.forEach(pill);
-        }
+        group("Tränarens val", inCat.filter((i) => !DRILLS[i].ovrigt), "top");
+        group("Fler övningar", inCat.filter((i) => DRILLS[i].ovrigt), "rest");
       }
 
       function showCategory(c) {
         history.replaceState(null, "", "#" + slug(c));
-        showRest = false;
         const first = [
           DRILLS.findIndex((d) => d.category === c && !d.ovrigt),
           DRILLS.findIndex((d) => d.category === c),

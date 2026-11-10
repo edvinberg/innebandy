@@ -107,7 +107,7 @@ Planen är 40 × 20 m och står upprätt.
 | `lines`    | Streckade linjer, till exempel zongränser.                                                    |
 | `spelare`  | Rekommenderat antal spelare `[min, max]`, målvakter inräknade. `[min, null]` = alla kan vara med. Max är satt så att kön blir kort; fler spelare = kör övningen parallellt. |
 | `tranare`  | Valfri. Antal tränare som har en roll i övningen (rullar in boll, tar, ropar). Utan = ingen tränare behövs. |
-| `ovrigt`   | Valfri. `true` = övningen ligger bakom knappen Visa resten i sin kategori. Utan = toppövning. Ordningen i listan följer ordningen i `drills.js`. |
+| `ovrigt`   | Valfri. `true` = övningen visas under Fler övningar i sin kategori. Utan = Tränarens val. Ordningen i listan följer ordningen i `drills.js`. |
 | `steps`    | Stegen i ordning. Allt i samma steg sker samtidigt.                                           |
 |            | Ett steg med `"actions": []` = bara uppställning, inga knappar eller steglista (t.ex. matcher). |
 
