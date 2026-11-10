@@ -425,6 +425,8 @@
         } catch {}
       };
       const mall = { p: load(`pass-${window.NIVA}`, {}) };
+      // Tidigare version sparade tomma fysövningar som null, vilket kraschade sidan.
+      for (const k in mall.p) if (mall.p[k] === null) mall.p[k] = "";
       mall.save = () => store(`pass-${window.NIVA}`, mall.p);
       // Fri lista: rader i ordning; vald övning per rad ligger i fri.p[rad-id].
       const fri = load(`fri-${window.NIVA}`, { rows: [], p: {}, next: 0 });
@@ -519,6 +521,8 @@
             box.hidden = true;
             mine.hidden = true;
             if (sel.value) st.p[id] = sel.value;
+            // Tom extra fysövning behåller sin rad tills den tas bort med ✕.
+            else if (id.includes("+")) st.p[id] = "";
             else delete st.p[id];
           } else box.hidden = true;
           st.save();
@@ -644,7 +648,7 @@
               more.addEventListener("click", () => {
                 const ks = extras(id);
                 const n = ks.length ? Number(ks[ks.length - 1].split("+")[1]) + 1 : 1;
-                mall.p[`${id}+${n}`] = null;
+                mall.p[`${id}+${n}`] = "";
                 mall.save();
                 render();
               });
