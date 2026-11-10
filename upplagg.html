@@ -81,6 +81,42 @@
         background: radial-gradient(circle, var(--ink) 1.6px, transparent 2px)
           0 0 / 10px 4px repeat-x;
       }
+      .share {
+        align-self: flex-start;
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--navy);
+        background: transparent;
+        border: 1px solid var(--navy);
+        border-radius: 999px;
+        padding: 5px 14px;
+        cursor: pointer;
+      }
+      .shared {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        border-radius: 8px;
+        font-size: 0.875rem;
+      }
+      .shared p {
+        margin: 0;
+      }
+      .shared button {
+        align-self: flex-start;
+        font: inherit;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        color: var(--navy);
+        background: var(--white);
+        border: 0;
+        border-radius: 999px;
+        padding: 6px 16px;
+        cursor: pointer;
+      }
       .meta {
         margin: 0;
         font-size: 0.8125rem;
@@ -376,6 +412,10 @@
     <script src="nav.js"></script>
     <div class="page">
       <section class="build">
+        <div class="shared" id="sharedNote" hidden>
+          <p><b>Delad träning.</b> Ändringar sparas inte. Spara den som din för att behålla den (ersätter din nuvarande träning på nivån).</p>
+          <button type="button" id="keepShared">Spara som min träning</button>
+        </div>
         <h2>Skapa träning</h2>
         <div class="modes" role="group" aria-label="Sätt att bygga passet">
           <button type="button" data-mode="mall">Utgå från upplägg</button>
@@ -399,6 +439,7 @@
       <section class="intro">
         <h1>Upplägg</h1>
         <p class="meta" id="meta"></p>
+        <button class="share" id="share" type="button">Dela träning</button>
         <ol class="rows" id="rows"></ol>
       </section>
     </div>
@@ -421,7 +462,10 @@
           return empty;
         }
       };
+      // En delad träning visas utan att skriva över den egna, tills man väljer att spara den.
+      let shared = false;
       const store = (key, value) => {
+        if (shared) return;
         try {
           localStorage.setItem(key, JSON.stringify(value));
         } catch {}
@@ -434,6 +478,41 @@
       const fri = load(`fri-${window.NIVA}`, { rows: [], p: {}, next: 0 });
       fri.save = () => store(`fri-${window.NIVA}`, { rows: fri.rows, p: fri.p, next: fri.next });
       let mode = load("passlage", "mall");
+
+      // Delad länk: upplagg.html?niva=bla&pass=… där pass är träningen som base64url-JSON.
+      const enc = (o) =>
+        btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(o))))
+          .replace(/\+/g, "-")
+          .replace(/\//g, "_")
+          .replace(/=+$/, "");
+      const dec = (s) =>
+        JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(s.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0))));
+      const sharedParam = new URLSearchParams(location.search).get("pass");
+      if (sharedParam) {
+        try {
+          const s = dec(sharedParam);
+          shared = true;
+          mode = s.m;
+          if (s.m === "mall") mall.p = s.p;
+          else Object.assign(fri, { rows: s.rows, p: s.p, next: s.next });
+          document.getElementById("sharedNote").hidden = false;
+        } catch {}
+      }
+      document.getElementById("keepShared").addEventListener("click", () => {
+        shared = false;
+        mall.save();
+        fri.save();
+        store("passlage", mode);
+        history.replaceState(null, "", `upplagg.html?niva=${window.NIVA}`);
+        document.getElementById("sharedNote").hidden = true;
+      });
+      document.getElementById("share").addEventListener("click", (e) => {
+        const pass = mode === "mall" ? { m: "mall", p: mall.p } : { m: "fri", rows: fri.rows, p: fri.p, next: fri.next };
+        const url = new URL(location.href);
+        url.hash = "";
+        url.search = new URLSearchParams({ niva: window.NIVA, pass: enc(pass) });
+        shareLink(e.currentTarget, "Träning", url.href);
+      });
       const DRILLS = window.DRILLS.filter((d) => d.levels.includes(window.NIVA));
 
       const OWN = "__egen";
