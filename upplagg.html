@@ -190,6 +190,7 @@
         cursor: pointer;
       }
       .ghost {
+        align-self: flex-start;
         font: inherit;
         font-size: 0.8125rem;
         font-weight: 600;
@@ -542,6 +543,12 @@
         return [sel, box];
       }
 
+      // Fys-moment kan ha flera övningar som roteras. Extra övningar sparas som "${id}+1", "${id}+2" …
+      const extras = (id) =>
+        Object.keys(mall.p)
+          .filter((k) => k.startsWith(id + "+"))
+          .sort((a, b) => Number(a.split("+")[1]) - Number(b.split("+")[1]));
+
       // Vald övning visas i upplägget, under sitt moment.
       function chosen(id, st) {
         const own = typeof st.p[id] === "object";
@@ -580,8 +587,10 @@
           p.textContent = r.text;
           li.appendChild(p);
         }
-        const c = chosen(id, mall);
-        if (c) li.appendChild(c);
+        for (const k of [id, ...extras(id)]) {
+          const c = chosen(k, mall);
+          if (c) li.appendChild(c);
+        }
         if (r.sub) {
           const ul = document.createElement("ul");
           ul.className = "sub";
@@ -630,6 +639,35 @@
             m.className = "moment";
             m.textContent = label;
             li.append(m, ...picker(it, id, mall));
+            if (it.cat === "Fys") {
+              for (const k of extras(id)) {
+                const [sel, own] = picker(it, k, mall);
+                const line = document.createElement("div");
+                line.className = "free-line";
+                line.append(
+                  sel,
+                  iconBtn("Ta bort", "✕", () => {
+                    delete mall.p[k];
+                    mall.save();
+                    render();
+                    renderResult();
+                  }),
+                );
+                li.append(line, own);
+              }
+              const more = document.createElement("button");
+              more.type = "button";
+              more.className = "ghost";
+              more.textContent = "+ Lägg till fysövning (rotation)";
+              more.addEventListener("click", () => {
+                const ks = extras(id);
+                const n = ks.length ? Number(ks[ks.length - 1].split("+")[1]) + 1 : 1;
+                mall.p[`${id}+${n}`] = null;
+                mall.save();
+                render();
+              });
+              li.append(more);
+            }
             list.appendChild(li);
           }
         });
@@ -651,8 +689,12 @@
           const items = [[r, String(i)], ...(r.sub || []).map((sub, j) => [sub, `${i}.${j}`])];
           for (const [it, id] of items) {
             if (!it.cat) continue;
-            const d = pickFor(it.cat);
-            if (d) mall.p[id] = d.name;
+            // Fys blir en rotation med tre övningar.
+            const keys = it.cat === "Fys" ? [id, `${id}+1`, `${id}+2`] : [id];
+            for (const k of keys) {
+              const d = pickFor(it.cat);
+              if (d) mall.p[k] = d.name;
+            }
           }
         });
         mall.save();
