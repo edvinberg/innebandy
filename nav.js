@@ -143,8 +143,9 @@
 })();
 
 // Dela en länk: delningsmenyn där den finns (mobil), annars kopieras länken.
+// Chrome kraschar fliken om delningsmenyn öppnas från en lokal fil, så bara på https.
 window.shareLink = async (btn, title, url) => {
-  if (navigator.share) {
+  if (navigator.share && location.protocol === "https:") {
     try {
       await navigator.share({ title, url });
     } catch {}
